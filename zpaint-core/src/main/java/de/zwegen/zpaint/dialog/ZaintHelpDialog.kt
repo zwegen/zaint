@@ -1,8 +1,10 @@
 package de.zwegen.zpaint.dialog
 
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -33,6 +35,9 @@ class ZaintHelpDialog : AppCompatDialogFragment() {
             }
             content.findViewById<View>(R.id.zpaint_help_dialog_footer).visibility = View.VISIBLE
         }
+        content.findViewById<View>(R.id.zpaint_help_dialog_github).setOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(GITHUB_URL)))
+        }
         content.findViewById<View>(R.id.zpaint_help_close_button).setOnClickListener { dismiss() }
 
         return AlertDialog.Builder(requireContext(), R.style.ZPaintAlertDialog)
@@ -50,6 +55,7 @@ class ZaintHelpDialog : AppCompatDialogFragment() {
         private const val ARG_TITLE = "title"
         private const val ARG_TEXT = "text"
         private const val ARG_SHOW_VERSION = "show_version"
+        private const val GITHUB_URL = "https://github.com/zwegen/zaint"
 
         fun newInstance(@StringRes title: Int, @StringRes text: Int, showVersion: Boolean = false) = ZaintHelpDialog().apply {
             arguments = bundleOf(ARG_TITLE to title, ARG_TEXT to text, ARG_SHOW_VERSION to showVersion)
