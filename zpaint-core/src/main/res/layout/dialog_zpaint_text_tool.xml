@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/zpaint_text_top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="UselessParent">
+
+        <RelativeLayout
+            android:id="@+id/zpaint_text_tool_line_spacing_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/zpaint_text_tool_line_spacing_text_layout"
+                style="@style/TextFieldTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_margin="10dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/zpaint_text_tool_line_spacing_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/zpaint_round_rect_shape"
+                    android:focusable="false"
+                    android:gravity="center"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:layoutDirection="ltr"
+                    android:minEms="3"
+                    android:padding="4dp"
+                    android:saveEnabled="false"
+                    android:textColor="?attr/colorAccent"
+                    android:textStyle="bold"
+                    tools:ignore="LabelFor"
+                    tools:text="100" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <SeekBar
+                android:id="@+id/zpaint_text_tool_line_spacing_seekbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/zpaint_text_tool_line_spacing_text_layout"
+                android:layout_alignBottom="@id/zpaint_text_tool_line_spacing_text_layout"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
+                android:layout_toEndOf="@+id/zpaint_text_tool_line_spacing_text_layout"
+                android:max="80"
+                android:minHeight="30dip"
+                android:progress="40" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/zpaint_text_tool_line_spacing_seekbar"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="4dp"
+                android:translationY="-8dp"
+                android:text="@string/slider_label_line_spacing"
+                android:textColor="@color/zpaint_save_cancel_button"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/zpaint_text_bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/zpaint_text_tool_dialog_list_font"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/zpaint_text_tool_dialog_input_text_layout"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp" />
+
+        <RelativeLayout
+            android:id="@+id/zpaint_text_tool_dialog_input_text_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="12dp"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
+            tools:ignore="UselessParent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/zpaint_text_tool_dialog_toggle_bold"
+                        style="@style/ZaintSquareIconButtonGroupStartStyle"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:checkable="true"
+                        android:gravity="center"
+                        android:contentDescription="@string/text_tool_dialog_bold_shortcut"
+                        app:icon="@drawable/ic_zpaint_text_format_bold"
+                        app:iconGravity="textStart"
+                        app:iconPadding="0dp"
+                        app:iconSize="32dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/zpaint_text_tool_dialog_toggle_italic"
+                        style="@style/ZaintSquareIconButtonGroupMiddleStyle"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:layout_marginStart="-1dp"
+                        android:checkable="true"
+                        android:gravity="center"
+                        android:contentDescription="@string/text_tool_dialog_italic_shortcut"
+                        app:icon="@drawable/ic_zpaint_text_format_italic"
+                        app:iconGravity="textStart"
+                        app:iconPadding="0dp"
+                        app:iconSize="32dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/zpaint_text_tool_dialog_toggle_underlined"
+                        style="@style/ZaintSquareIconButtonGroupEndStyle"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:layout_marginStart="-1dp"
+                        android:checkable="true"
+                        android:gravity="center"
+                        android:contentDescription="@string/text_tool_dialog_underline_shortcut"
+                        app:icon="@drawable/ic_zpaint_text_format_underlined"
+                        app:iconGravity="textStart"
+                        app:iconPadding="0dp"
+                        app:iconSize="32dp" />
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <com.google.android.material.button.MaterialButtonToggleGroup
+                    android:id="@+id/zpaint_text_tool_dialog_effect_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    app:singleSelection="true">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/zpaint_text_tool_dialog_effect_outline"
+                        style="@style/ZaintSquareIconButtonStyle"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:contentDescription="@string/text_tool_dialog_outline"
+                        app:icon="@drawable/ic_zpaint_text_effect"
+                        app:iconGravity="textStart"
+                        app:iconPadding="0dp"
+                        app:iconSize="32dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/zpaint_text_tool_dialog_effect_shadow"
+                        style="@style/ZaintSquareIconButtonStyle"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:contentDescription="@string/text_tool_dialog_shadow"
+                        app:icon="@drawable/ic_zpaint_text_effect_shadow"
+                        app:iconGravity="textStart"
+                        app:iconPadding="0dp"
+                        app:iconSize="32dp"
+                        app:iconTint="@null" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/zpaint_text_tool_dialog_effect_background"
+                        style="@style/ZaintSquareIconButtonStyle"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:contentDescription="@string/text_tool_dialog_background"
+                        app:icon="@drawable/ic_zpaint_text_effect_background"
+                        app:iconGravity="textStart"
+                        app:iconPadding="0dp"
+                        app:iconSize="32dp"
+                        app:iconTint="@null" />
+                </com.google.android.material.button.MaterialButtonToggleGroup>
+            </LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

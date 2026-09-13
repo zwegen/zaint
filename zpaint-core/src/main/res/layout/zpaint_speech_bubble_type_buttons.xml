@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.button.MaterialButtonToggleGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/zpaint_speech_bubble_type_buttons"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layoutDirection="ltr"
+    app:selectionRequired="true"
+    app:singleSelection="true">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/zpaint_speech_bubble_oval"
+        style="@style/SelectionToolSquareButtonStyle"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:checkable="true"
+        android:contentDescription="@string/speech_bubble_oval"
+        app:icon="@drawable/ic_zpaint_speech_bubble_oval"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/zpaint_speech_bubble_rectangle"
+        style="@style/SelectionToolSquareButtonStyle"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:checkable="true"
+        android:contentDescription="@string/speech_bubble_rectangle"
+        app:icon="@drawable/ic_zpaint_speech_bubble_rectangle"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/zpaint_speech_bubble_cloud"
+        style="@style/SelectionToolSquareButtonStyle"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:checkable="true"
+        android:contentDescription="@string/speech_bubble_cloud"
+        app:icon="@drawable/ic_zpaint_speech_bubble_cloud"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/zpaint_speech_bubble_thought"
+        style="@style/SelectionToolSquareButtonStyle"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:checkable="true"
+        android:contentDescription="@string/speech_bubble_thought"
+        app:icon="@drawable/ic_zpaint_speech_bubble_thought"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp" />
+
+</com.google.android.material.button.MaterialButtonToggleGroup>

@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/zpaint_filters_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:showIn="@layout/activity_zpaint_main">
+
+    <TableRow
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="6dp">
+
+        <LinearLayout
+            android:id="@+id/zpaint_filters_invert"
+            style="@style/ZPaintToolSelectionButton"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                style="@style/ZPaintToolSelectionButtonImageView"
+                android:src="@drawable/ic_zpaint_filter_invert"
+                android:contentDescription="@string/button_filter_invert" />
+            <TextView
+                style="@style/ZPaintToolSelectionButtonTextView"
+                android:text="@string/button_filter_invert" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/zpaint_filters_brightness"
+            style="@style/ZPaintToolSelectionButton"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                style="@style/ZPaintToolSelectionButtonImageView"
+                android:src="@drawable/ic_zpaint_filter_brightness"
+                android:contentDescription="@string/button_filter_brightness" />
+            <TextView
+                style="@style/ZPaintToolSelectionButtonTextView"
+                android:text="@string/button_filter_brightness" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/zpaint_filters_exposure"
+            style="@style/ZPaintToolSelectionButton"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                style="@style/ZPaintToolSelectionButtonImageView"
+                android:src="@drawable/ic_zpaint_filter_exposure"
+                android:contentDescription="@string/button_filter_exposure" />
+            <TextView
+                style="@style/ZPaintToolSelectionButtonTextView"
+                android:text="@string/button_filter_exposure" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/zpaint_filters_contrast"
+            style="@style/ZPaintToolSelectionButton"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                style="@style/ZPaintToolSelectionButtonImageView"
+                android:src="@drawable/ic_zpaint_filter_contrast"
+                android:contentDescription="@string/button_filter_contrast" />
+            <TextView
+                style="@style/ZPaintToolSelectionButtonTextView"
+                android:text="@string/button_filter_contrast" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/zpaint_filters_blur"
+            style="@style/ZPaintToolSelectionButton"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                style="@style/ZPaintToolSelectionButtonImageView"
+                android:src="@drawable/ic_zpaint_filter_blur"
+                android:contentDescription="@string/button_filter_blur" />
+            <TextView
+                style="@style/ZPaintToolSelectionButtonTextView"
+                android:text="@string/button_filter_blur" />
+        </LinearLayout>
+    </TableRow>
+
+    <TableRow
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp">
+
+        <LinearLayout
+            android:id="@+id/zpaint_filters_saturation"
+            style="@style/ZPaintToolSelectionButton"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                style="@style/ZPaintToolSelectionButtonImageView"
+                android:src="@drawable/ic_zpaint_filter_saturation"
+                android:contentDescription="@string/button_filter_saturation" />
+            <TextView
+                style="@style/ZPaintToolSelectionButtonTextView"
+                android:text="@string/button_filter_saturation" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/zpaint_filters_hue"
+            style="@style/ZPaintToolSelectionButton"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                style="@style/ZPaintToolSelectionButtonImageView"
+                android:src="@drawable/ic_zpaint_filter_hue"
+                android:contentDescription="@string/button_filter_hue" />
+            <TextView
+                style="@style/ZPaintToolSelectionButtonTextView"
+                android:text="@string/button_filter_hue" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/zpaint_filters_vibrance"
+            style="@style/ZPaintToolSelectionButton"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                style="@style/ZPaintToolSelectionButtonImageView"
+                android:src="@drawable/ic_zpaint_filter_vibrance"
+                android:contentDescription="@string/button_filter_vibrance" />
+            <TextView
+                style="@style/ZPaintToolSelectionButtonTextView"
+                android:text="@string/button_filter_vibrance" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/zpaint_filters_sepia"
+            style="@style/ZPaintToolSelectionButton"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                style="@style/ZPaintToolSelectionButtonImageView"
+                android:src="@drawable/ic_zpaint_filter_sepia"
+                app:tint="@null"
+                android:contentDescription="@string/button_filter_sepia" />
+            <TextView
+                style="@style/ZPaintToolSelectionButtonTextView"
+                android:text="@string/button_filter_sepia" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/zpaint_filters_vignette"
+            style="@style/ZPaintToolSelectionButton"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                style="@style/ZPaintToolSelectionButtonImageView"
+                android:src="@drawable/ic_zpaint_filter_vignette"
+                android:contentDescription="@string/button_filter_vignette" />
+            <TextView
+                style="@style/ZPaintToolSelectionButtonTextView"
+                android:text="@string/button_filter_vignette" />
+        </LinearLayout>
+
+    </TableRow>
+
+    <TableRow
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp">
+
+        <LinearLayout
+            android:id="@+id/zpaint_filters_temperature"
+            style="@style/ZPaintToolSelectionButton"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                style="@style/ZPaintToolSelectionButtonImageView"
+                android:src="@drawable/ic_zpaint_filter_temperature"
+                android:contentDescription="@string/button_filter_temperature" />
+            <TextView
+                style="@style/ZPaintToolSelectionButtonTextView"
+                android:text="@string/button_filter_temperature" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/zpaint_filters_highlights"
+            style="@style/ZPaintToolSelectionButton"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                style="@style/ZPaintToolSelectionButtonImageView"
+                android:src="@drawable/ic_zpaint_filter_highlights"
+                android:contentDescription="@string/button_filter_highlights" />
+            <TextView
+                style="@style/ZPaintToolSelectionButtonTextView"
+                android:text="@string/button_filter_highlights" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/zpaint_filters_shadows"
+            style="@style/ZPaintToolSelectionButton"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                style="@style/ZPaintToolSelectionButtonImageView"
+                android:src="@drawable/ic_zpaint_filter_shadows"
+                android:contentDescription="@string/button_filter_shadows" />
+            <TextView
+                style="@style/ZPaintToolSelectionButtonTextView"
+                android:text="@string/button_filter_shadows" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/zpaint_filters_clarity"
+            style="@style/ZPaintToolSelectionButton"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                style="@style/ZPaintToolSelectionButtonImageView"
+                android:src="@drawable/ic_zpaint_filter_clarity"
+                app:tint="@null"
+                android:contentDescription="@string/button_filter_clarity" />
+            <TextView
+                style="@style/ZPaintToolSelectionButtonTextView"
+                android:text="@string/button_filter_clarity" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/zpaint_filters_sharpen"
+            style="@style/ZPaintToolSelectionButton"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                style="@style/ZPaintToolSelectionButtonImageView"
+                android:src="@drawable/ic_zpaint_filter_sharpen"
+                android:contentDescription="@string/button_filter_sharpen" />
+            <TextView
+                style="@style/ZPaintToolSelectionButtonTextView"
+                android:text="@string/button_filter_sharpen" />
+        </LinearLayout>
+    </TableRow>
+
+    <TableRow
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="12dp">
+
+        <LinearLayout
+            android:id="@+id/zpaint_filters_pixel"
+            style="@style/ZPaintToolSelectionButton"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                style="@style/ZPaintToolSelectionButtonImageView"
+                android:src="@drawable/ic_zpaint_tool_pixel"
+                android:contentDescription="@string/button_pixel" />
+            <TextView
+                style="@style/ZPaintToolSelectionButtonTextView"
+                android:text="@string/button_pixel" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/zpaint_filters_median"
+            style="@style/ZPaintToolSelectionButton"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                style="@style/ZPaintToolSelectionButtonImageView"
+                android:src="@drawable/ic_zpaint_filter_median"
+                android:contentDescription="@string/button_filter_median" />
+            <TextView
+                style="@style/ZPaintToolSelectionButtonTextView"
+                android:text="@string/button_filter_median" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/zpaint_filters_bilateral"
+            style="@style/ZPaintToolSelectionButton"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                style="@style/ZPaintToolSelectionButtonImageView"
+                android:src="@drawable/ic_zpaint_filter_bilateral"
+                app:tint="@null"
+                android:contentDescription="@string/button_filter_bilateral" />
+            <TextView
+                style="@style/ZPaintToolSelectionButtonTextView"
+                android:text="@string/button_filter_bilateral" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/zpaint_filters_bloom"
+            style="@style/ZPaintToolSelectionButton"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                style="@style/ZPaintToolSelectionButtonImageView"
+                android:src="@drawable/ic_zpaint_filter_bloom"
+                android:contentDescription="@string/button_filter_bloom" />
+            <TextView
+                style="@style/ZPaintToolSelectionButtonTextView"
+                android:text="@string/button_filter_bloom" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/zpaint_filters_splash"
+            style="@style/ZPaintToolSelectionButton"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                style="@style/ZPaintToolSelectionButtonImageView"
+                android:src="@drawable/ic_zpaint_filter_splash"
+                app:tint="@null"
+                android:contentDescription="@string/button_filter_splash" />
+            <TextView
+                style="@style/ZPaintToolSelectionButtonTextView"
+                android:text="@string/button_filter_splash" />
+        </LinearLayout>
+
+    </TableRow>
+</TableLayout>

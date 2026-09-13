@@ -1,0 +1,95 @@
+import io.gitlab.arturbosch.detekt.Detekt
+
+apply plugin: 'com.android.application'
+
+ext {
+    appId = 'de.zwegen.zpaint'
+    appName = '@string/zpaint_app_name'
+}
+
+// When -Pindependent was provided on the gradle command the APP name is changed.
+// This allows multiple Zaint versions to be installed in parallel for testing.
+// These installations do not interfere with the primary Zaint app.
+if (project.hasProperty('independent')) {
+    def today = new Date()
+    appId += '.independent_' + today.format('YYYYMMdd_HHmm')
+    appName = property('independent') ?: 'Zaint ' + today.format('MMdd HH:mm')
+}
+
+if (!project.hasProperty("signingKeystore")) {
+    def localProperties = new Properties()
+    def localPropertiesFile = rootProject.file("signing/signing.properties")
+    if (localPropertiesFile.exists()) {
+        localPropertiesFile.withInputStream { localProperties.load(it) }
+    }
+    ext.signingKeystore = localProperties.getProperty("signingKeystore", "dummyKeystore")
+    ext.signingKeystorePassword = localProperties.getProperty("signingKeystorePassword", "")
+    ext.signingKeyAlias = localProperties.getProperty("signingKeyAlias", "")
+    ext.signingKeyPassword = localProperties.getProperty("signingKeyPassword", "")
+}
+
+android {
+    namespace 'de.zwegen.zpaint.app'
+    compileSdkVersion rootProject.ext.androidCompileSdkVersion
+    defaultConfig {
+        applicationId appId
+        minSdkVersion rootProject.ext.androidMinSdkVersion
+        //noinspection OldTargetApi
+        targetSdkVersion rootProject.ext.androidTargetSdkVersion
+        versionCode rootProject.ext.androidVersionCode
+        versionName rootProject.ext.androidVersionName
+        manifestPlaceholders += [appName: appName]
+        setProperty("archivesBaseName", "zpaint")
+        resConfigs "en", "es", "de", "fr", "el", "pt", "it", "ru", "tr"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    signingConfigs {
+        signedRelease {
+            storeFile file(project.property("signingKeystore"))
+            storePassword ""
+            keyAlias ""
+            keyPassword ""
+        }
+    }
+
+    if (project.hasProperty("signingKeystorePassword") || project.ext.has("signingKeystorePassword")) {
+        android.signingConfigs.signedRelease.storePassword = project.findProperty("signingKeystorePassword") ?: project.ext.signingKeystorePassword
+        android.signingConfigs.signedRelease.keyAlias = project.findProperty("signingKeyAlias") ?: project.ext.signingKeyAlias
+        android.signingConfigs.signedRelease.keyPassword = project.findProperty("signingKeyPassword") ?: project.ext.signingKeyPassword
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        signedRelease.initWith(buildTypes.release)
+        signedRelease {
+            signingConfig signingConfigs.signedRelease
+        }
+    }
+
+    publishing {
+        singleVariant('release') {
+            withSourcesJar()
+        }
+    }
+}
+
+tasks.withType(Detekt).configureEach {
+    jvmTarget = "1.8"
+    exclude("**/resources/**")
+    exclude("**/build/**")
+}
+
+dependencies {
+    // FileProvider is declared by the app manifest and must be available to the app directly.
+    implementation 'androidx.core:core-ktx:1.13.1'
+    implementation project(':zpaint-core')
+}

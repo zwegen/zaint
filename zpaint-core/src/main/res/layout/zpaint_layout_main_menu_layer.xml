@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?><androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/zpaint_layer_side_nav_menu"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/zpaint_layer_actions_container"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:gravity="end"
+        android:orientation="horizontal"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingTop="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            style="?borderlessButtonStyle"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:alpha="0.3"
+            android:contentDescription="@string/layer_toggle_visibility"
+            android:id="@+id/zpaint_layer_side_nav_button_visibility"
+            android:visibility="gone"
+            android:padding="5dp"
+            android:background="@drawable/rounded_corner_top_ltr"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_zpaint_layers_visibility"
+            android:theme="@style/ZPaintHighlightColorTheme"
+            app:tint="@android:color/white" />
+
+        <ImageButton
+            android:id="@+id/zpaint_layer_side_nav_button_opacity"
+            style="?borderlessButtonStyle"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:alpha="0.3"
+            android:contentDescription="@string/layer_adjust_opacity"
+            android:visibility="gone"
+            android:padding="5dp"
+            android:background="@color/zpaint_colorPrimary"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_zpaint_layer_opacity"
+            android:theme="@style/ZPaintHighlightColorTheme"
+            app:tint="@android:color/white" />
+
+        <ImageButton
+            style="?borderlessButtonStyle"
+            android:contentDescription="@string/layer_new"
+            android:id="@+id/zpaint_layer_side_nav_button_add"
+            android:layout_height="44dp"
+            android:layout_width="44dp"
+            android:padding="10dp"
+            android:background="@drawable/zpaint_layer_action_button_bg"
+            android:scaleType="center"
+            android:src="@drawable/ic_zpaint_layers_add_selector"
+            android:theme="@style/ZPaintHighlightColorTheme"
+            app:tint="@android:color/white" />
+
+        <ImageButton
+            style="?borderlessButtonStyle"
+            android:contentDescription="@string/layer_duplicate"
+            android:id="@+id/zpaint_layer_side_nav_button_duplicate"
+            android:layout_height="44dp"
+            android:layout_width="44dp"
+            android:layout_toEndOf="@+id/zpaint_layer_side_nav_button_add"
+            android:layout_marginStart="8dp"
+            android:padding="10dp"
+            android:background="@drawable/zpaint_layer_action_button_bg"
+            android:scaleType="center"
+            android:src="@drawable/ic_zpaint_copy"
+            android:theme="@style/ZPaintHighlightColorTheme"
+            app:tint="@android:color/white" />
+
+        <ImageButton
+            style="?borderlessButtonStyle"
+            android:id="@+id/zpaint_layer_side_nav_button_merge"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/zpaint_layer_action_button_bg"
+            android:contentDescription="@string/layer_merge_active"
+            android:padding="10dp"
+            android:scaleType="center"
+            android:src="@drawable/ic_zpaint_layers_merge_selector"
+            android:theme="@style/ZPaintHighlightColorTheme"
+            app:tint="@android:color/white" />
+
+        <ImageButton
+            style="?borderlessButtonStyle"
+            android:contentDescription="@string/layer_delete"
+            android:id="@+id/zpaint_layer_side_nav_button_delete"
+            android:layout_height="44dp"
+            android:layout_width="44dp"
+            android:layout_marginStart="8dp"
+            android:padding="10dp"
+            android:background="@drawable/zpaint_layer_action_button_bg"
+            android:scaleType="center"
+            android:src="@drawable/ic_zpaint_layers_delete_selector"
+            android:theme="@style/ZPaintHighlightColorTheme"
+            app:tint="@android:color/white" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <de.zwegen.zpaint.ui.dragndrop.ZaintLayerDragList
+        android:id="@+id/zpaint_layer_side_nav_list"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="12dp"
+        android:scrollbars="vertical"
+        android:splitMotionEvents="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/zpaint_layer_actions_container"
+        tools:listitem="@layout/zpaint_item_layer" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

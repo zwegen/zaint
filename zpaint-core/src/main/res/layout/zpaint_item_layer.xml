@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/zpaint_item_layer"
+    android:layout_width="216dp"
+    android:layout_height="140dp"
+    android:background="@drawable/zpaint_attribute_button_selector"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:baselineAligned="false">
+
+    <LinearLayout
+        android:layout_width="50dp"
+        android:descendantFocusability="blocksDescendants"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <CheckBox
+            android:id="@+id/zpaint_checkbox_layer"
+            android:buttonTint="@color/zpaint_lighter_gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="20dp" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/zpaint_layer_drag_handle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_zpaint_drag_handle" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatSeekBar
+            android:id="@+id/zpaint_layer_opacity_seekbar"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:max="100"
+            android:progressBackgroundTint="#ccc"
+            android:progressTint="@color/zpaint_colorAccent"
+            android:rotation="270"
+            android:thumbTint="@color/zpaint_colorAccent" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/zpaint_layer_preview_container"
+        android:descendantFocusability="blocksDescendants"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/zpaint_item_layer_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:layout_toStartOf="@id/zpaint_item_layer_image"
+            android:layout_toEndOf="@id/zpaint_item_layer_image"
+            android:layout_alignTop="@id/zpaint_item_layer_image"
+            android:layout_alignBottom="@id/zpaint_item_layer_image"
+            android:adjustViewBounds="true"
+            android:background="@drawable/zpaint_checkeredbg_repeat"
+            android:contentDescription="@string/layer_background"
+            android:focusable="false"
+            android:scaleType="fitXY" />
+
+        <ImageView
+            android:id="@+id/zpaint_item_layer_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/layer_preview"
+            android:focusable="false"
+            android:scaleType="fitXY" />
+
+    </RelativeLayout>
+
+</LinearLayout>

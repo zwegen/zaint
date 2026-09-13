@@ -1,0 +1,579 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <CurrentIssues>
+    <ID>CollapsibleIfStatements:ZaintEditorActivity.kt$ZaintEditorActivity$if (receivedAction == Intent.ACTION_SEND || receivedAction == Intent.ACTION_EDIT || receivedAction == Intent.ACTION_VIEW) { if (receivedUri != null &amp;&amp; ZaintProjectFormat.isZaintProject(receivedUri, myContentResolver)) { return true } }</ID>
+    <ID>ComplexCondition:ContourProcessor.kt$ContourProcessor$!result[index] &amp;&amp; edges.data[index].toInt() != 0 &amp;&amp; isPreferredEdgeSide(pixels, index, width, height) &amp;&amp; (isBetweenLineEnds(mask, x, y, width, height) || isNearLine(mask, x, y, width, height) || isObjectBackgroundBoundary(background, x, y, width, height))</ID>
+    <ID>DataClassContainsFunctions:CropRegion.kt$CropRegion$fun targetSize( documentWidth: Int, documentHeight: Int, maximumBitmapResolution: Int ): CropSize?</ID>
+    <ID>DataClassContainsFunctions:FilterArea.kt$FilterArea$fun edgeDistance(x: Float, y: Float): Float</ID>
+    <ID>DataClassContainsFunctions:FilterArea.kt$FilterArea$fun normalized(minimumSize: Float): FilterArea</ID>
+    <ID>DataClassContainsFunctions:FilterArea.kt$FilterArea$fun scaled(scale: Float): FilterArea</ID>
+    <ID>DataClassContainsFunctions:GoogleFontRepository.kt$GoogleFontRepository.FontFiles$fun withVariant(variant: GoogleFontVariant, uri: String): FontFiles</ID>
+    <ID>DataClassContainsFunctions:LayerRotation.kt$QuarterTurnPlan$fun rotatedDocumentSize(width: Int, height: Int): DocumentSize</ID>
+    <ID>DataClassContainsFunctions:LineSegment.kt$LineSegment$fun isComplete(): Boolean</ID>
+    <ID>DataClassContainsFunctions:ShadowTool.kt$ShadowTool.AlphaBounds$fun height(): Int</ID>
+    <ID>DataClassContainsFunctions:ShadowTool.kt$ShadowTool.AlphaBounds$fun width(): Int</ID>
+    <ID>DataClassContainsFunctions:TextFont.kt$TextFont$fun fileUriForStyle(bold: Boolean, italic: Boolean): String?</ID>
+    <ID>DataClassContainsFunctions:TextFont.kt$TextFont$fun supportsStyle(bold: Boolean, italic: Boolean): Boolean</ID>
+    <ID>DataClassContainsFunctions:ZaintLayerMirror.kt$ZaintLayerMirror.MirrorRequest$fun planFor(width: Int, height: Int): MirrorPlan</ID>
+    <ID>ExpressionBodySyntax:CommonFactory.kt$CommonFactory$return Bitmap.createBitmap(width, height, config)</ID>
+    <ID>ExpressionBodySyntax:CommonFactory.kt$CommonFactory$return PointF(source.x, source.y)</ID>
+    <ID>ExpressionBodySyntax:CommonFactory.kt$CommonFactory$return ZaintStrokePath(source)</ID>
+    <ID>ExpressionBodySyntax:CommonFactory.kt$CommonFactory$return if (source == null) Paint() else Paint(source)</ID>
+    <ID>ExpressionBodySyntax:CommonFactory.kt$CommonFactory$return if (source == null) RectF() else RectF(source)</ID>
+    <ID>ExpressionBodySyntax:DefaultFillAlgorithmFactory.kt$DefaultFillAlgorithmFactory$return ZaintScanlineFill()</ID>
+    <ID>ExpressionBodySyntax:DrawerLayoutViewHolder.kt$DrawerLayoutViewHolder$return host.isDrawerOpen(gravity)</ID>
+    <ID>ExpressionBodySyntax:DrawerLayoutViewHolder.kt$DrawerLayoutViewHolder$return host.isDrawerVisible(gravity)</ID>
+    <ID>ExpressionBodySyntax:DrawingSurfaceListener.kt$DrawingSurfaceListener$return point(x, y).also(callback::convertToCanvasFromSurface)</ID>
+    <ID>ExpressionBodySyntax:FilterProcessor.kt$FilterProcessor$return applyAreaPreview(source, FilterType.BLUR, value, centerX, centerY, radius)</ID>
+    <ID>ExpressionBodySyntax:ToastFactory.kt$ToastFactory$return replaceToast(Toast.makeText(context, msg, duration))</ID>
+    <ID>ExpressionBodySyntax:ToastFactory.kt$ToastFactory$return replaceToast(Toast.makeText(context, resId, duration))</ID>
+    <ID>ExpressionBodySyntax:UiInteractions.kt$UiInteractions.&lt;no name provided&gt;$return "Set a progress"</ID>
+    <ID>ExpressionBodySyntax:UiInteractions.kt$UiInteractions.&lt;no name provided&gt;$return "Wait for $millis milliseconds."</ID>
+    <ID>ExpressionBodySyntax:UiInteractions.kt$UiInteractions.&lt;no name provided&gt;$return "select page in ViewPager"</ID>
+    <ID>ExpressionBodySyntax:UiInteractions.kt$UiInteractions.&lt;no name provided&gt;$return ViewMatchers.isAssignableFrom(SeekBar::class.java)</ID>
+    <ID>ExpressionBodySyntax:UiInteractions.kt$UiInteractions.&lt;no name provided&gt;$return ViewMatchers.isAssignableFrom(ViewPager::class.java)</ID>
+    <ID>ExpressionBodySyntax:UiInteractions.kt$UiInteractions.&lt;no name provided&gt;$return ViewMatchers.isRoot()</ID>
+    <ID>ExpressionBodySyntax:UiMatcher.kt$UiMatcher.&lt;no name provided&gt;$return matcher.matches(view) &amp;&amp; currentIndex++ == index</ID>
+    <ID>ExpressionBodySyntax:UiMatcher.kt$UiMatcher.&lt;no name provided&gt;$return view is TextView &amp;&amp; view.typeface === typeface</ID>
+    <ID>ExpressionBodySyntax:ZaintDocumentStorage.kt$ZaintDocumentStorage$return getUriForFilenameInCurrentSaveFolder(filename, resolver) != null</ID>
+    <ID>ExpressionBodySyntax:ZaintEditorActivity.kt$ZaintEditorActivity$return false</ID>
+    <ID>ExpressionBodySyntax:ZaintLayoutDirection.kt$ZaintLayoutDirection$return TextUtils.getLayoutDirectionFromLocale(locale) == View.LAYOUT_DIRECTION_RTL</ID>
+    <ID>ExpressionBodySyntax:ZaintLineToolTest.kt$ZaintLineToolTest.MockitoHelper$return Mockito.any&lt;T&gt;() ?: uninitialized()</ID>
+    <ID>Filename:ClipboardCommandStorageTest.kt$de.zwegen.zpaint.test.command.implementation.ClipboardCommandStorageTest.kt</ID>
+    <ID>Filename:CommandFactory.kt$de.zwegen.zpaint.command.CommandFactory.kt</ID>
+    <ID>Filename:CommandManager.kt$de.zwegen.zpaint.command.CommandManager.kt</ID>
+    <ID>Filename:CommandSerializer.kt$de.zwegen.zpaint.command.serialization.CommandSerializer.kt</ID>
+    <ID>Filename:CropCommandTest.kt$de.zwegen.zpaint.test.command.implementation.CropCommandTest.kt</ID>
+    <ID>Filename:CutCommandTest.kt$de.zwegen.zpaint.test.command.implementation.CutCommandTest.kt</ID>
+    <ID>Filename:DefaultClipboardToolOptionsView.kt$de.zwegen.zpaint.ui.tools.DefaultClipboardToolOptionsView.kt</ID>
+    <ID>Filename:FlipCommandTest.kt$de.zwegen.zpaint.test.command.implementation.FlipCommandTest.kt</ID>
+    <ID>Filename:FloatingBoxHitTest.kt$de.zwegen.zpaint.test.tools.FloatingBoxHitTest.kt</ID>
+    <ID>Filename:LoadCommandTest.kt$de.zwegen.zpaint.test.command.implementation.LoadCommandTest.kt</ID>
+    <ID>Filename:LoadLayerListCommandTest.kt$de.zwegen.zpaint.test.command.implementation.LoadLayerListCommandTest.kt</ID>
+    <ID>Filename:ResetCommandTest.kt$de.zwegen.zpaint.test.command.implementation.ResetCommandTest.kt</ID>
+    <ID>Filename:ResizeCommandTest.kt$de.zwegen.zpaint.test.command.implementation.ResizeCommandTest.kt</ID>
+    <ID>Filename:RotateCommandTest.kt$de.zwegen.zpaint.test.command.implementation.RotateCommandTest.kt</ID>
+    <ID>Filename:SerializablePath.kt$de.zwegen.zpaint.command.serialization.SerializablePath.kt</ID>
+    <ID>Filename:SerializableTypeface.kt$de.zwegen.zpaint.command.serialization.SerializableTypeface.kt</ID>
+    <ID>Filename:SetDimensionCommandTest.kt$de.zwegen.zpaint.test.command.implementation.SetDimensionCommandTest.kt</ID>
+    <ID>Filename:TextToolCommand.kt$de.zwegen.zpaint.command.implementation.TextToolCommand.kt</ID>
+    <ID>Filename:ToolControllerTest.kt$de.zwegen.zpaint.test.controller.ToolControllerTest.kt</ID>
+    <ID>Filename:VersionSerializer.kt$de.zwegen.zpaint.command.serialization.VersionSerializer.kt</ID>
+    <ID>Filename:ZaintDocumentSaveTaskProgressBarTest.kt$de.zwegen.zpaint.test.espresso.ZaintDocumentSaveTaskProgressBarTest.kt</ID>
+    <ID>Filename:ZaintDocumentStorageTest.kt$de.zwegen.zpaint.test.junit.ZaintDocumentStorageTest.kt</ID>
+    <ID>LongMethod:FilterTool.kt$FilterTool$private fun configureOptions()</ID>
+    <ID>LongMethod:ZaintEditorPresenter.kt$ZaintEditorPresenter$override fun onLoadImagePostExecute( @LoadImageRequestCode requestCode: Int, uri: Uri?, result: BitmapReturnValue? )</ID>
+    <ID>LongMethod:ZaintTextOptionsPanel.kt$ZaintTextOptionsPanel$override fun showTextInputDialog(currentText: String)</ID>
+    <ID>LongMethod:ZaintTextOptionsPanel.kt$ZaintTextOptionsPanel$private fun showDeleteCustomFontDialog(font: TextFont)</ID>
+    <ID>LongMethod:ZaintTextOptionsPanel.kt$ZaintTextOptionsPanel$private fun showFontSearchDialog()</ID>
+    <ID>LongParameterList:CanvasCenterGuideSnap.kt$CanvasCenterGuideRenderer$( canvas: Canvas, canvasWidth: Float, canvasHeight: Float, toolPositionX: Float, toolPositionY: Float, boxRotation: Float, canvasScale: Float, linePaint: Paint, showVerticalGuide: Boolean, showHorizontalGuide: Boolean )</ID>
+    <ID>LongParameterList:FloatingBoxInteractionResolver.kt$FloatingBoxInteractionResolver$( pointX: Float, pointY: Float, centerX: Float, centerY: Float, width: Float, height: Float, rotation: Float, resizeMargin: Float, rotationEnabled: Boolean, rotationSymbolDistance: Float )</ID>
+    <ID>LongParameterList:FloatingBoxTransformControls.kt$FloatingBoxTransformControls$( canvas: Canvas, width: Float, height: Float, arcStrokeWidth: Float, arcRadius: Float, arrowHeadSize: Float, arrowOffset: Float, arcPaint: Paint, arrowPaint: Paint, arcPath: Path, arrowPath: Path, arcBounds: RectF )</ID>
+    <ID>LongParameterList:TextToolCommand.kt$ZaintTextStamp$( canvas: Canvas, textLine: String, index: Int, scaledWidthOffset: Float, scaledHeightOffset: Float, scaledBoxWidth: Float, scaledBoxHeight: Float, textAscent: Float, lineHeight: Float, justifiedWidth: Float, paint: Paint )</ID>
+    <ID>LongParameterList:ZaintBrushTool.kt$ZaintBrushTool$( val brushToolOptionsView: ZaintBrushOptions, contextCallback: ContextCallback, toolOptionsViewController: ZaintToolOptionsController, toolPaint: ToolPaint, workspace: Workspace, idlingResource: CountingIdlingResource, commandManager: ZaintCommandTimeline, override var drawTime: Long, initialBrushPreset: BrushPreset = BRUSH, initialBrushStrokeWidths: Map&lt;BrushPreset, Float&gt; = defaultBrushStrokeWidths(), private val useSharedBrushPresetState: Boolean = false, private val bottomNavigationViewHolder: BottomNavigationViewHolder? = null, private val onPipetteSelected: (() -&gt; Unit)? = null, private val addToColorHistory: (Int) -&gt; Unit = {} )</ID>
+    <ID>LongParameterList:ZaintTextOptions.kt$ZaintTextOptions$( bold: Boolean, italic: Boolean, underlined: Boolean, text: String, textSize: Int, textFont: TextFont, lineSpacingPercent: Int, letterSpacingPercent: Int, textAlignment: Paint.Align, justified: Boolean, outline: Boolean, shadow: Boolean, textBackground: Boolean )</ID>
+    <ID>LongParameterList:ZaintTextTool.kt$ZaintTextTool$( canvas: Canvas, textLine: String, index: Int, scaledWidthOffset: Float, scaledHeightOffset: Float, scaledBoxWidth: Float, scaledBoxHeight: Float, textAscent: Float, lineHeight: Float, justifiedWidth: Float, paint: Paint )</ID>
+    <ID>LoopWithTooManyJumpStatements:FilterProcessor.kt$FilterProcessor$for</ID>
+    <ID>LoopWithTooManyJumpStatements:ZaintLayerModel.kt$ZaintLayerModel$for</ID>
+    <ID>MagicNumber:AlignTool.kt$AlignTool.Companion$90f</ID>
+    <ID>MagicNumber:BottomNavigationViewHolder.kt$BottomNavigationViewHolder$3</ID>
+    <ID>MagicNumber:CanvasCenterGuideSnap.kt$CanvasCenterGuideRenderer$0.01f</ID>
+    <ID>MagicNumber:CanvasCenterGuideSnap.kt$CanvasCenterGuideRenderer$190</ID>
+    <ID>MagicNumber:CanvasCenterGuideSnap.kt$CanvasCenterGuideRenderer$255</ID>
+    <ID>MagicNumber:CanvasCenterGuideSnap.kt$CanvasCenterGuideRenderer$80</ID>
+    <ID>MagicNumber:ColorPickerDialog.kt$ColorPickerDialog$112</ID>
+    <ID>MagicNumber:ColorPickerDialog.kt$ColorPickerDialog$12</ID>
+    <ID>MagicNumber:ColorPickerDialog.kt$ColorPickerDialog$16</ID>
+    <ID>MagicNumber:ColorPickerDialog.kt$ColorPickerDialog$20</ID>
+    <ID>MagicNumber:ColorPickerDialog.kt$ColorPickerDialog$238</ID>
+    <ID>MagicNumber:ColorPickerDialog.kt$ColorPickerDialog$48</ID>
+    <ID>MagicNumber:ColorPickerDialog.kt$ColorPickerDialog$8</ID>
+    <ID>MagicNumber:ColorPickerDialog.kt$PickerPanel$0.114</ID>
+    <ID>MagicNumber:ColorPickerDialog.kt$PickerPanel$0.299</ID>
+    <ID>MagicNumber:ColorPickerDialog.kt$PickerPanel$0.587</ID>
+    <ID>MagicNumber:ColorPickerDialog.kt$PickerPanel$100</ID>
+    <ID>MagicNumber:ColorPickerDialog.kt$PickerPanel$100f</ID>
+    <ID>MagicNumber:ColorPickerDialog.kt$PickerPanel$110</ID>
+    <ID>MagicNumber:ColorPickerDialog.kt$PickerPanel$12</ID>
+    <ID>MagicNumber:ColorPickerDialog.kt$PickerPanel$128</ID>
+    <ID>MagicNumber:ColorPickerDialog.kt$PickerPanel$130</ID>
+    <ID>MagicNumber:ColorPickerDialog.kt$PickerPanel$138</ID>
+    <ID>MagicNumber:ColorPickerDialog.kt$PickerPanel$145</ID>
+    <ID>MagicNumber:ColorPickerDialog.kt$PickerPanel$151</ID>
+    <ID>MagicNumber:ColorPickerDialog.kt$PickerPanel$158</ID>
+    <ID>MagicNumber:ColorPickerDialog.kt$PickerPanel$18f</ID>
+    <ID>MagicNumber:ColorPickerDialog.kt$PickerPanel$201</ID>
+    <ID>MagicNumber:ColorPickerDialog.kt$PickerPanel$255</ID>
+    <ID>MagicNumber:ColorPickerDialog.kt$PickerPanel$3</ID>
+    <ID>MagicNumber:ColorPickerDialog.kt$PickerPanel$32</ID>
+    <ID>MagicNumber:ColorPickerDialog.kt$PickerPanel$360</ID>
+    <ID>MagicNumber:ColorPickerDialog.kt$PickerPanel$4</ID>
+    <ID>MagicNumber:ColorPickerDialog.kt$PickerPanel$40</ID>
+    <ID>MagicNumber:ColorPickerDialog.kt$PickerPanel$5</ID>
+    <ID>MagicNumber:ColorPickerDialog.kt$PickerPanel$52</ID>
+    <ID>MagicNumber:ColorPickerDialog.kt$PickerPanel$58</ID>
+    <ID>MagicNumber:ColorPickerDialog.kt$PickerPanel$6</ID>
+    <ID>MagicNumber:ColorPickerDialog.kt$PickerPanel$64</ID>
+    <ID>MagicNumber:ColorPickerDialog.kt$PickerPanel$72</ID>
+    <ID>MagicNumber:ColorPickerDialog.kt$PickerPanel$8</ID>
+    <ID>MagicNumber:ColorPickerDialog.kt$PickerPanel$96</ID>
+    <ID>MagicNumber:CommandSerializer.kt$ZaintProjectSerializer$100</ID>
+    <ID>MagicNumber:ContourProcessor.kt$ContourProcessor$16</ID>
+    <ID>MagicNumber:ContourProcessor.kt$ContourProcessor$24</ID>
+    <ID>MagicNumber:ContourProcessor.kt$ContourProcessor$8</ID>
+    <ID>MagicNumber:DefaultFilterToolOptionsView.kt$DefaultFilterToolOptionsView$0.114f</ID>
+    <ID>MagicNumber:DefaultFilterToolOptionsView.kt$DefaultFilterToolOptionsView$0.299f</ID>
+    <ID>MagicNumber:DefaultFilterToolOptionsView.kt$DefaultFilterToolOptionsView$0.587f</ID>
+    <ID>MagicNumber:DefaultFilterToolOptionsView.kt$DefaultFilterToolOptionsView$100</ID>
+    <ID>MagicNumber:DefaultFilterToolOptionsView.kt$DefaultFilterToolOptionsView$128f</ID>
+    <ID>MagicNumber:DefaultFilterToolOptionsView.kt$DefaultFilterToolOptionsView$3f</ID>
+    <ID>MagicNumber:DefaultIconToolOptionsView.kt$DefaultIconToolOptionsView$4</ID>
+    <ID>MagicNumber:DefaultIconToolOptionsView.kt$DefaultIconToolOptionsView$8</ID>
+    <ID>MagicNumber:DefaultNumberRangeFilter.kt$DefaultNumberRangeFilter$10</ID>
+    <ID>MagicNumber:DefaultNumberRangeFilter.kt$DefaultNumberRangeFilter$9</ID>
+    <ID>MagicNumber:DefaultPixelToolOptionsView.kt$DefaultPixelToolOptionsView$40</ID>
+    <ID>MagicNumber:DrawingSurfaceListener.kt$DrawingSurfaceListener$.5f</ID>
+    <ID>MagicNumber:FillColorMatcher.kt$FillColorMatcher$0xFF</ID>
+    <ID>MagicNumber:FillColorMatcher.kt$FillColorMatcher$16</ID>
+    <ID>MagicNumber:FillColorMatcher.kt$FillColorMatcher$24</ID>
+    <ID>MagicNumber:FillColorMatcher.kt$FillColorMatcher$8</ID>
+    <ID>MagicNumber:FilterProcessor.kt$FilterProcessor$100</ID>
+    <ID>MagicNumber:FilterProcessor.kt$FilterProcessor$100f</ID>
+    <ID>MagicNumber:FilterProcessor.kt$FilterProcessor$128f</ID>
+    <ID>MagicNumber:FilterProcessor.kt$FilterProcessor$255</ID>
+    <ID>MagicNumber:FilterProcessor.kt$FilterProcessor$259f</ID>
+    <ID>MagicNumber:FilterTool.kt$FilterTool$3f</ID>
+    <ID>MagicNumber:FilterTool.kt$FilterTool$8f</ID>
+    <ID>MagicNumber:FloatingBoxHitTest.kt$FloatingBoxHitTest$180f</ID>
+    <ID>MagicNumber:FloatingBoxInteractionResolver.kt$FloatingBoxInteractionResolver$180f</ID>
+    <ID>MagicNumber:FloatingBoxRotation.kt$FloatingBoxRotation$180f</ID>
+    <ID>MagicNumber:FloatingBoxRotation.kt$FloatingBoxRotation$360f</ID>
+    <ID>MagicNumber:FloatingBoxTransformControls.kt$FloatingBoxTransformControls$180f</ID>
+    <ID>MagicNumber:FloatingBoxTransformUi.kt$FloatingBoxTransformUi$20f</ID>
+    <ID>MagicNumber:FloatingBoxTransformUi.kt$FloatingBoxTransformUi$3</ID>
+    <ID>MagicNumber:FloatingBoxTransformUi.kt$FloatingBoxTransformUi$3f</ID>
+    <ID>MagicNumber:FloatingBoxTransformUi.kt$FloatingBoxTransformUi$8</ID>
+    <ID>MagicNumber:FloatingBoxTransformUi.kt$FloatingBoxTransformUi$8f</ID>
+    <ID>MagicNumber:GoogleFontRepository.kt$GoogleFontRepository$10000</ID>
+    <ID>MagicNumber:GoogleFontRepository.kt$GoogleFontRepository$20000</ID>
+    <ID>MagicNumber:GpuFilterEngine.kt$GpuFilterEngine$0.5f</ID>
+    <ID>MagicNumber:GpuFilterEngine.kt$GpuFilterEngine$0xFF</ID>
+    <ID>MagicNumber:GpuFilterEngine.kt$GpuFilterEngine$100</ID>
+    <ID>MagicNumber:GpuFilterEngine.kt$GpuFilterEngine$3</ID>
+    <ID>MagicNumber:GradientFillCommand.kt$GradientFillCommand$15</ID>
+    <ID>MagicNumber:GradientFillCommand.kt$GradientFillCommand$16</ID>
+    <ID>MagicNumber:GradientFillCommand.kt$GradientFillCommand$3f</ID>
+    <ID>MagicNumber:GradientFillCommand.kt$GradientFillCommand.Companion$31</ID>
+    <ID>MagicNumber:IconTool.kt$IconTool$180f</ID>
+    <ID>MagicNumber:IconifyClient.kt$IconifyClient$200</ID>
+    <ID>MagicNumber:IconifyClient.kt$IconifyClient$299</ID>
+    <ID>MagicNumber:MetadataStripper.kt$MetadataStripper$10</ID>
+    <ID>MagicNumber:MetadataStripper.kt$MetadataStripper$119</ID>
+    <ID>MagicNumber:MetadataStripper.kt$MetadataStripper$13</ID>
+    <ID>MagicNumber:MetadataStripper.kt$MetadataStripper$26</ID>
+    <ID>MagicNumber:MetadataStripper.kt$MetadataStripper$4</ID>
+    <ID>MagicNumber:MetadataStripper.kt$MetadataStripper$71</ID>
+    <ID>MagicNumber:MetadataStripper.kt$MetadataStripper$78</ID>
+    <ID>MagicNumber:MetadataStripper.kt$MetadataStripper$80</ID>
+    <ID>MagicNumber:PixelateCommand.kt$PixelateCommand$16</ID>
+    <ID>MagicNumber:PixelateCommand.kt$PixelateCommand$24</ID>
+    <ID>MagicNumber:PixelateCommand.kt$PixelateCommand$8</ID>
+    <ID>MagicNumber:PlaceTool.kt$PlaceTool$3</ID>
+    <ID>MagicNumber:PlaceTool.kt$PlaceTool$4</ID>
+    <ID>MagicNumber:PlaceTool.kt$PlaceTool$5</ID>
+    <ID>MagicNumber:PlaceTool.kt$PlaceTool$6</ID>
+    <ID>MagicNumber:PlaceTool.kt$PlaceTool$7</ID>
+    <ID>MagicNumber:RetouchCommand.kt$RetouchCommand$16</ID>
+    <ID>MagicNumber:RetouchCommand.kt$RetouchCommand$24</ID>
+    <ID>MagicNumber:RetouchCommand.kt$RetouchCommand$8</ID>
+    <ID>MagicNumber:ShadowCastDirection.kt$ShadowCastDirection.DOWN_LEFT$1_250</ID>
+    <ID>MagicNumber:ShadowCastDirection.kt$ShadowCastDirection.DOWN_RIGHT$8_750</ID>
+    <ID>MagicNumber:ShadowCastDirection.kt$ShadowCastDirection.UP_LEFT$3_750</ID>
+    <ID>MagicNumber:ShadowCastDirection.kt$ShadowCastDirection.UP_RIGHT$6_250</ID>
+    <ID>MagicNumber:ShadowTool.kt$ShadowTool$100f</ID>
+    <ID>MagicNumber:ShadowTool.kt$ShadowTool$180f</ID>
+    <ID>MagicNumber:ShadowTool.kt$ShadowTool$24</ID>
+    <ID>MagicNumber:ShadowTool.kt$ShadowTool$3f</ID>
+    <ID>MagicNumber:ShadowTool.kt$ShadowTool$4f</ID>
+    <ID>MagicNumber:ShadowTool.kt$ShadowTool$77</ID>
+    <ID>MagicNumber:ShadowTool.kt$ShadowTool$8f</ID>
+    <ID>MagicNumber:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$0.0001f</ID>
+    <ID>MagicNumber:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$0.058f</ID>
+    <ID>MagicNumber:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$0.073f</ID>
+    <ID>MagicNumber:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$0.116f</ID>
+    <ID>MagicNumber:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$0.122f</ID>
+    <ID>MagicNumber:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$0.18f</ID>
+    <ID>MagicNumber:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$0.203f</ID>
+    <ID>MagicNumber:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$0.270f</ID>
+    <ID>MagicNumber:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$0.324f</ID>
+    <ID>MagicNumber:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$0.338f</ID>
+    <ID>MagicNumber:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$0.348f</ID>
+    <ID>MagicNumber:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$0.351f</ID>
+    <ID>MagicNumber:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$0.363f</ID>
+    <ID>MagicNumber:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$0.432f</ID>
+    <ID>MagicNumber:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$0.435f</ID>
+    <ID>MagicNumber:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$0.446f</ID>
+    <ID>MagicNumber:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$0.450f</ID>
+    <ID>MagicNumber:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$0.479f</ID>
+    <ID>MagicNumber:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$0.493f</ID>
+    <ID>MagicNumber:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$0.522f</ID>
+    <ID>MagicNumber:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$0.580f</ID>
+    <ID>MagicNumber:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$0.595f</ID>
+    <ID>MagicNumber:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$0.608f</ID>
+    <ID>MagicNumber:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$0.609f</ID>
+    <ID>MagicNumber:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$0.621f</ID>
+    <ID>MagicNumber:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$0.624f</ID>
+    <ID>MagicNumber:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$0.662f</ID>
+    <ID>MagicNumber:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$0.675f</ID>
+    <ID>MagicNumber:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$0.689f</ID>
+    <ID>MagicNumber:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$0.716f</ID>
+    <ID>MagicNumber:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$0.725f</ID>
+    <ID>MagicNumber:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$0.740f</ID>
+    <ID>MagicNumber:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$0.743f</ID>
+    <ID>MagicNumber:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$0.783f</ID>
+    <ID>MagicNumber:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$0.812f</ID>
+    <ID>MagicNumber:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$0.885f</ID>
+    <ID>MagicNumber:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$0.891f</ID>
+    <ID>MagicNumber:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$0.905f</ID>
+    <ID>MagicNumber:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$0.918f</ID>
+    <ID>MagicNumber:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$0.928f</ID>
+    <ID>MagicNumber:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$0.945f</ID>
+    <ID>MagicNumber:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$0.9f</ID>
+    <ID>MagicNumber:SpeechBubbleTool.kt$SpeechBubbleTool$0.28f</ID>
+    <ID>MagicNumber:SpeechBubbleTool.kt$SpeechBubbleTool$0.55f</ID>
+    <ID>MagicNumber:SpeechBubbleTool.kt$SpeechBubbleTool$0.84f</ID>
+    <ID>MagicNumber:SpeechBubbleTool.kt$SpeechBubbleTool$0.8f</ID>
+    <ID>MagicNumber:SpeechBubbleTool.kt$SpeechBubbleTool$1.5f</ID>
+    <ID>MagicNumber:SpeechBubbleTool.kt$SpeechBubbleTool$4f</ID>
+    <ID>MagicNumber:TextToolCommand.kt$ZaintTextStamp$0.0722f</ID>
+    <ID>MagicNumber:TextToolCommand.kt$ZaintTextStamp$0.2126f</ID>
+    <ID>MagicNumber:TextToolCommand.kt$ZaintTextStamp$0.7152f</ID>
+    <ID>MagicNumber:TextToolCommand.kt$ZaintTextStamp$100f</ID>
+    <ID>MagicNumber:TextToolCommand.kt$ZaintTextStamp$255f</ID>
+    <ID>MagicNumber:VisiblePixelOverlap.kt$VisiblePixelOverlap$24</ID>
+    <ID>MagicNumber:WarpTool.kt$WarpTool$5f</ID>
+    <ID>MagicNumber:ZaintBrushTool.kt$24</ID>
+    <ID>MagicNumber:ZaintBrushTool.kt$ZaintBrushTool$0.5f</ID>
+    <ID>MagicNumber:ZaintBrushTool.kt$ZaintBrushTool$10f</ID>
+    <ID>MagicNumber:ZaintBrushTool.kt$ZaintBrushTool$255</ID>
+    <ID>MagicNumber:ZaintBrushTool.kt$ZaintBrushTool$4f</ID>
+    <ID>MagicNumber:ZaintDocumentRotation.kt$ZaintDocumentRotation.RotationRequest$90f</ID>
+    <ID>MagicNumber:ZaintDrawingPaint.kt$ZaintDrawingPaint$24</ID>
+    <ID>MagicNumber:ZaintEditorNavigator.kt$ZaintEditorNavigator$200L</ID>
+    <ID>MagicNumber:ZaintFillOptionsPanel.kt$ZaintFillOptionsPanel$0.35f</ID>
+    <ID>MagicNumber:ZaintFontPickerAdapter.kt$ZaintFontPickerAdapter.FontViewHolder$10f</ID>
+    <ID>MagicNumber:ZaintFontPickerAdapter.kt$ZaintFontPickerAdapter.FontViewHolder$72f</ID>
+    <ID>MagicNumber:ZaintImportTool.kt$ZaintImportTool$180f</ID>
+    <ID>MagicNumber:ZaintInputLimits.kt$1024</ID>
+    <ID>MagicNumber:ZaintInputLimits.kt$8</ID>
+    <ID>MagicNumber:ZaintLayerListAdapter.kt$ZaintLayerListAdapter.Companion$8</ID>
+    <ID>MagicNumber:ZaintSelectionTool.kt$ZaintSelectionTool$180f</ID>
+    <ID>MagicNumber:ZaintSmudgeTool.kt$ZaintSmudgeTool$5f</ID>
+    <ID>MagicNumber:ZaintSpeechBubbleOptionsPanel.kt$ZaintSpeechBubbleOptionsPanel$12</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$0.16212f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$1.01351f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$10.18f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$10.26f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$11f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$12f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$13.74f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$13.82f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$13f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$14.37f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$14.38f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$14.56f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$14.67f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$14.86f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$14f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$15.12f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$15.42f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$16.25f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$16f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$18.27f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$18.5f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$18f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$19.58f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$19.7f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$19.91f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$19f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$20.36f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$20.5f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$20.88f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$21f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$24f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$3.12f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$3.5f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$3.64f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$3f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$4.09f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$4.27f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$5.5f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$5f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$7.67f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$7.75f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$8.59f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$8.87f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$9.14f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$9.33f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$9.44f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$9.62f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$ZaintBackgroundEffectIcon$1.5f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$ZaintBackgroundEffectIcon$22.5f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$ZaintBackgroundEffectIcon$22f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$ZaintBackgroundEffectIcon$255</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$ZaintSoftShadowEffectIcon$1.35f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$ZaintSoftShadowEffectIcon$2.2f</ID>
+    <ID>MagicNumber:ZaintTextEffectIcons.kt$ZaintSoftShadowEffectIcon$255</ID>
+    <ID>MagicNumber:ZaintTextOptionsPanel.kt$ZaintTextOptionsPanel$10</ID>
+    <ID>MagicNumber:ZaintTextOptionsPanel.kt$ZaintTextOptionsPanel$112</ID>
+    <ID>MagicNumber:ZaintTextOptionsPanel.kt$ZaintTextOptionsPanel$12</ID>
+    <ID>MagicNumber:ZaintTextOptionsPanel.kt$ZaintTextOptionsPanel$14</ID>
+    <ID>MagicNumber:ZaintTextOptionsPanel.kt$ZaintTextOptionsPanel$15f</ID>
+    <ID>MagicNumber:ZaintTextOptionsPanel.kt$ZaintTextOptionsPanel$16</ID>
+    <ID>MagicNumber:ZaintTextOptionsPanel.kt$ZaintTextOptionsPanel$16f</ID>
+    <ID>MagicNumber:ZaintTextOptionsPanel.kt$ZaintTextOptionsPanel$18f</ID>
+    <ID>MagicNumber:ZaintTextOptionsPanel.kt$ZaintTextOptionsPanel$240</ID>
+    <ID>MagicNumber:ZaintTextOptionsPanel.kt$ZaintTextOptionsPanel$3</ID>
+    <ID>MagicNumber:ZaintTextOptionsPanel.kt$ZaintTextOptionsPanel$360</ID>
+    <ID>MagicNumber:ZaintTextOptionsPanel.kt$ZaintTextOptionsPanel$4</ID>
+    <ID>MagicNumber:ZaintTextOptionsPanel.kt$ZaintTextOptionsPanel$44</ID>
+    <ID>MagicNumber:ZaintTextOptionsPanel.kt$ZaintTextOptionsPanel$48</ID>
+    <ID>MagicNumber:ZaintTextOptionsPanel.kt$ZaintTextOptionsPanel$52</ID>
+    <ID>MagicNumber:ZaintTextOptionsPanel.kt$ZaintTextOptionsPanel$58</ID>
+    <ID>MagicNumber:ZaintTextOptionsPanel.kt$ZaintTextOptionsPanel$6</ID>
+    <ID>MagicNumber:ZaintTextOptionsPanel.kt$ZaintTextOptionsPanel$64</ID>
+    <ID>MagicNumber:ZaintTextOptionsPanel.kt$ZaintTextOptionsPanel$8</ID>
+    <ID>MagicNumber:ZaintTextOptionsPanel.kt$ZaintTextOptionsPanel.GoogleFontSearchAdapter$12</ID>
+    <ID>MagicNumber:ZaintTextOptionsPanel.kt$ZaintTextOptionsPanel.GoogleFontSearchAdapter$150</ID>
+    <ID>MagicNumber:ZaintTextOptionsPanel.kt$ZaintTextOptionsPanel.GoogleFontSearchAdapter$15f</ID>
+    <ID>MagicNumber:ZaintTextOptionsPanel.kt$ZaintTextOptionsPanel.GoogleFontSearchAdapter$24f</ID>
+    <ID>MagicNumber:ZaintTextOptionsPanel.kt$ZaintTextOptionsPanel.GoogleFontSearchAdapter$54</ID>
+    <ID>MagicNumber:ZaintTextOptionsPanel.kt$ZaintTextOptionsPanel.GoogleFontSearchAdapter$8</ID>
+    <ID>MagicNumber:ZaintTextTool.kt$ZaintTextTool$0.01f</ID>
+    <ID>MagicNumber:ZaintTextTool.kt$ZaintTextTool$0.0722f</ID>
+    <ID>MagicNumber:ZaintTextTool.kt$ZaintTextTool$0.15f</ID>
+    <ID>MagicNumber:ZaintTextTool.kt$ZaintTextTool$0.2126f</ID>
+    <ID>MagicNumber:ZaintTextTool.kt$ZaintTextTool$0.7152f</ID>
+    <ID>MagicNumber:ZaintTextTool.kt$ZaintTextTool$1.5f</ID>
+    <ID>MagicNumber:ZaintTextTool.kt$ZaintTextTool$100f</ID>
+    <ID>MagicNumber:ZaintTextTool.kt$ZaintTextTool$180f</ID>
+    <ID>MagicNumber:ZaintTextTool.kt$ZaintTextTool$255f</ID>
+    <ID>MagicNumber:ZaintTextTool.kt$ZaintTextTool$4f</ID>
+    <ID>MagicNumber:ZaintTopNumberSlider.kt$ZaintTopNumberSlider$100</ID>
+    <ID>MagicNumber:ZaintTransformOptions.kt$ZaintTransformOptions.AspectRatio.FIVE_FOUR$4</ID>
+    <ID>MagicNumber:ZaintTransformOptions.kt$ZaintTransformOptions.AspectRatio.FIVE_FOUR$5</ID>
+    <ID>MagicNumber:ZaintTransformOptions.kt$ZaintTransformOptions.AspectRatio.FOUR_FIVE$4</ID>
+    <ID>MagicNumber:ZaintTransformOptions.kt$ZaintTransformOptions.AspectRatio.FOUR_FIVE$5</ID>
+    <ID>MagicNumber:ZaintTransformOptions.kt$ZaintTransformOptions.AspectRatio.NINE_SIXTEEN$16</ID>
+    <ID>MagicNumber:ZaintTransformOptions.kt$ZaintTransformOptions.AspectRatio.NINE_SIXTEEN$9</ID>
+    <ID>MagicNumber:ZaintTransformOptions.kt$ZaintTransformOptions.AspectRatio.SIXTEEN_NINE$16</ID>
+    <ID>MagicNumber:ZaintTransformOptions.kt$ZaintTransformOptions.AspectRatio.SIXTEEN_NINE$9</ID>
+    <ID>MagicNumber:ZaintTransformTool.kt$ZaintTransformTool$100</ID>
+    <ID>MagicNumber:ZaintWarpStroke.kt$ZaintWarpStroke.Companion$0xff</ID>
+    <ID>MagicNumber:ZaintWarpStroke.kt$ZaintWarpStroke.Companion$16</ID>
+    <ID>MagicNumber:ZaintWarpStroke.kt$ZaintWarpStroke.Companion$24</ID>
+    <ID>MagicNumber:ZaintWarpStroke.kt$ZaintWarpStroke.Companion$8</ID>
+    <ID>MatchingDeclarationName:ClipboardCommandStorageTest.kt$ZaintClipboardStampStorageTest</ID>
+    <ID>MatchingDeclarationName:CommandFactory.kt$ZaintCommandFactoryApi</ID>
+    <ID>MatchingDeclarationName:CommandManager.kt$ZaintCommandTimeline</ID>
+    <ID>MatchingDeclarationName:CommandSerializer.kt$ZaintProjectSerializer</ID>
+    <ID>MatchingDeclarationName:CropCommandTest.kt$ZaintDocumentCropTest</ID>
+    <ID>MatchingDeclarationName:CutCommandTest.kt$ZaintSelectionClearTest</ID>
+    <ID>MatchingDeclarationName:DefaultClipboardToolOptionsView.kt$DefaultZaintClipboardOptions : ZaintClipboardOptions</ID>
+    <ID>MatchingDeclarationName:FlipCommandTest.kt$ZaintLayerMirrorTest</ID>
+    <ID>MatchingDeclarationName:FloatingBoxHitTest.kt$FloatingBoxHitTestTest</ID>
+    <ID>MatchingDeclarationName:LoadCommandTest.kt$ZaintBitmapDocumentLoadTest</ID>
+    <ID>MatchingDeclarationName:LoadLayerListCommandTest.kt$ZaintLayerStackDocumentLoadTest</ID>
+    <ID>MatchingDeclarationName:ResetCommandTest.kt$ZaintDocumentResetTest</ID>
+    <ID>MatchingDeclarationName:ResizeCommandTest.kt$ZaintDocumentResizeTest</ID>
+    <ID>MatchingDeclarationName:RotateCommandTest.kt$ZaintDocumentRotationTest</ID>
+    <ID>MatchingDeclarationName:SerializablePath.kt$ZaintStrokePath : Path</ID>
+    <ID>MatchingDeclarationName:SerializableTypeface.kt$ZaintTextStyle</ID>
+    <ID>MatchingDeclarationName:SetDimensionCommandTest.kt$ZaintDocumentDimensionsTest</ID>
+    <ID>MatchingDeclarationName:ToolControllerTest.kt$ZaintToolCoordinatorTest</ID>
+    <ID>MatchingDeclarationName:VersionSerializer.kt$ZaintVersionedSerializer&lt;T&gt; : Serializer</ID>
+    <ID>MatchingDeclarationName:ZaintDocumentSaveTaskProgressBarTest.kt$SaveImageProgressBarTest</ID>
+    <ID>MatchingDeclarationName:ZaintDocumentStorageTest.kt$FileIOTest</ID>
+    <ID>ModifierOrder:ZaintClipboardTool.kt$ZaintClipboardTool$override open</ID>
+    <ID>ModifierOrdering:ZaintClipboardTool.kt$ZaintClipboardTool$override open</ID>
+    <ID>MultiLineIfElse:ContourProcessor.kt$ContourProcessor$continue</ID>
+    <ID>MultiLineIfElse:ContourProcessor.kt$ContourProcessor$count++</ID>
+    <ID>MultiLineIfElse:Perspective.kt$Perspective$1f</ID>
+    <ID>MultiLineIfElse:Perspective.kt$Perspective$min(1f, surfaceWidth.toFloat() / bitmapWidth)</ID>
+    <ID>MultiLineIfElse:ShadowTool.kt$ShadowTool$0</ID>
+    <ID>MultiLineIfElse:SpeechBubbleTool.kt$SpeechBubbleTool$SpeechBubbleType.CLOUD</ID>
+    <ID>MultiLineIfElse:SpeechBubbleTool.kt$SpeechBubbleTool$command</ID>
+    <ID>MultiLineIfElse:SpeechBubbleTool.kt$SpeechBubbleTool$runCatching { SpeechBubbleType.valueOf(savedType) }.getOrNull()</ID>
+    <ID>MultiLineIfElse:WarpTool.kt$WarpTool$coordinate?.let { center.set(it.x, it.y) val previous = strokePoints.lastOrNull() if (previous == null || hypot(it.x - previous.x, it.y - previous.y) &gt;= POINT_SPACING) { strokePoints += PointF(it.x, it.y) } }</ID>
+    <ID>MultiLineIfElse:ZaintBrushTool.kt$ZaintBrushTool$PointF(coordinate.x, coordinate.y)</ID>
+    <ID>MultiLineIfElse:ZaintBrushTool.kt$ZaintBrushTool$PointF(drawCoordinate.x, drawCoordinate.y)</ID>
+    <ID>MultiLineIfElse:ZaintEditorPresenter.kt$ZaintEditorPresenter.Companion$getDataColumn(context, uri, null, null)</ID>
+    <ID>MultiLineIfElse:ZaintLayerModel.kt$ZaintLayerModel$false</ID>
+    <ID>MultiLineIfElse:ZaintRectangleToolBase.kt$ZaintRectangleToolBase$Point(0, 0)</ID>
+    <ID>MultiLineIfElse:ZaintTextOptionsPanel.kt$ZaintTextOptionsPanel$when (alignment) { Paint.Align.CENTER -&gt; Gravity.CENTER_HORIZONTAL Paint.Align.RIGHT -&gt; Gravity.END else -&gt; Gravity.START }</ID>
+    <ID>NestedBlockDepth:FilterProcessor.kt$FilterProcessor$fun applySplashAreas( source: Bitmap, selectedColors: IntArray, tolerances: IntArray, areas: List&lt;FilterArea&gt; ): Bitmap</ID>
+    <ID>NestedBlockDepth:PixelateCommand.kt$PixelateCommand$private fun pixelate(source: Bitmap, blockSize: Int): Bitmap</ID>
+    <ID>NoBlankLineBeforeRbrace:DefaultFilterToolOptionsView.kt$DefaultFilterToolOptionsView$ </ID>
+    <ID>NoBlankLineBeforeRbrace:DefaultPixelToolOptionsView.kt$DefaultPixelToolOptionsView$ </ID>
+    <ID>NoBlankLineBeforeRbrace:DefaultRotateToolOptionsView.kt$DefaultRotateToolOptionsView$ </ID>
+    <ID>NoBlankLineBeforeRbrace:LineInputStateTest.kt$LineInputStateTest$ </ID>
+    <ID>NoBlankLineBeforeRbrace:SpeechBubbleTool.kt$SpeechBubbleTool$ </ID>
+    <ID>NoBlankLineBeforeRbrace:ZaintBrushOptions.kt$ZaintBrushOptions.Listener$ </ID>
+    <ID>NoBlankLineBeforeRbrace:ZaintBrushOptionsPanel.kt$ZaintBrushOptionsPanel$ </ID>
+    <ID>NoBlankLineBeforeRbrace:ZaintEditorActivity.kt$ZaintEditorActivity$ </ID>
+    <ID>NoBlankLineBeforeRbrace:ZaintEditorContracts.kt$ZaintEditorContracts.TopBarViewHolder$ </ID>
+    <ID>NoBlankLineBeforeRbrace:ZaintEditorNavigator.kt$ZaintEditorNavigator$ </ID>
+    <ID>NoBlankLineBeforeRbrace:ZaintToolOptionsController.kt$ZaintToolOptionsController$ </ID>
+    <ID>NoBlankLineBeforeRbrace:ZaintToolOptionsControllerHost.kt$ZaintToolOptionsControllerHost$ </ID>
+    <ID>NoConsecutiveBlankLines:GpuFilter.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:ShadowTool.kt$ShadowTool$ </ID>
+    <ID>NoConsecutiveBlankLines:ZaintEditorNavigator.kt$ZaintEditorNavigator$ </ID>
+    <ID>NoUnusedImports:BrushPickerIntegrationTest.kt$de.zwegen.zpaint.test.espresso.dialog.BrushPickerIntegrationTest.kt</ID>
+    <ID>NoUnusedImports:BrushToolView.kt$de.zwegen.zpaint.ui.tools.BrushToolView.kt</ID>
+    <ID>NoUnusedImports:CutCommandTest.kt$de.zwegen.zpaint.test.command.implementation.CutCommandTest.kt</ID>
+    <ID>NoUnusedImports:FilterTool.kt$de.zwegen.zpaint.tools.implementation.FilterTool.kt</ID>
+    <ID>NoUnusedImports:LayerMirror.kt$de.zwegen.zpaint.command.bitmap.LayerMirror.kt</ID>
+    <ID>NoUnusedImports:LayeredInsertionToolTest.kt$de.zwegen.zpaint.test.tools.LayeredInsertionToolTest.kt</ID>
+    <ID>NoUnusedImports:ShadowTool.kt$de.zwegen.zpaint.tools.implementation.ShadowTool.kt</ID>
+    <ID>NoUnusedImports:SoftBrushUndoIntegrationTest.kt$de.zwegen.zpaint.test.junit.tools.SoftBrushUndoIntegrationTest.kt</ID>
+    <ID>NoUnusedImports:SpeechBubbleGeometry.kt$de.zwegen.zpaint.tools.implementation.SpeechBubbleGeometry.kt</ID>
+    <ID>NoUnusedImports:ZaintClipboardToolIntegrationTest.kt$de.zwegen.zpaint.test.espresso.tools.ZaintClipboardToolIntegrationTest.kt</ID>
+    <ID>NoUnusedImports:ZaintDocumentStorage.kt$de.zwegen.zpaint.ZaintDocumentStorage.kt</ID>
+    <ID>NoUnusedImports:ZaintDrawingPaint.kt$de.zwegen.zpaint.tools.implementation.ZaintDrawingPaint.kt</ID>
+    <ID>NoUnusedImports:ZaintEditorActivity.kt$de.zwegen.zpaint.ZaintEditorActivity.kt</ID>
+    <ID>NoUnusedImports:ZaintEditorNavigator.kt$de.zwegen.zpaint.ui.ZaintEditorNavigator.kt</ID>
+    <ID>NoUnusedImports:ZaintEditorPresenter.kt$de.zwegen.zpaint.presenter.ZaintEditorPresenter.kt</ID>
+    <ID>NoUnusedImports:ZaintFillOptionsPanel.kt$de.zwegen.zpaint.ui.tools.ZaintFillOptionsPanel.kt</ID>
+    <ID>NoUnusedImports:ZaintImportTool.kt$de.zwegen.zpaint.tools.implementation.ZaintImportTool.kt</ID>
+    <ID>NoUnusedImports:ZaintLayerPresenter.kt$de.zwegen.zpaint.presenter.ZaintLayerPresenter.kt</ID>
+    <ID>NoUnusedImports:ZaintToolBase.kt$de.zwegen.zpaint.tools.implementation.ZaintToolBase.kt</ID>
+    <ID>NoUnusedImports:ZaintToolContextAdapter.kt$de.zwegen.zpaint.tools.implementation.ZaintToolContextAdapter.kt</ID>
+    <ID>NoUnusedImports:ZaintTransformOptionsPanel.kt$de.zwegen.zpaint.ui.tools.ZaintTransformOptionsPanel.kt</ID>
+    <ID>OptionalUnit:ZaintBrushOptions.kt$ZaintBrushOptions$Unit</ID>
+    <ID>OptionalUnit:ZaintBrushOptions.kt$ZaintBrushOptions.Listener$Unit</ID>
+    <ID>OptionalUnit:ZaintClipboardOptions.kt$ZaintClipboardOptions.Callback$Unit</ID>
+    <ID>OptionalUnit:ZaintEditorPresenter.kt$ZaintEditorPresenter${ Unit }</ID>
+    <ID>OptionalWhenBraces:FilterProcessor.kt$FilterProcessor$FilterType.BILATERAL -&gt; { GpuFilterEngine.apply(bitmap, GpuFilter.Bilateral(value)) }</ID>
+    <ID>OptionalWhenBraces:FilterProcessor.kt$FilterProcessor$FilterType.BLOOM -&gt; { GpuFilterEngine.apply(bitmap, GpuFilter.Bloom(value / PERCENT_FLOAT)) }</ID>
+    <ID>OptionalWhenBraces:FilterProcessor.kt$FilterProcessor$FilterType.BLUR -&gt; { GpuFilterEngine.apply(bitmap, GpuFilter.Blur(value)) }</ID>
+    <ID>OptionalWhenBraces:FilterProcessor.kt$FilterProcessor$FilterType.BRIGHTNESS -&gt; { GpuFilterEngine.apply(bitmap, GpuFilter.Brightness(value / COLOR_MAX_FLOAT)) }</ID>
+    <ID>OptionalWhenBraces:FilterProcessor.kt$FilterProcessor$FilterType.EXPOSURE -&gt; { GpuFilterEngine.apply(bitmap, GpuFilter.Exposure(value / PERCENT_FLOAT)) }</ID>
+    <ID>OptionalWhenBraces:FilterProcessor.kt$FilterProcessor$FilterType.HIGHLIGHTS -&gt; { GpuFilterEngine.apply(bitmap, GpuFilter.Highlights(value / PERCENT_FLOAT)) }</ID>
+    <ID>OptionalWhenBraces:FilterProcessor.kt$FilterProcessor$FilterType.HUE -&gt; { GpuFilterEngine.apply(bitmap, GpuFilter.Hue(value / HUE_RANGE_FLOAT)) }</ID>
+    <ID>OptionalWhenBraces:FilterProcessor.kt$FilterProcessor$FilterType.MEDIAN -&gt; { GpuFilterEngine.apply(bitmap, GpuFilter.Median(value)) }</ID>
+    <ID>OptionalWhenBraces:FilterProcessor.kt$FilterProcessor$FilterType.PIXEL -&gt; { GpuFilterEngine.apply(bitmap, GpuFilter.Pixelate(value)) }</ID>
+    <ID>OptionalWhenBraces:FilterProcessor.kt$FilterProcessor$FilterType.SHADOWS -&gt; { GpuFilterEngine.apply(bitmap, GpuFilter.Shadows(value / PERCENT_FLOAT)) }</ID>
+    <ID>OptionalWhenBraces:FilterProcessor.kt$FilterProcessor$FilterType.TEMPERATURE -&gt; { GpuFilterEngine.apply(bitmap, GpuFilter.Temperature(value / PERCENT_FLOAT)) }</ID>
+    <ID>OptionalWhenBraces:FilterProcessor.kt$FilterProcessor$FilterType.VIBRANCE -&gt; { GpuFilterEngine.apply(bitmap, GpuFilter.Vibrance(value / PERCENT_FLOAT)) }</ID>
+    <ID>OptionalWhenBraces:FilterTool.kt$FilterTool$AreaGesture.MOVE -&gt; { center.offset(deltaX, deltaY) }</ID>
+    <ID>OptionalWhenBraces:FloatingBoxResizeDelta.kt$FloatingBoxResizeDelta$ResizeAction.TOPLEFT, ResizeAction.BOTTOMRIGHT -&gt; { if (abs(horizontal) &gt; abs(vertical)) { vertical = (width + horizontal) * height / width - height } else { horizontal = width * (height + vertical) / height - width } }</ID>
+    <ID>OptionalWhenBraces:FloatingBoxResizeDelta.kt$FloatingBoxResizeDelta$ResizeAction.TOPRIGHT, ResizeAction.BOTTOMLEFT -&gt; { if (abs(horizontal) &gt; abs(vertical)) { vertical = (width - horizontal) * height / width - height } else { horizontal = width * (height - vertical) / height - width } }</ID>
+    <ID>OptionalWhenBraces:MetadataStripper.kt$MetadataStripper$marker in JPEG_RESTART_FIRST..JPEG_RESTART_LAST -&gt; { writeMarker(output, marker) }</ID>
+    <ID>OptionalWhenBraces:PixelateCommand.kt$PixelateCommand$!areaMode || alpha &gt;= FULL_ALPHA -&gt; { output.setPixel(x, y, color) }</ID>
+    <ID>OptionalWhenBraces:PixelateCommand.kt$PixelateCommand$alpha &gt; NO_ALPHA -&gt; { output.setPixel(x, y, blend(source.getPixel(x, y), color, alpha)) }</ID>
+    <ID>OptionalWhenBraces:ZaintLayerDragList.kt$ZaintLayerDragList$is LayerDragSession.Outcome.Merge -&gt; { coordinator?.commitMerge(outcome.sourcePosition, outcome.targetPosition) }</ID>
+    <ID>OptionalWhenBraces:ZaintLayerDragList.kt$ZaintLayerDragList$is LayerDragSession.Outcome.Reorder -&gt; { coordinator?.commitReorder(outcome.sourcePosition, outcome.targetPosition) }</ID>
+    <ID>SpacingBetweenPackageAndImports:ZaintLayerListAdapter.kt$ </ID>
+    <ID>StringLiteralDuplication:ColorPickerDialog.kt$PickerPanel$"#%08X"</ID>
+    <ID>StringLiteralDuplication:GoogleFontRepository.kt$GoogleFontRepository$"$safeName-Bold.ttf"</ID>
+    <ID>StringLiteralDuplication:GoogleFontRepository.kt$GoogleFontRepository$"$safeName-BoldItalic.ttf"</ID>
+    <ID>StringLiteralDuplication:GoogleFontRepository.kt$GoogleFontRepository$"$safeName-Italic.ttf"</ID>
+    <ID>StringLiteralDuplication:GpuFilterEngine.kt$GpuFilterEngine$"Missing shader uniform: $name"</ID>
+    <ID>StringLiteralDuplication:GpuFilterEngine.kt$GpuFilterEngine$"uStrength"</ID>
+    <ID>StringLiteralDuplication:GpuFilterEngine.kt$GpuFilterEngine$"uTexelSize"</ID>
+    <ID>StringLiteralDuplication:IconifyClient.kt$IconifyClient$"UTF-8"</ID>
+    <ID>StringLiteralDuplication:ZaintDocumentStorage.kt$ZaintDocumentStorage$"Can't load bitmap from uri"</ID>
+    <ID>StringLiteralDuplication:ZaintEditorPresenter.kt$ZaintEditorPresenter$".jpeg"</ID>
+    <ID>StringTemplate:GoogleFontRepository.kt$GoogleFontRepository$${safeName}</ID>
+    <ID>SwallowedException:FilterProcessor.kt$FilterProcessor$exception: RuntimeException</ID>
+    <ID>SwallowedException:GradientFillCommand.kt$GradientFillCommand$error: RuntimeException</ID>
+    <ID>SwallowedException:MetadataStripper.kt$MetadataStripper$e: EOFException</ID>
+    <ID>ThrowsCount:CommandSerializer.kt$ZaintProjectSerializer$private fun readDocumentState(input: DataInputStream): DocumentState</ID>
+    <ID>ThrowsCount:CommandSerializer.kt$ZaintProjectSerializer$private fun readProject(stream: InputStream): ZaintProjectContent</ID>
+    <ID>ThrowsCount:ZaintDocumentStorage.kt$ZaintDocumentStorage$fun saveBitmapToFile( fileName: String, bitmap: Bitmap?, resolver: ContentResolver?, context: Context ): Uri</ID>
+    <ID>TooGenericExceptionCaught:CreateFile.kt$CreateFile$error: NullPointerException</ID>
+    <ID>TooGenericExceptionCaught:FilterProcessor.kt$FilterProcessor$error: Throwable</ID>
+    <ID>TooGenericExceptionCaught:FilterProcessor.kt$FilterProcessor$exception: RuntimeException</ID>
+    <ID>TooGenericExceptionCaught:GradientFillCommand.kt$GradientFillCommand$error: RuntimeException</ID>
+    <ID>TooGenericExceptionCaught:ZaintDocumentLoadTask.kt$ZaintDocumentLoadTask$exception: Exception</ID>
+    <ID>TooGenericExceptionCaught:ZaintDocumentStorage.kt$ZaintDocumentStorage$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:ZaintDocumentStorage.kt$ZaintDocumentStorage$e: RuntimeException</ID>
+    <ID>UnderscoresInNumericLiterals:GoogleFontRepository.kt$GoogleFontRepository$10000</ID>
+    <ID>UnderscoresInNumericLiterals:GoogleFontRepository.kt$GoogleFontRepository$20000</ID>
+    <ID>UnderscoresInNumericLiterals:IconifyClient.kt$12000</ID>
+    <ID>UnderscoresInNumericLiterals:RetouchCommand.kt$RetouchCommand.Companion$1274126177</ID>
+    <ID>UnderscoresInNumericLiterals:RetouchCommand.kt$RetouchCommand.Companion$19349663</ID>
+    <ID>UnderscoresInNumericLiterals:RetouchCommand.kt$RetouchCommand.Companion$65535f</ID>
+    <ID>UnderscoresInNumericLiterals:RetouchCommand.kt$RetouchCommand.Companion$734287</ID>
+    <ID>UnderscoresInNumericLiterals:RetouchCommand.kt$RetouchCommand.Companion$912271</ID>
+    <ID>UnnecessaryParentheses:BorderCommand.kt$BorderCommand.Companion$((-amount).coerceAtMost(maximumCrop))</ID>
+    <ID>UnnecessaryParentheses:BorderTool.kt$BorderTool$((-amount).coerceAtMost(maximumCrop))</ID>
+    <ID>UnnecessaryParentheses:ColorPickerDialog.kt$PickerPanel$(0.299 * Color.red(color) + 0.587 * Color.green(color) + 0.114 * Color.blue(color))</ID>
+    <ID>UnnecessaryParentheses:ContourProcessor.kt$ContourProcessor$(isLine(mask, x - 2 * directionX, y - 2 * directionY, width, height) &amp;&amp; isLine(mask, x + directionX, y + directionY, width, height))</ID>
+    <ID>UnnecessaryParentheses:ContourProcessor.kt$ContourProcessor$(isLine(mask, x - directionX, y - directionY, width, height) &amp;&amp; isLine(mask, x + 2 * directionX, y + 2 * directionY, width, height))</ID>
+    <ID>UnnecessaryParentheses:ContourProcessorTest.kt$ContourProcessorTest$(index % 7)</ID>
+    <ID>UnnecessaryParentheses:FilterProcessor.kt$FilterProcessor$(259f * (value + COLOR_MAX_FLOAT))</ID>
+    <ID>UnnecessaryParentheses:FilterProcessor.kt$FilterProcessor$(value / PERCENT_FLOAT)</ID>
+    <ID>UnnecessaryParentheses:FilterProcessor.kt$FilterProcessor$(value.coerceIn(0, 100) / PERCENT_FLOAT)</ID>
+    <ID>UnnecessaryParentheses:FiveColumnToolbarOrganizer.kt$FiveColumnToolbarOrganizer$(layoutParams as? TableLayout.LayoutParams)</ID>
+    <ID>UnnecessaryParentheses:GpuFilterEngine.kt$GpuFilterEngine$(alpha shl ALPHA_SHIFT)</ID>
+    <ID>UnnecessaryParentheses:GpuFilterEngine.kt$GpuFilterEngine$(color shr GREEN_SHIFT)</ID>
+    <ID>UnnecessaryParentheses:GpuFilterEngine.kt$GpuFilterEngine$(color shr RED_SHIFT)</ID>
+    <ID>UnnecessaryParentheses:GpuFilterEngine.kt$GpuFilterEngine$(color ushr ALPHA_SHIFT)</ID>
+    <ID>UnnecessaryParentheses:GpuFilterEngine.kt$GpuFilterEngine$(color ushr GREEN_SHIFT)</ID>
+    <ID>UnnecessaryParentheses:GpuFilterEngine.kt$GpuFilterEngine$(color ushr RED_SHIFT)</ID>
+    <ID>UnnecessaryParentheses:GradientFillCommand.kt$GradientFillCommand$(horizontal - vertical)</ID>
+    <ID>UnnecessaryParentheses:GradientFillCommand.kt$GradientFillCommand$(index * WAVE_HASH_STEP)</ID>
+    <ID>UnnecessaryParentheses:GradientFillCommand.kt$GradientFillCommand$(this ushr ALPHA_SHIFT)</ID>
+    <ID>UnnecessaryParentheses:GradientFillCommand.kt$GradientFillCommand$(this ushr GREEN_SHIFT)</ID>
+    <ID>UnnecessaryParentheses:GradientFillCommand.kt$GradientFillCommand$(this ushr RED_SHIFT)</ID>
+    <ID>UnnecessaryParentheses:GradientFillCommand.kt$GradientFillCommand.Companion$(color ushr ALPHA_SHIFT)</ID>
+    <ID>UnnecessaryParentheses:GradientFillCommand.kt$GradientFillCommand.Companion$(color ushr GREEN_SHIFT)</ID>
+    <ID>UnnecessaryParentheses:GradientFillCommand.kt$GradientFillCommand.Companion$(color ushr RED_SHIFT)</ID>
+    <ID>UnnecessaryParentheses:GradientFillCommand.kt$GradientFillCommand.GradientColors$(alpha shl ALPHA_SHIFT)</ID>
+    <ID>UnnecessaryParentheses:LayerRotation.kt$AndroidCurrentLayerCanvasRotator$(row[x] ushr ALPHA_SHIFT)</ID>
+    <ID>UnnecessaryParentheses:PerspectiveTool.kt$PerspectiveTool$((b.x - a.x) * (c.y - b.y))</ID>
+    <ID>UnnecessaryParentheses:PerspectiveTool.kt$PerspectiveTool$((b.y - a.y) * (c.x - b.x))</ID>
+    <ID>UnnecessaryParentheses:PixelateCommand.kt$PixelateCommand$((alpha / count).toInt() shl 24)</ID>
+    <ID>UnnecessaryParentheses:PixelateCommand.kt$PixelateCommand$(blendedAlpha shl 24)</ID>
+    <ID>UnnecessaryParentheses:RetouchCommand.kt$RetouchCommand$((alpha / count) shl 24)</ID>
+    <ID>UnnecessaryParentheses:RetouchCommand.kt$RetouchCommand$(alpha / count)</ID>
+    <ID>UnnecessaryParentheses:RetouchCommand.kt$RetouchCommand$(alpha shl 24)</ID>
+    <ID>UnnecessaryParentheses:RetouchCommand.kt$RetouchCommand$(blendedAlpha shl 24)</ID>
+    <ID>UnnecessaryParentheses:RetouchCommand.kt$RetouchCommand$(blue / count)</ID>
+    <ID>UnnecessaryParentheses:RetouchCommand.kt$RetouchCommand$(distanceToCenter(cellCenterX, cellCenterY) / boundedRadius)</ID>
+    <ID>UnnecessaryParentheses:RetouchCommand.kt$RetouchCommand$(green / count)</ID>
+    <ID>UnnecessaryParentheses:RetouchCommand.kt$RetouchCommand$(red / count)</ID>
+    <ID>UnnecessaryParentheses:SoftBrushUndoIntegrationTest.kt$SoftBrushUndoIntegrationTest$(x * 17 + y * 13)</ID>
+    <ID>UnnecessaryParentheses:SoftBrushUndoIntegrationTest.kt$SoftBrushUndoIntegrationTest$(x xor y)</ID>
+    <ID>UnnecessaryParentheses:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$(cosine * cosine)</ID>
+    <ID>UnnecessaryParentheses:SpeechBubbleGeometry.kt$SpeechBubbleGeometry$(sine * sine)</ID>
+    <ID>UnnecessaryParentheses:ZaintSmudgeUndoIntegrationTest.kt$ZaintSmudgeUndoIntegrationTest$(x * 17 + y * 13)</ID>
+    <ID>UnnecessaryParentheses:ZaintSmudgeUndoIntegrationTest.kt$ZaintSmudgeUndoIntegrationTest$(x xor y)</ID>
+    <ID>UnnecessaryParentheses:ZaintTextOptionsPanel.kt$ZaintTextOptionsPanel$(line - 1)</ID>
+    <ID>UnnecessaryParentheses:ZaintWarpStroke.kt$ZaintWarpStroke.Companion$((first ushr shift and 0xff) * (1f - amount))</ID>
+    <ID>UnnecessaryParentheses:ZaintWarpStroke.kt$ZaintWarpStroke.Companion$((second ushr shift and 0xff) * amount)</ID>
+    <ID>UnnecessaryParentheses:ZaintWarpStroke.kt$ZaintWarpStroke.Companion$(channel(24) shl 24)</ID>
+    <ID>UnusedPrivateMember:BorderTool.kt$BorderTool$private fun centerPerspectiveOnCurrentBitmap()</ID>
+    <ID>UnusedPrivateMember:FilterProcessor.kt$FilterProcessor$private fun blur(bitmap: Bitmap, radius: Int)</ID>
+    <ID>UnusedPrivateMember:FilterProcessor.kt$FilterProcessor$private fun brightness(bitmap: Bitmap, value: Int)</ID>
+    <ID>UnusedPrivateMember:FilterProcessor.kt$FilterProcessor$private fun contrast(bitmap: Bitmap, value: Int)</ID>
+    <ID>UnusedPrivateMember:FilterProcessor.kt$FilterProcessor$private fun invert(bitmap: Bitmap)</ID>
+    <ID>UnusedPrivateMember:FilterProcessor.kt$FilterProcessor$private fun saturation(bitmap: Bitmap, value: Int)</ID>
+    <ID>UnusedPrivateMember:FilterProcessor.kt$FilterProcessor$private fun sepia(bitmap: Bitmap, value: Int)</ID>
+    <ID>UnusedPrivateMember:GoogleFontRepository.kt$GoogleFontRepository$private fun fontFamilyDirectory(context: Context, family: String): File</ID>
+    <ID>UnusedPrivateMember:ZaintBrushTool.kt$ZaintBrushTool$private fun colorWithAlpha(color: Int, alpha: Int): Int</ID>
+    <ID>UnusedPrivateMember:ZaintCommandFactory.kt$ZaintCommandFactory$private fun copySmudgePath(pointPath: MutableList&lt;PointF&gt;): MutableList&lt;PointF&gt;</ID>
+    <ID>UnusedPrivateMember:ZaintDocumentStorage.kt$ZaintDocumentStorage$private fun checkFileExistsInDownloadsFolder(filename: String, resolver: ContentResolver): Boolean</ID>
+    <ID>UnusedPrivateMember:ZaintDocumentStorage.kt$ZaintDocumentStorage$private fun checkFileExistsInPicturesFolder(filename: String, resolver: ContentResolver): Boolean</ID>
+    <ID>UnusedPrivateMember:ZaintEditorNavigator.kt$ZaintEditorNavigator$private fun dp(value: Int): Int</ID>
+    <ID>UnusedPrivateMember:ZaintEditorNavigator.kt$ZaintEditorNavigator$private fun getFileName(uri: Uri?): String?</ID>
+    <ID>UnusedPrivateMember:ZaintEditorPresenter.kt$ZaintEditorPresenter.Companion$private fun checkForInternet(context: Context): Boolean</ID>
+    <ID>UnusedPrivateMember:ZaintFillOptionsPanel.kt$ZaintFillOptionsPanel$private fun directionBackground(selected: Boolean): Drawable</ID>
+    <ID>UnusedPrivateMember:ZaintTextEffectIcons.kt$private fun createOriginalLetterPath(): Path</ID>
+    <ID>UseDataClass:LayerModelSnapshot.kt$LayerModelSnapshot$OwnedLayer</ID>
+    <ID>UseDataClass:LayerModelSnapshot.kt$LayerModelSnapshot$SnapshotLayer</ID>
+    <ID>UseDataClass:WorkspaceReturnValue.kt$WorkspaceReturnValue</ID>
+  </CurrentIssues>
+</SmellBaseline>

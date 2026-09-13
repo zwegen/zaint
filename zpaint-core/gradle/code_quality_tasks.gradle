@@ -1,0 +1,58 @@
+apply plugin: 'checkstyle'
+apply plugin: 'pmd'
+apply plugin: "io.gitlab.arturbosch.detekt"
+
+check.dependsOn 'checkstyle'
+check.dependsOn 'pmd'
+check.dependsOn 'detekt'
+
+dependencies {
+    pmd 'net.sourceforge.pmd:pmd-core:6.32.0'
+    pmd 'net.sourceforge.pmd:pmd-java:6.32.0'
+
+    checkstyle 'com.puppycrawl.tools:checkstyle:7.6'
+
+    detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:1.23.6"
+}
+
+task checkstyle(type: Checkstyle) {
+    configFile file('config/checkstyle.xml')
+    source '.'
+    include '**/*.java', '**/*.kt', '**/*.xml', '**/*.gradle'
+    exclude '**/gen/**', '**/build/**', 'libraryProjects/**', '**/.idea/**'
+
+    classpath = files()
+
+    // needed for console output of warnings/errors
+    showViolations true
+    ignoreFailures false
+
+    reports {
+        xml.required.set(true)
+        xml.outputLocation.set(file("build/reports/checkstyle.xml"))
+    }
+}
+
+task pmd(type: Pmd) {
+    ruleSetFiles = files('config/pmd.xml')
+    ruleSets = []
+
+    source '.'
+    include '**/*.java'
+    exclude '**/gen/**', '**/build/**', '**/res/**'
+
+    ignoreFailures false
+
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
+        xml.outputLocation.set(file("build/reports/pmd.xml"))
+    }
+}
+
+detekt {
+    toolVersion = "1.23.6"
+    config = files("$projectDir/config/detekt.yml")
+    baseline = file("$projectDir/config/detekt-baseline.xml")
+    input = files("$rootDir/colorpicker/", projectDir)
+}

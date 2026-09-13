@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/zpaint_layout_icon_tool_options"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:orientation="vertical"
+                android:paddingBottom="12dp">
+
+                <TextView
+                    style="@style/ZPaintToolSubtitle"
+                    android:text="@string/icon_tool_search_title" />
+
+                <View style="@style/ZPaintToolSectionDivider" />
+
+                <LinearLayout
+                    style="@style/ZPaintToolSection"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/zpaint_icon_search_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/ic_zpaint_search"
+                        android:drawablePadding="10dp"
+                        android:hint="@string/icon_tool_search_hint"
+                        android:imeOptions="actionSearch"
+                        android:importantForAutofill="no"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:paddingEnd="12dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp"
+                        tools:ignore="LabelFor" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/zpaint_icon_status"
+                    style="@style/ZPaintToolSubtitle"
+                    android:visibility="gone" />
+
+                <GridLayout
+                    android:id="@+id/zpaint_icon_results_grid"
+                    style="@style/ZPaintToolSection"
+                    android:layout_marginTop="8dp"
+                    android:columnCount="4"
+                    android:orientation="horizontal" />
+
+                <Button
+                    android:id="@+id/zpaint_icon_load_more_button"
+                    style="@style/ZPaintToolSection"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/icon_tool_load_more" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

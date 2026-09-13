@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_tools"
+        android:title="@string/bottom_navigation_tools"
+        android:icon="@drawable/ic_zpaint_tools" />
+
+    <item
+        android:id="@+id/action_filters"
+        android:title="@string/bottom_navigation_filters"
+        android:icon="@drawable/ic_zpaint_filter" />
+
+    <item
+        android:id="@+id/action_current_tool"
+        android:title="@string/bottom_navigation_current"
+        android:icon="@drawable/ic_zpaint_tool_hand" />
+
+    <item
+        android:id="@+id/action_color_picker"
+        android:title="@string/bottom_navigation_color"
+        android:icon="@drawable/zpaint_checkeredbg_repeat" />
+
+    <item
+        android:id="@+id/action_layers"
+        android:title="@string/bottom_navigation_layers"
+        android:icon="@drawable/ic_zaint_bottom_navigation_layers" />
+</menu>

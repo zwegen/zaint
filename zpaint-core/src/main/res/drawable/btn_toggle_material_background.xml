@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="?attr/colorControlHighlight">
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="3dp" />
+            <solid android:color="?attr/colorButtonNormal" />
+            <padding
+                android:left="8dp"
+                android:top="4dp"
+                android:right="8dp"
+                android:bottom="6dp" />
+        </shape>
+    </item>
+    <item android:gravity="bottom|fill_horizontal">
+        <shape android:shape="rectangle">
+            <size android:height="2dp" />
+            <solid android:color="@drawable/control_checkable_material" />
+        </shape>
+    </item>
+</ripple>

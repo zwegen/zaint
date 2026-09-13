@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?><com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/zpaint_layout_top_bar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:alpha="0.80"
+    tools:showIn="@layout/activity_zpaint_main">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/zpaint_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ZPaintTheme"
+        app:contentInsetStart="8dp"
+        app:contentInsetStartWithNavigation="8dp"
+        app:popupTheme="@style/DropdownMenu"
+        app:title="">
+
+        <ImageButton
+            android:id="@+id/zpaint_btn_top_menu"
+            style="?actionButtonStyle"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="start|center_vertical"
+            android:contentDescription="@string/more_possibilities"
+            android:src="@drawable/ic_zaint_menu_more"
+            app:tint="@android:color/white" />
+
+        <LinearLayout
+            android:id="@+id/zpaint_toolbar_history_actions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/zpaint_btn_top_undo"
+                style="?actionButtonStyle"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:contentDescription="@string/button_undo"
+                android:src="@drawable/ic_zpaint_undo_selector"
+                app:tint="@android:color/white" />
+
+            <ImageButton
+                android:id="@+id/zpaint_btn_top_help"
+                style="?actionButtonStyle"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:contentDescription="@string/button_help"
+                android:src="@drawable/ic_zpaint_help"
+                app:tint="@null" />
+
+            <ImageButton
+                android:id="@+id/zpaint_btn_top_redo"
+                style="?actionButtonStyle"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:contentDescription="@string/button_redo"
+                android:src="@drawable/ic_zpaint_redo_selector"
+                app:tint="@android:color/white" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/zpaint_btn_top_plus"
+                style="?actionButtonStyle"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:contentDescription="@string/button_continue_line"
+                android:src="@drawable/ic_zpaint_plus_enabled"
+                app:tint="@android:color/white"
+                android:visibility="gone" />
+
+            <ImageButton
+                android:id="@+id/zpaint_btn_top_layer_plus"
+                style="?actionButtonStyle"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:contentDescription="@string/layer_new"
+                android:src="@drawable/ic_zpaint_layer_insert_selector"
+                android:visibility="gone" />
+
+            <ImageButton
+                android:id="@+id/zpaint_btn_top_checkmark"
+                style="?actionButtonStyle"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:contentDescription="@string/button_checkmark"
+                android:src="@drawable/ic_zpaint_checkmark"
+                app:tint="@color/zpaint_disabled_top_bar_icon"
+                android:enabled="false" />
+
+            <ProgressBar
+                android:id="@+id/zpaint_progress_top_checkmark"
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:indeterminate="true"
+                android:indeterminateTint="@android:color/white"
+                android:padding="12dp"
+                android:visibility="gone" />
+
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
+</com.google.android.material.appbar.AppBarLayout>

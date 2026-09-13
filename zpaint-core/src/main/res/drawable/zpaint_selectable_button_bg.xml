@@ -1,0 +1,5 @@
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="?colorControlHighlight">
+    <item android:id="@android:id/mask" android:drawable="@android:color/white" />
+    <item android:drawable="@drawable/zpaint_attribute_button_selector" />
+</ripple>

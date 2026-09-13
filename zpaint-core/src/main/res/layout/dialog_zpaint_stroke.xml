@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/zpaint_stroke_top_layout">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/zpaint_stroke_width_width_text_layout"
+            style="@style/TextFieldTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="10dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/zpaint_stroke_width_width_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/zpaint_round_rect_shape"
+                android:gravity="center"
+                android:imeOptions="actionDone"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:layoutDirection="ltr"
+                android:minEms="3"
+                android:padding="4dp"
+                android:saveEnabled="false"
+                android:textColor="?attr/colorAccent"
+                android:textStyle="bold"
+                tools:ignore="LabelFor"
+                tools:text="100" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <SeekBar
+            android:id="@+id/zpaint_stroke_width_seek_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/zpaint_stroke_width_width_text_layout"
+            android:layout_alignBottom="@id/zpaint_stroke_width_width_text_layout"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:layout_toEndOf="@+id/zpaint_stroke_width_width_text_layout"
+            android:max="100"
+            android:minHeight="30dip" />
+
+        <TextView
+            android:id="@+id/zpaint_stroke_width_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/zpaint_stroke_width_seek_bar"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="14dp"
+            android:translationY="-8dp"
+            android:text="@string/brush_control_size"
+            android:textColor="@color/zpaint_save_cancel_button"
+            android:textSize="12sp" />
+
+        <RelativeLayout
+            android:id="@+id/zpaint_stroke_softness_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/zpaint_stroke_width_label"
+            android:visibility="gone">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/zpaint_stroke_softness_text_layout"
+                style="@style/TextFieldTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="2dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/zpaint_stroke_softness_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/zpaint_round_rect_shape"
+                    android:gravity="center"
+                    android:imeOptions="actionDone"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:layoutDirection="ltr"
+                    android:minEms="3"
+                    android:padding="4dp"
+                    android:saveEnabled="false"
+                    android:textColor="@color/zpaint_colorBrushSoftnessAccent"
+                    android:textStyle="bold"
+                    tools:ignore="LabelFor"
+                    tools:text="100" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <SeekBar
+                android:id="@+id/zpaint_stroke_softness_seek_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/zpaint_stroke_softness_text_layout"
+                android:layout_alignBottom="@id/zpaint_stroke_softness_text_layout"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
+                android:layout_toEndOf="@id/zpaint_stroke_softness_text_layout"
+                android:max="100"
+                android:minHeight="30dip" />
+
+            <TextView
+                android:id="@+id/zpaint_stroke_softness_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/zpaint_stroke_softness_seek_bar"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="14dp"
+                android:translationY="-8dp"
+                android:text="@string/brush_control_softness"
+                android:textColor="@color/zpaint_save_cancel_button"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/zpaint_stroke_bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/zpaint_brush_preview_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="50dp"
+            android:visibility="gone">
+            <!--> This Linear layout is needed for the preview.
+        The Brush tool searches for the Top of the parent<-->
+            <de.zwegen.zpaint.ui.tools.BrushToolView
+                android:id="@+id/zpaint_brush_tool_preview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/zpaint_brush_preset_row"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="12dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/zpaint_brush_preset_types"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layoutDirection="ltr"
+                app:singleSelection="true">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/zpaint_brush_preset_pencil"
+                    style="@style/SelectionToolSquareButtonStyle"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:checkable="true"
+                    android:contentDescription="@string/brush_preset_pencil"
+                    app:icon="@drawable/ic_zpaint_brush_pencil"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/zpaint_brush_preset_brush"
+                    style="@style/SelectionToolSquareButtonStyle"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:checkable="true"
+                    android:checked="true"
+                    android:contentDescription="@string/brush_preset_brush"
+                    android:visibility="gone"
+                    app:icon="@drawable/ic_zpaint_brush_paint"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/zpaint_brush_preset_marker"
+                    style="@style/SelectionToolSquareButtonStyle"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:checkable="true"
+                    android:contentDescription="@string/brush_preset_marker"
+                    app:icon="@drawable/ic_zpaint_brush_marker_vector"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/zpaint_brush_preset_calligraphy"
+                    style="@style/SelectionToolSquareButtonStyle"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:checkable="true"
+                    android:contentDescription="@string/brush_preset_calligraphy"
+                    app:icon="@drawable/ic_zpaint_brush_calligraphy_vector"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/zpaint_brush_preset_arrow"
+                    style="@style/SelectionToolSquareButtonStyle"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:checkable="true"
+                    android:contentDescription="@string/brush_preset_arrow"
+                    app:icon="@drawable/ic_zpaint_brush_arrow"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/zpaint_brush_preset_line"
+                    style="@style/SelectionToolSquareButtonStyle"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:checkable="true"
+                    android:contentDescription="@string/brush_preset_line"
+                    app:icon="@drawable/ic_zpaint_brush_line"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp" />
+
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/zpaint_brush_pipette"
+                style="@style/SelectionToolSquareButtonStyle"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:checkable="true"
+                android:contentDescription="@string/button_pipette"
+                app:icon="@drawable/ic_zpaint_tool_pipette"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp" />
+
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/zpaint_stroke_types"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="12dp"
+            android:layoutDirection="ltr"
+            app:singleSelection="true">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/zpaint_stroke_ibtn_circle"
+                style="@style/SelectionToolSquareButtonStyle"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:checkable="true"
+                android:checked="true"
+                app:icon="@drawable/ic_zpaint_tool_circle"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/zpaint_stroke_ibtn_rect"
+                style="@style/SelectionToolSquareButtonStyle"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:checkable="true"
+                app:icon="@drawable/ic_zpaint_tool_square"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp" />
+
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+    </RelativeLayout>
+
+</RelativeLayout>

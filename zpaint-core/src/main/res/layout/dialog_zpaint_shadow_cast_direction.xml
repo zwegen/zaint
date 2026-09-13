@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@android:color/transparent">
+
+    <LinearLayout
+        style="@style/ZPaintToolSection"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="12dp"
+        android:gravity="center_vertical">
+
+        <ImageButton
+            android:id="@+id/zpaint_shadow_off"
+            style="@style/ZaintSquareImageButtonGroupStartStyle"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:contentDescription="@string/button_shadow"
+            android:padding="5dp"
+            android:src="@drawable/ic_zpaint_shadow_normal" />
+
+        <ImageButton
+            android:id="@+id/zpaint_shadow_cast_direction"
+            style="@style/ZaintSquareImageButtonGroupMiddleStyle"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="-1dp"
+            android:contentDescription="@string/fill_tool_dialog_gradient_top_bottom"
+            android:padding="5dp"
+            android:src="@drawable/ic_zpaint_shadow_cast_rotatable" />
+
+        <ImageButton
+            android:id="@+id/zpaint_shadow_inner_direction"
+            style="@style/ZaintSquareImageButtonGroupMiddleStyle"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="-1dp"
+            android:contentDescription="@string/fill_tool_dialog_gradient_top_bottom"
+            android:padding="5dp"
+            android:src="@drawable/ic_zpaint_shadow_inner_direction_rotatable" />
+
+        <ImageButton
+            android:id="@+id/zpaint_shadow_ground"
+            style="@style/ZaintSquareImageButtonGroupEndStyle"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="-1dp"
+            android:contentDescription="@string/button_shadow"
+            android:padding="5dp"
+            android:src="@drawable/ic_zpaint_shadow_ground" />
+
+    </LinearLayout>
+</LinearLayout>

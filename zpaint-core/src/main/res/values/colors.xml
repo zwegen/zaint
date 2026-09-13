@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ZPaint theme colors -->
+    <color name="zpaint_colorPrimary">#343A40</color>
+    <color name="zpaint_colorPrimarySelected">#495057</color>
+    <color name="zpaint_colorPrimaryDark">#2B3035</color>
+    <color name="zpaint_disabled_top_bar_icon">#858C94</color>
+    <color name="zpaint_colorAccent">#20C997</color>
+    <color name="zpaint_colorBrushSoftnessAccent">#6F5CC2</color>
+    <color name="zpaint_colorAccentAlpha60">#9920C997</color>
+    <color name="zpaint_save_cancel_button">#6C757D</color>
+    <color name="zpaint_dialog_close">#FF4D4D</color>
+    <color name="zpaint_text_color_link">#20C997</color>
+
+    <!-- ZPaint main activity -->
+    <color name="zpaint_main_separator_color">#F2F4F5</color>
+    <color name="zpaint_main_bottom_bar_selected">#20C997</color>
+    <color name="zpaint_main_drawing_surface_active">#00000000</color>
+    <color name="zpaint_main_drawing_surface_background">#D3D3D3</color>
+    <color name="zpaint_main_rectangle_tool_primary_color">#99555555</color>
+    <color name="zpaint_main_rectangle_tool_accent_color">#9933B5E5</color>
+    <color name="zpaint_main_rectangle_tool_highlight_color">#99E56B33</color>
+
+    <!-- ZPaint welcome activity -->
+    <!-- ZPaint Toggle Button -->
+    <color name="zpaint_lighter_gray">#DFDADA</color>
+    <!-- ZPaint Highlight Merge Layer -->
+    <color name="zpaint_color_merge_layer">#20C997</color>
+    <!-- ZPaint Tool Highlights -->
+    <color name="zpaint_chip_selected_background_color">#20C997</color>
+</resources>

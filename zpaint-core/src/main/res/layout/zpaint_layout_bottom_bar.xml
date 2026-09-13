@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/zpaint_tools_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:showIn="@layout/activity_zpaint_main">
+
+    <TableRow
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="6dp">
+
+        <LinearLayout
+            android:id="@+id/zpaint_tools_brush"
+            style="@style/ZPaintToolSelectionButton"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                style="@style/ZPaintToolSelectionButtonImageView"
+                android:src="@drawable/ic_zpaint_tool_brush"
+                android:contentDescription="@string/button_brush" />
+            <TextView
+                style="@style/ZPaintToolSelectionButtonTextView"
+                android:text="@string/button_brush" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/zpaint_tools_pipette"
+            style="@style/ZPaintToolSelectionButton"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                style="@style/ZPaintToolSelectionButtonImageView"
+                android:src="@drawable/ic_zpaint_tool_pipette"
+                android:contentDescription="@string/button_pipette" />
+            <TextView
+                style="@style/ZPaintToolSelectionButtonTextView"
+                android:text="@string/button_pipette" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/zpaint_tools_eraser"
+            style="@style/ZPaintToolSelectionButton"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                style="@style/ZPaintToolSelectionButtonImageView"
+                android:src="@drawable/ic_zpaint_tool_eraser"
+                android:contentDescription="@string/button_eraser" />
+            <TextView
+                style="@style/ZPaintToolSelectionButtonTextView"
+                android:text="@string/button_eraser" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/zpaint_tools_rectangle"
+            style="@style/ZPaintToolSelectionButton"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                style="@style/ZPaintToolSelectionButtonImageView"
+                android:src="@drawable/ic_zpaint_tool_icons"
+                android:contentDescription="@string/button_shape" />
+            <TextView
+                style="@style/ZPaintToolSelectionButtonTextView"
+                android:text="@string/button_shape" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/zpaint_tools_fill"
+            style="@style/ZPaintToolSelectionButton"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                style="@style/ZPaintToolSelectionButtonImageView"
+                android:src="@drawable/ic_zpaint_tool_fill"
+                android:contentDescription="@string/button_fill" />
+            <TextView
+                style="@style/ZPaintToolSelectionButtonTextView"
+                android:text="@string/button_fill" />
+        </LinearLayout>
+    </TableRow>
+
+    <TableRow
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp">
+
+        <LinearLayout
+            android:id="@+id/zpaint_tools_text"
+            style="@style/ZPaintToolSelectionButton"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                style="@style/ZPaintToolSelectionButtonImageView"
+                android:src="@drawable/ic_zpaint_tool_text"
+                android:contentDescription="@string/button_text" />
+            <TextView
+                style="@style/ZPaintToolSelectionButtonTextView"
+                android:text="@string/button_text" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/zpaint_tools_transform"
+            style="@style/ZPaintToolSelectionButton"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                style="@style/ZPaintToolSelectionButtonImageView"
+                android:src="@drawable/ic_zpaint_tool_resize_adjust"
+                android:contentDescription="@string/button_transform" />
+            <TextView
+                style="@style/ZPaintToolSelectionButtonTextView"
+                android:text="@string/button_transform" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/zpaint_tools_import"
+            style="@style/ZPaintToolSelectionButton"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                style="@style/ZPaintToolSelectionButtonImageView"
+                android:src="@drawable/ic_zpaint_tool_import"
+                android:contentDescription="@string/button_import_image" />
+            <TextView
+                style="@style/ZPaintToolSelectionButtonTextView"
+                android:text="@string/button_import_image" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/zpaint_tools_smudge"
+            style="@style/ZPaintToolSelectionButton"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                style="@style/ZPaintToolSelectionButtonImageView"
+                android:src="@drawable/ic_zpaint_tool_smudge"
+                android:contentDescription="@string/button_smudge" />
+            <TextView
+                style="@style/ZPaintToolSelectionButtonTextView"
+                android:text="@string/button_smudge" />
+        </LinearLayout>
+    </TableRow>
+
+    <TableRow
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp">
+
+        <LinearLayout
+            android:id="@+id/zpaint_tools_retouch"
+            style="@style/ZPaintToolSelectionButton"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                style="@style/ZPaintToolSelectionButtonImageView"
+                android:src="@drawable/ic_zpaint_tool_retouch"
+                android:contentDescription="@string/button_retouch" />
+            <TextView
+                style="@style/ZPaintToolSelectionButtonTextView"
+                android:text="@string/button_retouch" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/zpaint_tools_perspective"
+            style="@style/ZPaintToolSelectionButton"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                style="@style/ZPaintToolSelectionButtonImageView"
+                android:src="@drawable/ic_zpaint_tool_perspective"
+                android:contentDescription="@string/button_perspective" />
+            <TextView
+                style="@style/ZPaintToolSelectionButtonTextView"
+                android:text="@string/button_perspective" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/zpaint_tools_rotate"
+            style="@style/ZPaintToolSelectionButton"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                style="@style/ZPaintToolSelectionButtonImageView"
+                android:src="@drawable/ic_zpaint_tool_rotate"
+                android:contentDescription="@string/button_rotate" />
+            <TextView
+                style="@style/ZPaintToolSelectionButtonTextView"
+                android:text="@string/button_rotate" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/zpaint_tools_place"
+            style="@style/ZPaintToolSelectionButton"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                style="@style/ZPaintToolSelectionButtonImageView"
+                android:src="@drawable/ic_zpaint_tool_place"
+                android:contentDescription="@string/button_place" />
+            <TextView
+                style="@style/ZPaintToolSelectionButtonTextView"
+                android:text="@string/button_place" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/zpaint_tools_selection"
+            style="@style/ZPaintToolSelectionButton"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                style="@style/ZPaintToolSelectionButtonImageView"
+                android:src="@drawable/ic_zpaint_tool_selection"
+                android:contentDescription="@string/button_selection" />
+            <TextView
+                style="@style/ZPaintToolSelectionButtonTextView"
+                android:text="@string/button_selection" />
+        </LinearLayout>
+    </TableRow>
+
+    <TableRow
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="12dp">
+
+        <LinearLayout
+            android:id="@+id/zpaint_tools_border"
+            style="@style/ZPaintToolSelectionButton"
+            tools:ignore="UseCompoundDrawables,InconsistentLayout">
+            <ImageView
+                style="@style/ZPaintToolSelectionButtonImageView"
+                android:src="@drawable/ic_zpaint_tool_border"
+                android:contentDescription="@string/button_border" />
+            <TextView
+                style="@style/ZPaintToolSelectionButtonTextView"
+                android:text="@string/button_border" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/zpaint_tools_align"
+            style="@style/ZPaintToolSelectionButton"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                style="@style/ZPaintToolSelectionButtonImageView"
+                android:src="@drawable/ic_zpaint_tool_align"
+                android:contentDescription="@string/button_align" />
+            <TextView
+                style="@style/ZPaintToolSelectionButtonTextView"
+                android:text="@string/button_align" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/zpaint_tools_speech_bubble"
+            style="@style/ZPaintToolSelectionButton"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                style="@style/ZPaintToolSelectionButtonImageView"
+                android:src="@drawable/ic_zpaint_tool_speech_bubble"
+                android:contentDescription="@string/button_speech_bubble" />
+            <TextView
+                style="@style/ZPaintToolSelectionButtonTextView"
+                android:text="@string/button_speech_bubble" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/zpaint_tools_warp"
+            style="@style/ZPaintToolSelectionButton"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                style="@style/ZPaintToolSelectionButtonImageView"
+                android:src="@drawable/ic_zpaint_tool_warp"
+                android:contentDescription="@string/button_warp" />
+            <TextView
+                style="@style/ZPaintToolSelectionButtonTextView"
+                android:text="@string/button_warp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/zpaint_tools_shadow"
+            style="@style/ZPaintToolSelectionButton"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView style="@style/ZPaintToolSelectionButtonImageView" android:src="@drawable/ic_zpaint_tool_shadow" android:contentDescription="@string/button_shadow" />
+            <TextView style="@style/ZPaintToolSelectionButtonTextView" android:text="@string/button_shadow" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/zpaint_tools_contours"
+            style="@style/ZPaintToolSelectionButton"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                style="@style/ZPaintToolSelectionButtonImageView"
+                android:src="@drawable/ic_zpaint_filter_contours"
+                android:contentDescription="@string/button_filter_contours" />
+            <TextView
+                style="@style/ZPaintToolSelectionButtonTextView"
+                android:text="@string/button_filter_contours" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+    </TableRow>
+</TableLayout>

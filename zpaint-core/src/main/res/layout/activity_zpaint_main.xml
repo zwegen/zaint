@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/zpaint_drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/zpaint_main_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true">
+
+            <include
+                android:id="@+id/zpaint_layout_top_bar"
+                layout="@layout/zpaint_layout_top_bar" />
+
+            <de.zwegen.zpaint.ui.ZaintDrawingSurface
+                android:id="@+id/zpaint_drawing_surface_view"
+                android:layout_below="@id/zpaint_layout_top_bar"
+                android:layout_above="@id/zpaint_main_bottom_navigation"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/zpaint_main_drawing_surface_active" />
+
+            <include
+                layout="@layout/zpaint_layout_tool_options"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/zpaint_main_bottom_bar"
+                android:layout_below="@+id/zpaint_layout_top_bar"/>
+
+            <androidx.core.widget.ContentLoadingProgressBar
+                android:id="@+id/zpaint_content_loading_progress_bar"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="gone"
+                />
+
+            <LinearLayout
+                android:id="@+id/zpaint_main_bottom_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/zpaint_main_bottom_navigation"
+                android:background="@android:color/background_light"
+                android:layout_alignParentBottom="false"
+                android:layout_alignParentStart="true"
+                android:visibility="gone">
+
+                <include layout="@layout/zpaint_layout_bottom_bar"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/zpaint_main_filter_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/zpaint_main_bottom_navigation"
+                android:background="@android:color/background_light"
+                android:layout_alignParentBottom="false"
+                android:layout_alignParentStart="true"
+                android:visibility="gone">
+
+                <include layout="@layout/zpaint_layout_filter_bar"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/zpaint_main_bottom_navigation"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/zpaint_main_bottom_bar_height"
+                android:alpha="0.80"
+                android:background="?attr/colorPrimary"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true">
+
+                <include layout="@layout/zpaint_layout_bottom_navigation"/>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/zpaint_nav_view_layer"
+            android:layout_width="216dp"
+            android:background="@drawable/layer_nav_view_background_ltr"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center"
+            android:clickable="true"
+            android:focusable="true">
+
+            <include layout="@layout/zpaint_layout_main_menu_layer"
+                android:layout_width="216dp"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.navigation.NavigationView>
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</RelativeLayout>

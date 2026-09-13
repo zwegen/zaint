@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="ZPaintTitleTextStyle">
+    <item name="android:textColor">@color/zpaint_colorAccent</item>
+    <item name="android:textAppearance">@style/TextAppearance.AppCompat.Title</item>
+    </style>
+
+    <style name="ZPaintAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowTitleStyle">@style/ZPaintTitleTextStyle</item>
+        <item name="android:textColor">@color/zpaint_colorAccent</item>
+        <item name="android:textColorLink">@color/zpaint_text_color_link</item>
+        <item name="colorAccent">@color/zpaint_colorAccent</item>
+    </style>
+
+    <style name="ZPaintProgressDialog" parent="ZPaintAlertDialog">
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowMinWidthMajor">0%</item>
+        <item name="android:windowMinWidthMinor">0%</item>
+    </style>
+
+    <style name="ZPaintSplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/zpaint_splash</item>
+        <item name="android:statusBarColor">@color/zpaint_colorPrimaryDark</item>
+        <item name="android:navigationBarColor">@color/zpaint_colorPrimaryDark</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
+    </style>
+
+    <style name="ZPaintTheme" parent="ZPaintTheme.Base">
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowAllowEnterTransitionOverlap">true</item>
+        <item name="android:windowAllowReturnTransitionOverlap">true</item>
+        <item name="android:windowSharedElementEnterTransition">@android:transition/move</item>
+        <item name="android:windowSharedElementExitTransition">@android:transition/move</item>
+        <item name="bottomNavigationStyle">@style/AppBottomNavigation</item>
+        <item name="appBarLayoutStyle">@style/appBarLayout</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColorHint">@android:color/tab_indicator_text</item>
+    </style>
+
+    <style name="TextFieldTheme" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="hintEnabled">false</item>
+    </style>
+
+    <style name="ChipTheme" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipStrokeColor">@color/zpaint_color_picker_gray</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="chipIconVisible">true</item>
+        <item name="textStartPadding">0dp</item>
+        <item name="textEndPadding">0dp</item>
+        <item name="chipStartPadding">16dp</item>
+        <item name="chipEndPadding">16dp</item>
+        <item name="chipBackgroundColor">@color/background_color_chip_state_list</item>
+        <item name="android:textColor">@color/textcolor_togglebutton</item>
+    </style>
+
+    <style name="appBarLayout" parent="Widget.MaterialComponents.AppBarLayout.Primary" />
+
+    <style name="DropdownMenu" parent="Theme.MaterialComponents.Light">
+        <item name="colorSecondary">@android:color/white</item>
+    </style>
+
+    <style name="ZaintMoreMenuAnimation">
+        <item name="android:windowEnterAnimation">@anim/zaint_more_menu_enter</item>
+        <item name="android:windowExitAnimation">@anim/zaint_more_menu_exit</item>
+    </style>
+
+    <style name="ZPaintSelectableButton" parent="Base.Widget.AppCompat.Button.Borderless">
+        <item name="android:background">@drawable/zpaint_selectable_button_bg</item>
+    </style>
+
+
+
+
+    <style name="ZPaintTheme.Base" parent="Theme.MaterialComponents.NoActionBar.Bridge">
+        <item name="android:windowBackground">@color/zpaint_colorPrimary</item>
+        <item name="dialogTheme">@style/ZPaintAlertDialog</item>
+        <item name="colorPrimary">@color/zpaint_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/zpaint_colorPrimaryDark</item>
+        <item name="colorAccent">@color/zpaint_colorAccent</item>
+        <item name="actionBarStyle">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="colorSurface">@color/design_default_color_surface</item>
+        <item name="seekBarStyle">@style/CustomSeekBarStyle</item>
+        <item name="editTextStyle">@style/CustomEditTextStyle</item>
+        <item name="spinnerStyle">@style/CustomSpinnerStyle</item>
+        <item name="android:textViewStyle">@style/CustomTextViewStyle</item>
+        <item name="android:buttonStyleToggle">@style/CustomToggleButtonStyle</item>
+        <item name="android:buttonStyle">@style/CustomButtonStyle</item>
+        <item name="colorControlActivated">?colorAccent</item>
+        <item name="bottomNavigationStyle">@style/CustomBottomNavigationViewStyle</item>
+        <item name="colorButtonNormal">@color/zpaint_lighter_gray</item>
+        <item name="android:statusBarColor">@color/zpaint_colorPrimaryDark</item>
+        <item name="android:navigationBarColor">@color/zpaint_colorPrimaryDark</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+    </style>
+
+    <style name="CustomBottomNavigationViewStyle" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="backgroundTint">@color/zpaint_colorPrimary</item>
+    </style>
+
+    <style name="CustomToggleButtonStyle" parent="android:Widget.Material.Light.Button.Toggle">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="background">@drawable/btn_toggle_material_background</item>
+    </style>
+
+    <style name="CustomButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="backgroundTint">@color/zpaint_lighter_gray</item>
+    </style>
+
+    <style name="CustomTextViewStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+    <style name="CustomSpinnerStyle" parent="Widget.AppCompat.Spinner">
+        <item name="backgroundTint">@android:color/darker_gray</item>
+        <item name="android:popupBackground">@android:color/white</item>
+    </style>
+
+    <style name="CustomEditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="backgroundTint">?colorAccent</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColorHint">@android:color/darker_gray</item>
+    </style>
+
+    <style name="CustomSeekBarStyle" parent="Widget.AppCompat.SeekBar">
+        <item name="android:progressBackgroundTint">@color/zpaint_color_picker_gray</item>
+        <item name="android:progressTint">?attr/colorAccent</item>
+        <item name="android:colorControlActivated">?attr/colorAccent</item>
+    </style>
+
+    <style name="ZPaintHighlightColorTheme" parent="ZPaintTheme">
+        <item name="colorControlHighlight">@color/zpaint_main_bottom_bar_selected</item>
+    </style>
+
+    <style name="ZPaintDividerBase">
+        <item name="android:background">@color/zpaint_main_separator_color</item>
+    </style>
+
+    <style name="ZPaintToolSelectionButton" parent="Base.Widget.AppCompat.Button.Borderless">
+        <item name="android:background">?selectableItemBackgroundBorderless</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="ZPaintToolSelectionButtonImageView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:tint">@android:color/black</item>
+    </style>
+
+    <style name="ZPaintToolSelectionButtonTextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="ZPaintToolSubtitle">
+        <item name="android:layout_marginStart">24dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/zpaint_colorAccent</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ZPaintToolSectionDivider" parent="ZPaintDividerBase">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">2dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:layout_marginStart">24dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+
+    <style name="ZPaintToolSection">
+        <item name="android:layout_marginStart">24dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="ZPaintToolHorizontalSpace">
+        <item name="android:layout_width">8dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+
+
+
+    <style name="BottomNavigationViewLabel" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="AppBottomNavigation" parent="Widget.MaterialComponents.BottomNavigationView.Colored" />
+
+
+    <style name="CircularToggleButtonStyle" parent="@style/Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:textColor">@color/textcolor_togglebutton</item>
+        <item name="android:backgroundTint">@color/background_togglebutton</item>
+        <item name="android:padding">0dp</item>
+        <item name="iconPadding">0dp</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MyApp.Button.Circle</item>
+        <item name="strokeColor">@color/zpaint_colorPrimary</item>
+        <item name="strokeWidth">1dp</item>
+    </style>
+
+    <style name="SquareToggleButtonStyle" parent="@style/CircularToggleButtonStyle">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.ZPaint.Button.Square</item>
+    </style>
+
+    <!-- Common square icon-button base for MaterialButton tools such as brush and selection. -->
+    <style name="ZaintSquareIconButtonStyle" parent="@style/SquareToggleButtonStyle">
+        <item name="android:textColor">@color/selection_tool_button_icon</item>
+        <item name="android:backgroundTint">@color/selection_tool_button_background</item>
+        <item name="iconTint">@color/selection_tool_button_icon</item>
+        <item name="strokeColor">@color/transform_scope_stroke_color</item>
+    </style>
+
+    <style name="ZaintSquareIconButtonGroupStartStyle" parent="@style/ZaintSquareIconButtonStyle">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.ZPaint.Button.GroupStart</item>
+    </style>
+
+    <style name="ZaintSquareIconButtonGroupMiddleStyle" parent="@style/ZaintSquareIconButtonStyle">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.ZPaint.Button.GroupMiddle</item>
+    </style>
+
+    <style name="ZaintSquareIconButtonGroupEndStyle" parent="@style/ZaintSquareIconButtonStyle">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.ZPaint.Button.GroupEnd</item>
+    </style>
+
+    <!-- Kept as an alias while existing layouts move to the shared name gradually. -->
+    <style name="SelectionToolSquareButtonStyle" parent="@style/ZaintSquareIconButtonStyle" />
+
+    <!-- Common square icon-button base for ImageButton tools such as fill and shadow. -->
+    <style name="ZaintSquareImageButtonStyle" parent="Base.Widget.AppCompat.ImageButton">
+        <item name="android:background">@drawable/zpaint_square_icon_button_bg</item>
+        <item name="android:tint">@color/zpaint_square_icon_button_icon</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="ZaintSquareImageButtonGroupStartStyle" parent="@style/ZaintSquareImageButtonStyle">
+        <item name="android:background">@drawable/zpaint_square_icon_button_group_start_bg</item>
+    </style>
+
+    <style name="ZaintSquareImageButtonGroupMiddleStyle" parent="@style/ZaintSquareImageButtonStyle">
+        <item name="android:background">@drawable/zpaint_square_icon_button_group_middle_bg</item>
+    </style>
+
+    <style name="ZaintSquareImageButtonGroupEndStyle" parent="@style/ZaintSquareImageButtonStyle">
+        <item name="android:background">@drawable/zpaint_square_icon_button_group_end_bg</item>
+    </style>
+
+
+    <style name="ShapeAppearanceOverlay.MyApp.Button.Circle" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.ZPaint.Button.Square" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">4dp</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.ZPaint.Button.GroupStart" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">4dp</item>
+        <item name="cornerSizeBottomLeft">4dp</item>
+        <item name="cornerSizeTopRight">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.ZPaint.Button.GroupMiddle" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">0dp</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.ZPaint.Button.GroupEnd" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeTopRight">4dp</item>
+        <item name="cornerSizeBottomRight">4dp</item>
+    </style>
+</resources>

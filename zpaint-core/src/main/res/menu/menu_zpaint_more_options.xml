@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="UnusedResources">
+    <item
+        android:id="@+id/zpaint_options_new_image"
+        android:title="@string/menu_new_image" />
+    <item
+        android:id="@+id/zpaint_options_open_image"
+        android:title="@string/menu_load_image" />
+    <item
+        android:id="@+id/zpaint_options_save_as"
+        android:title="@string/menu_save_image" />
+    <item
+        android:id="@+id/zpaint_share_image_button"
+        android:title="@string/share_image_menu" />
+    <item
+        android:id="@+id/zpaint_options_quit"
+        android:title="@string/menu_quit" />
+</menu>

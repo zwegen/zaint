@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/zpaint_rotate_top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/zpaint_rotate_angle_input_layout"
+            style="@style/TextFieldTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="10dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/zpaint_rotate_angle_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/zpaint_round_rect_shape"
+                android:gravity="center"
+                android:imeOptions="actionDone"
+                android:importantForAutofill="no"
+                android:inputType="numberSigned"
+                android:layoutDirection="ltr"
+                android:minEms="3"
+                android:padding="4dp"
+                android:saveEnabled="false"
+                android:textColor="?attr/colorAccent"
+                android:textStyle="bold" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:id="@+id/zpaint_rotate_seek_bar_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/zpaint_rotate_angle_input_layout"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:layout_toEndOf="@id/zpaint_rotate_angle_input_layout"
+            android:orientation="vertical">
+
+            <SeekBar
+                android:id="@+id/zpaint_rotate_seek_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="30dip" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="4dp"
+                android:translationY="-8dp"
+                android:text="@string/slider_label_angle"
+                android:textColor="@color/zpaint_save_cancel_button"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/zpaint_rotate_zero_marker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/zpaint_zero_marker"
+                android:textColor="?attr/colorAccent"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/zpaint_rotate_bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/zpaint_rotate_button_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="12dp"
+            tools:ignore="UselessParent">
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/zpaint_rotate_turn_buttons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                app:selectionRequired="false"
+                app:singleSelection="false">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/zpaint_rotate_left_btn"
+                    style="@style/SelectionToolSquareButtonStyle"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:checkable="false"
+                    android:contentDescription="@string/transform_tool_rotate_left"
+                    app:icon="@drawable/ic_zpaint_tool_rotate_left"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/zpaint_rotate_right_btn"
+                    style="@style/SelectionToolSquareButtonStyle"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:checkable="false"
+                    android:contentDescription="@string/transform_tool_rotate_right"
+                    app:icon="@drawable/ic_zpaint_rotate_right"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp" />
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/zpaint_rotate_mirror_buttons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                tools:ignore="RelativeOverlap"
+                app:selectionRequired="false"
+                app:singleSelection="false">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/zpaint_rotate_flip_vertical_btn"
+                    style="@style/SelectionToolSquareButtonStyle"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:checkable="false"
+                    android:contentDescription="@string/transform_tool_flip_vertical"
+                    app:icon="@drawable/ic_zpaint_tool_flip_vertical"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/zpaint_rotate_flip_horizontal_btn"
+                    style="@style/SelectionToolSquareButtonStyle"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:checkable="false"
+                    android:contentDescription="@string/transform_tool_flip_horizontal"
+                    app:icon="@drawable/ic_zpaint_tool_flip_horizontal"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp" />
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

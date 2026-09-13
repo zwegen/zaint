@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/zaint_more_menu_background"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/zpaint_save_dialog_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/dialog_save_image_title"
+            android:textColor="@color/zpaint_colorAccent"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/zpaint_save_close_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/zpaint_dialog_close_button_bg"
+            android:backgroundTint="@null"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:padding="0dp"
+            android:text="@string/zpaint_close_symbol"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:backgroundTint="@null" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/zpaint_colorPrimarySelected" />
+
+    <TextView
+        android:id="@+id/zpaint_save_info_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="@string/dialog_save_image_name"
+        android:textColor="@android:color/white"
+        android:textSize="12sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/zpaint_save_folder_prefix"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/zpaint_image_name_save_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/zpaint_colorAccent"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:textColor="@android:color/white"
+            android:textColorHint="@color/zpaint_lighter_gray"
+            android:textSize="14sp"
+            tools:ignore="LabelFor" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="18dp"
+        android:background="@color/zpaint_colorPrimarySelected" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/zpaint_image_format_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/dialog_save_image_format"
+            android:textColor="@android:color/white"
+            android:textSize="12sp" />
+
+        <ImageButton
+            android:id="@+id/zpaint_btn_save_info"
+            style="@style/ZPaintSelectableButton"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:contentDescription="@string/button_info"
+            android:padding="8dp"
+            android:src="@drawable/ic_zpaint_save_info"
+            app:tint="@android:color/white" />
+    </LinearLayout>
+
+    <RadioGroup
+        android:id="@+id/zpaint_save_format_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/zpaint_save_format_png"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:buttonTint="@color/zpaint_save_choice_tint"
+            android:text="@string/zpaint_png_title_dialog"
+            android:textColor="@android:color/white"
+            android:textSize="14sp" />
+
+        <RadioButton
+            android:id="@+id/zpaint_save_format_jpg"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:buttonTint="@color/zpaint_save_choice_tint"
+            android:text="@string/zpaint_jpg_title_dialog"
+            android:textColor="@android:color/white"
+            android:textSize="14sp" />
+
+        <RadioButton
+            android:id="@+id/zpaint_save_format_zaint"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:buttonTint="@color/zpaint_save_choice_tint"
+            android:text="@string/zpaint_zaint_title_dialog"
+            android:textColor="@android:color/white"
+            android:textSize="14sp" />
+    </RadioGroup>
+
+    <RelativeLayout
+        android:id="@+id/zpaint_save_format_specific_options"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:clipToPadding="false" />
+
+    <View
+        android:id="@+id/zpaint_save_options_separator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/zpaint_colorPrimarySelected" />
+
+    <TextView
+        android:id="@+id/zpaint_save_options_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="@string/dialog_save_options"
+        android:textColor="@android:color/white"
+        android:textSize="12sp" />
+
+    <CheckBox
+        android:id="@+id/zpaint_remove_metadata_checkbox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:buttonTint="@color/zpaint_save_choice_tint"
+        android:checked="true"
+        android:text="@string/dialog_save_remove_metadata"
+        android:textColor="@android:color/white"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:id="@+id/zpaint_save_action_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/zpaint_save_in_button"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:background="@drawable/zpaint_save_cancel_button_bg"
+            android:backgroundTint="@null"
+            android:layout_weight="1"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="@string/save_in_button_text"
+            android:textColor="@android:color/white"
+            app:backgroundTint="@null" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/zpaint_save_confirm_button"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/zpaint_save_confirm_button_bg"
+            android:backgroundTint="@null"
+            android:layout_weight="1"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="@string/save_button_text"
+            android:textColor="@android:color/white"
+            app:backgroundTint="@null" />
+    </LinearLayout>
+</LinearLayout>

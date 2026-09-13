@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@android:color/transparent"
+    android:focusableInTouchMode="true">
+
+    <LinearLayout
+        android:id="@+id/zpaint_fill_gradient_controls"
+        style="@style/ZPaintToolSection"
+        android:gravity="center_vertical"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="12dp">
+
+        <ImageButton
+            android:id="@+id/zpaint_fill_image"
+            style="@style/ZaintSquareImageButtonStyle"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginEnd="4dp"
+            android:contentDescription="@string/fill_tool_dialog_image"
+            android:src="@drawable/ic_zpaint_tool_import" />
+
+        <ImageButton
+            android:id="@+id/zpaint_fill_color_0"
+            style="?actionButtonStyle"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="-1dp"
+            android:background="@drawable/zpaint_gradient_color_swatch"
+            android:contentDescription="@string/fill_tool_dialog_add_color" />
+
+        <ImageButton
+            android:id="@+id/zpaint_fill_color_1"
+            style="?actionButtonStyle"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="-1dp"
+            android:background="@drawable/zpaint_gradient_color_swatch"
+            android:contentDescription="@string/fill_tool_dialog_add_color" />
+
+        <ImageButton
+            android:id="@+id/zpaint_fill_color_2"
+            style="?actionButtonStyle"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="-1dp"
+            android:background="@drawable/zpaint_gradient_color_swatch"
+            android:contentDescription="@string/fill_tool_dialog_add_color" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:id="@+id/zpaint_fill_gradient_top_bottom"
+            style="@style/ZaintSquareImageButtonGroupStartStyle"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:contentDescription="@string/fill_tool_dialog_gradient_top_bottom"
+            android:src="@drawable/ic_zpaint_gradient_linear_rotatable" />
+
+        <ImageButton
+            android:id="@+id/zpaint_fill_gradient_wave"
+            style="@style/ZaintSquareImageButtonGroupMiddleStyle"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="-1dp"
+            android:contentDescription="@string/fill_tool_dialog_gradient_wave"
+            android:src="@drawable/ic_zpaint_gradient_wave_rotatable" />
+
+        <ImageButton
+            android:id="@+id/zpaint_fill_gradient_radial"
+            style="@style/ZaintSquareImageButtonGroupEndStyle"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="-1dp"
+            android:contentDescription="@string/fill_tool_dialog_gradient_radial"
+            android:src="@drawable/ic_zpaint_gradient_radial_outward" />
+
+    </LinearLayout>
+
+</LinearLayout>

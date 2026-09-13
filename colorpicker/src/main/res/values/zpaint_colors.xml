@@ -1,0 +1,5 @@
+<resources>
+    <color name="zpaint_color_picker_white">#FFFFFFFF</color>
+    <color name="zpaint_color_picker_gray">#FF9E9E9E</color>
+    <string name="color_picker_title">Farbe</string>
+</resources>
