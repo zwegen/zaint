@@ -1,0 +1,8 @@
+repository: https://github.com/zwegen/zaint
+images:
+    - zaint_01.png
+    - zaint_02.png
+    - zaint_03.png
+metadata_sources:
+    - github
+pubkey: npub18xg25ns8m8hhsjtgnsxzpty2ftepu857xsafsqy5nm0jftpvzkyqgv4c2c
