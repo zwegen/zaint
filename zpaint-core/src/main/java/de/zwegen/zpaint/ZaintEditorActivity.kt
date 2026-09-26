@@ -646,7 +646,7 @@ class ZaintEditorActivity : AppCompatActivity(), MainView, CommandListener, Colo
                     showCheckmarkProgress()
                 }
             } else if (toolReference.tool is ZaintFillTool) {
-                (toolReference.tool as ZaintFillTool).applyImageFill()
+                (toolReference.tool as ZaintFillTool).applyPendingFill()
             } else if (toolReference.tool is FilterTool) {
                 val tool = toolReference.tool as FilterTool?
                 if (tool?.commitPendingFilter() == true) {
@@ -657,6 +657,9 @@ class ZaintEditorActivity : AppCompatActivity(), MainView, CommandListener, Colo
                 tool?.onClickOnButton()
             }
             idlingResource.decrement()
+        }
+        topBar.imageFillGestureModeButton.setOnClickListener {
+            (toolReference.tool as? ZaintFillTool)?.toggleViewTransformMode()
         }
         topBar.layerPlusButton.setOnClickListener {
             (toolReference.tool as? ZaintShapeToolBase)?.onClickOnNewLayerButton()

@@ -73,6 +73,16 @@ class GradientFillCommand(
         applyGradient(bitmap, mask)
     }
 
+    /** Renders this gradient into a transparent preview bitmap using an already selected mask. */
+    internal fun renderPreviewInto(bitmap: Bitmap, selected: BooleanArray) {
+        require(selected.size == bitmap.width * bitmap.height)
+        val bounds = FillBounds()
+        selected.forEachIndexed { index, isSelected ->
+            if (isSelected) bounds.include(index % bitmap.width, index / bitmap.width)
+        }
+        if (!bounds.isEmpty) applyCpuGradient(bitmap, FillMask(selected, bounds))
+    }
+
     private fun createFillMask(bitmap: Bitmap): FillMask {
         val width = bitmap.width
         val height = bitmap.height

@@ -158,10 +158,10 @@ class ZaintTextTool(
     private var textSize = DEFAULT_TEXT_SIZE
     private var lineSpacingPercent = DEFAULT_LINE_SPACING_PERCENT
     private var letterSpacingPercent = DEFAULT_LETTER_SPACING_PERCENT
-    private var showVerticalCenterGuide = false
-    private var showHorizontalCenterGuide = false
+    private var verticalTextGuide: Float? = null
+    private var horizontalTextGuide: Float? = null
     private var isTextBoxBeingDragged = false
-    private val centerGuideSnap = CanvasCenterGuideSnap()
+    private val textBoxGuideSnap = TextBoxGuideSnap()
     private val angleSnap = FloatingBoxAngleSnap(
         ANGLE_SNAP_DISTANCE_DEGREES,
         ANGLE_SNAP_RELEASE_DISTANCE_DEGREES
@@ -408,7 +408,7 @@ class ZaintTextTool(
             userDefinedTextBoxHeight = true
         }
         if (isTextBoxBeingDragged) {
-            snapTextBoxToImageCenter(coordinate)
+            snapTextBoxToImageGuides(coordinate)
             workspace.invalidate()
         }
         return handled
@@ -442,8 +442,8 @@ class ZaintTextTool(
             return true
         }
         isTextBoxBeingDragged = false
-        showVerticalCenterGuide = false
-        showHorizontalCenterGuide = false
+        verticalTextGuide = null
+        horizontalTextGuide = null
         lockedSnapAngle = null
         showAngleSnapGuide = false
         resetCenterSnapLocks()
@@ -457,7 +457,7 @@ class ZaintTextTool(
     }
 
     override fun drawToolSpecifics(canvas: Canvas, boxWidth: Float, boxHeight: Float) {
-        drawCenterGuides(canvas)
+        drawTextGuides(canvas)
         drawAngleSnapGuide(canvas)
         drawCurvatureSnapGuide(canvas)
         super.drawToolSpecifics(canvas, boxWidth, boxHeight)
@@ -525,22 +525,25 @@ class ZaintTextTool(
         linePaint.style = Paint.Style.STROKE
     }
 
-    private fun snapTextBoxToImageCenter(coordinate: PointF?) {
-        val result = centerGuideSnap.resolve(
+    private fun snapTextBoxToImageGuides(coordinate: PointF?) {
+        val result = textBoxGuideSnap.resolve(
             toolPosition.x,
             toolPosition.y,
             coordinate?.x,
             coordinate?.y,
             workspace.width.toFloat(),
-            workspace.height.toFloat()
+            workspace.height.toFloat(),
+            boxWidth,
+            boxHeight,
+            boxRotation
         )
         toolPosition.set(result.x, result.y)
-        showVerticalCenterGuide = result.showVerticalGuide
-        showHorizontalCenterGuide = result.showHorizontalGuide
+        verticalTextGuide = result.verticalGuide
+        horizontalTextGuide = result.horizontalGuide
     }
 
     private fun resetCenterSnapLocks() {
-        centerGuideSnap.reset()
+        textBoxGuideSnap.reset()
     }
 
     private fun drawAngleSnapGuide(canvas: Canvas) {
@@ -570,19 +573,17 @@ class ZaintTextTool(
         return lockedSnapAngle ?: rawRotation
     }
 
-    private fun drawCenterGuides(canvas: Canvas) {
-        CanvasCenterGuideRenderer.draw(
-            canvas,
-            workspace.width.toFloat(),
-            workspace.height.toFloat(),
-            toolPosition.x,
-            toolPosition.y,
-            boxRotation,
-            currentCanvasScale(),
-            linePaint,
-            showVerticalCenterGuide,
-            showHorizontalCenterGuide
-        )
+    private fun drawTextGuides(canvas: Canvas) {
+        verticalTextGuide?.let { x ->
+            val start = workspacePointToBoxCanvasPoint(x, 0f)
+            val stop = workspacePointToBoxCanvasPoint(x, workspace.height.toFloat())
+            drawCenterGuideLine(canvas, start.x, start.y, stop.x, stop.y)
+        }
+        horizontalTextGuide?.let { y ->
+            val start = workspacePointToBoxCanvasPoint(0f, y)
+            val stop = workspacePointToBoxCanvasPoint(workspace.width.toFloat(), y)
+            drawCenterGuideLine(canvas, start.x, start.y, stop.x, stop.y)
+        }
     }
 
     private fun workspacePointToBoxCanvasPoint(x: Float, y: Float): PointF {

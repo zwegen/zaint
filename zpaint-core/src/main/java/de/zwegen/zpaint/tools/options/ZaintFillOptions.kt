@@ -21,5 +21,6 @@ interface ZaintFillOptions {
         fun onRemoveFillColor(index: Int)
         fun onImageFillSelected()
         fun onImageFillDeselected()
+        fun onFillAntialiasingChanged(enabled: Boolean)
     }
 }

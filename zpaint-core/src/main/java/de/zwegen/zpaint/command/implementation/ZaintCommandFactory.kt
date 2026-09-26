@@ -3,6 +3,7 @@ package de.zwegen.zpaint.command.implementation
 import android.graphics.Bitmap
 import android.graphics.Paint
 import android.graphics.PointF
+import android.graphics.Rect
 import de.zwegen.zpaint.command.Command
 import de.zwegen.zpaint.command.ZaintCommandFactoryApi
 import de.zwegen.zpaint.command.ColorChangeTarget
@@ -208,6 +209,14 @@ class ZaintCommandFactory : ZaintCommandFactoryApi {
         boxWidth,
         boxHeight,
         boxRotation
+    )
+
+    override fun createMaskedClearCommand(
+        mask: Bitmap,
+        bounds: Rect
+    ): Command = ZaintMaskedClear(
+        mask,
+        Rect(bounds)
     )
 
     override fun createCutCommand(

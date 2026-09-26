@@ -11,7 +11,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.widget.AppCompatSeekBar
+import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
 import com.google.android.material.textfield.TextInputEditText
 import de.zwegen.zpaint.R
@@ -39,6 +41,7 @@ class ZaintFillOptionsPanel(
     private val waveDirectionButton: ImageButton
     private val radialDirectionButton: ImageButton
     private val imageFillButton: ImageButton
+    private val imageFillAntialiasingSwitch: SwitchCompat
     private val primaryColor: Int
     private val toleranceControl: ZaintTopNumberSlider
 
@@ -73,6 +76,12 @@ class ZaintFillOptionsPanel(
         waveDirectionButton = fillControls.findViewById(R.id.zpaint_fill_gradient_wave)
         radialDirectionButton = fillControls.findViewById(R.id.zpaint_fill_gradient_radial)
         imageFillButton = fillControls.findViewById(R.id.zpaint_fill_image)
+        imageFillAntialiasingSwitch = toleranceControls.findViewById(R.id.zpaint_fill_antialiasing)
+        toleranceControls.findViewById<TextView>(R.id.zpaint_fill_antialiasing_label)
+            .setOnClickListener { imageFillAntialiasingSwitch.toggle() }
+        imageFillAntialiasingSwitch.setOnCheckedChangeListener { _, checked ->
+            listener?.onFillAntialiasingChanged(checked)
+        }
 
         toleranceInput.filters = arrayOf(
             InputFilter { source, _, _, destination, dstart, dend ->

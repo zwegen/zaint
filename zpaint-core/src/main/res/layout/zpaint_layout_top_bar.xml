@@ -91,6 +91,16 @@
                 android:visibility="gone" />
 
             <ImageButton
+                android:id="@+id/zpaint_btn_top_fill_gesture_mode"
+                style="?actionButtonStyle"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:contentDescription="@string/fill_tool_transform_mode"
+                android:src="@drawable/ic_zpaint_fill_transform"
+                android:visibility="gone"
+                app:tint="@android:color/white" />
+
+            <ImageButton
                 android:id="@+id/zpaint_btn_top_checkmark"
                 style="?actionButtonStyle"
                 android:layout_width="48dp"

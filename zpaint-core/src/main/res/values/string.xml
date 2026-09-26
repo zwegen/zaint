@@ -55,6 +55,8 @@
     <string name="button_filter_contours">Contours</string>
     <string name="button_continue_line">Continue line</string>
     <string name="button_checkmark">Checkmark</string>
+    <string name="fill_tool_view_mode">Move and zoom canvas</string>
+    <string name="fill_tool_transform_mode">Transform fill image</string>
     <string name="speech_bubble_oval">Oval speech bubble</string>
     <string name="speech_bubble_rectangle">Rectangular speech bubble</string>
     <string name="speech_bubble_cloud">Cloud speech bubble</string>
@@ -220,6 +222,7 @@
     <string name="fill_tool_dialog_gradient_radial">Radial fill</string>
     <string name="fill_tool_dialog_gradient_wave">Random wave fill</string>
     <string name="fill_tool_dialog_image">Fill with image</string>
+    <string name="fill_tool_antialiasing">Antialiasing</string>
     <string name="fill_tool_dialog_tap_area">Tap an area</string>
     <string name="filter_tool_dialog_exposure_title">Exposure</string>
     <string name="filter_tool_dialog_brightness_title">Brightness</string>

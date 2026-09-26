@@ -17,6 +17,7 @@ import de.zwegen.zpaint.command.implementation.FillGradientDirection
 import de.zwegen.zpaint.tools.ContextCallback
 import de.zwegen.zpaint.tools.ToolPaint
 import de.zwegen.zpaint.tools.TwoFingerTransformTool
+import de.zwegen.zpaint.tools.Tool.StateChange
 import de.zwegen.zpaint.tools.ZaintToolKind
 import de.zwegen.zpaint.tools.Workspace
 import de.zwegen.zpaint.tools.options.ZaintToolOptionsController
@@ -60,6 +61,9 @@ class ZaintFillTool(
     private var direction = FillGradientDirection.TOP_BOTTOM
     private var imageSource: Bitmap? = null
     private var imagePreview: ImageFillPreview? = null
+    private var fillAntialiasing = true
+    private var colorPreview: ColorFillPreview? = null
+    private var viewTransformMode = false
     private var previousTransformDistance = 0f
     private var previousTransformAngle = 0f
     private var previousTransformMidpoint = PointF()
@@ -85,17 +89,17 @@ class ZaintFillTool(
         options.renderFillColors(palette)
         options.setListener(object : ZaintFillOptions.Listener {
             override fun onToleranceSelected(percent: Int) {
-                clearImageFillPreview()
+                clearPendingFillPreviews()
                 colorTolerance = percent.toAbsoluteTolerance()
             }
 
             override fun onGradientDirectionSelected(direction: FillGradientDirection) {
-                clearImageFillPreview()
+                clearPendingFillPreviews()
                 this@ZaintFillTool.direction = direction
             }
 
             override fun onAddFillColor() {
-                clearImageFillPreview()
+                clearPendingFillPreviews()
                 if (palette.size == MAX_PALETTE_SIZE) return
 
                 palette += Color.WHITE
@@ -105,7 +109,7 @@ class ZaintFillTool(
             }
 
             override fun onFillColorSelected(index: Int) {
-                clearImageFillPreview()
+                clearPendingFillPreviews()
                 if (index !in palette.indices) return
 
                 activePaletteIndex = index
@@ -114,7 +118,7 @@ class ZaintFillTool(
             }
 
             override fun onRemoveFillColor(index: Int) {
-                clearImageFillPreview()
+                clearPendingFillPreviews()
                 if (palette.size == MIN_PALETTE_SIZE || index !in palette.indices) return
 
                 palette.removeAt(index)
@@ -133,7 +137,14 @@ class ZaintFillTool(
 
             override fun onImageFillDeselected() {
                 imageSource = null
-                clearImageFillPreview()
+                clearPendingFillPreviews()
+            }
+
+            override fun onFillAntialiasingChanged(enabled: Boolean) {
+                fillAntialiasing = enabled
+                imagePreview?.setAntialiasing(enabled)
+                colorPreview?.setAntialiasing(enabled)
+                workspace.invalidate()
             }
         })
     }
@@ -147,6 +158,10 @@ class ZaintFillTool(
 
     override fun handleDown(coordinate: PointF?): Boolean {
         if (imagePreview == null || coordinate == null) return false
+        if (viewTransformMode) {
+            previewWasDragged = true
+            return true
+        }
         previousEventCoordinate = PointF(coordinate.x, coordinate.y)
         previewGestureStart = PointF(coordinate.x, coordinate.y)
         previewWasDragged = false
@@ -155,6 +170,7 @@ class ZaintFillTool(
 
     override fun handleMove(coordinate: PointF?, shouldAnimate: Boolean): Boolean {
         val preview = imagePreview ?: return false
+        if (viewTransformMode) return false
         val previous = previousEventCoordinate ?: return false
         coordinate ?: return false
         previewGestureStart?.let { start ->
@@ -188,21 +204,13 @@ class ZaintFillTool(
             return true
         }
 
-        val x = coordinate.x.toInt()
-        val y = coordinate.y.toInt()
-        val command = if (palette.size >= GRADIENT_PALETTE_SIZE) {
-            commandFactory.createGradientFillCommand(
-                x,
-                y,
-                toolPaint.paint,
-                colorTolerance,
-                palette.toIntArray(),
-                direction
-            )
+        if (colorPreview == null) {
+            addColorFillRegion(coordinate, createsPreview = true) ?: return false
+            toolOptionsViewController.showCheckmark()
         } else {
-            commandFactory.createFillCommand(x, y, toolPaint.paint, colorTolerance)
+            toggleColorFillRegion(coordinate)
         }
-        commandManager.addCommand(command)
+        workspace.invalidate()
         return true
     }
 
@@ -217,7 +225,12 @@ class ZaintFillTool(
     override fun toolPositionCoordinates(coordinate: PointF): PointF = coordinate
 
     override fun resetInternalState() {
-        clearImageFillPreview()
+        clearPendingFillPreviews()
+    }
+
+    override fun resetInternalState(stateChange: StateChange) {
+        if (stateChange == StateChange.MOVE_CANCELED && (viewTransformMode || colorPreview != null)) return
+        super.resetInternalState(stateChange)
     }
 
     override val toolType: ZaintToolKind = ZaintToolKind.FILL
@@ -232,35 +245,69 @@ class ZaintFillTool(
 
     override fun draw(canvas: Canvas) {
         imagePreview?.draw(canvas)
+        colorPreview?.draw(canvas, toolPaint.checkeredShader)
         tapAreaHintCenter?.let { center -> drawTapAreaHint(canvas, center) }
     }
 
     fun setBitmapFromSource(bitmap: Bitmap) {
         imageSource = bitmap
-        clearImageFillPreview()
+        clearPendingFillPreviews()
         options.renderImageFillSelected(true)
         showTapAreaHint()
         workspace.invalidate()
     }
 
-    fun applyImageFill(): Boolean {
-        val preview = imagePreview ?: return false
-        val bounds = preview.bounds
+    fun applyPendingFill(): Boolean {
+        val image = imagePreview
+        if (image != null) {
+            commitPreview(image.bounds, image.bitmapForCommit())
+            clearPendingFillPreviews()
+            return true
+        }
+        val color = colorPreview ?: return false
+        if (color.isTransparentSolidFill()) {
+            commitMaskedClear(color.bounds, color.clearMaskForCommit())
+        } else {
+            commitPreview(color.bounds, color.bitmapForCommit())
+        }
+        clearPendingFillPreviews()
+        return true
+    }
+
+    private fun commitPreview(bounds: android.graphics.Rect, bitmap: Bitmap) {
         commandManager.addCommand(
             commandFactory.createClipboardCommand(
-                preview.bitmapForCommit(),
+                bitmap,
                 PointF(bounds.exactCenterX(), bounds.exactCenterY()),
                 bounds.width().toFloat(),
                 bounds.height().toFloat(),
                 0f
             )
         )
-        clearImageFillPreview()
-        return true
     }
 
+    private fun commitMaskedClear(bounds: android.graphics.Rect, mask: Bitmap) {
+        commandManager.addCommand(
+            commandFactory.createMaskedClearCommand(
+                mask,
+                bounds
+            )
+        )
+    }
+
+    /** Kept for callers compiled against the previous image-only confirmation API. */
+    fun applyImageFill(): Boolean = applyPendingFill()
+
+    fun toggleViewTransformMode() {
+        if (imagePreview == null) return
+        viewTransformMode = !viewTransformMode
+        toolOptionsViewController.showImageFillGestureToggle(viewTransformMode)
+    }
+
+    override fun handToolMode(): Boolean = imagePreview != null && viewTransformMode
+
     override fun beginTwoFingerTransform(first: PointF, second: PointF): Boolean {
-        if (imagePreview == null) return false
+        if (imagePreview == null || viewTransformMode) return false
         previousTransformDistance = distance(first, second)
         previousTransformAngle = angle(first, second)
         previousTransformMidpoint = midpoint(first, second)
@@ -272,6 +319,7 @@ class ZaintFillTool(
 
     override fun updateTwoFingerTransform(first: PointF, second: PointF) {
         val preview = imagePreview ?: return
+        if (viewTransformMode) return
         val distance = distance(first, second)
         val angle = angle(first, second)
         val midpoint = midpoint(first, second)
@@ -298,20 +346,24 @@ class ZaintFillTool(
     }
 
     private fun requestImageSource() {
-        clearImageFillPreview()
+        clearPendingFillPreviews()
         options.renderImageFillSelected(false)
         openImagePicker()
     }
 
-    private fun clearImageFillPreview() {
+    private fun clearPendingFillPreviews() {
         imagePreview?.release()
         imagePreview = null
+        colorPreview?.release()
+        colorPreview = null
+        viewTransformMode = false
         previousEventCoordinate = null
         previousTransformDistance = 0f
         previewGestureStart = null
         previewWasDragged = false
         hideTapAreaHint()
         toolOptionsViewController.hideCheckmark()
+        toolOptionsViewController.hideImageFillGestureToggle()
         workspace.invalidate()
     }
 
@@ -352,7 +404,11 @@ class ZaintFillTool(
             colorTolerance
         ) ?: return null
         return if (createsPreview) {
-            ImageFillPreview(imageSource ?: return null, region, coordinate).also { imagePreview = it }
+            ImageFillPreview(imageSource ?: return null, region, coordinate, fillAntialiasing).also {
+                imagePreview = it
+                viewTransformMode = false
+                toolOptionsViewController.showImageFillGestureToggle(false)
+            }
         } else {
             preview?.addRegion(region)
             preview
@@ -367,10 +423,42 @@ class ZaintFillTool(
                 preview.release()
                 imagePreview = null
                 toolOptionsViewController.hideCheckmark()
+                toolOptionsViewController.hideImageFillGestureToggle()
                 showTapAreaHint()
             }
         } else {
             addImageFillRegion(coordinate, createsPreview = false)
+        }
+    }
+
+    private fun addColorFillRegion(coordinate: PointF, createsPreview: Boolean): ColorFillPreview? {
+        val preview = colorPreview
+        val bitmap = workspace.bitmapOfCurrentLayer ?: return null
+        val region = ImageFillRegionFinder.find(
+            bitmap,
+            coordinate.x.toInt(),
+            coordinate.y.toInt(),
+            colorTolerance
+        ) ?: return null
+        return if (createsPreview) {
+            ColorFillPreview(region, palette.toIntArray(), direction, bitmap, fillAntialiasing).also { colorPreview = it }
+        } else {
+            preview?.addRegion(region)
+            preview
+        }
+    }
+
+    private fun toggleColorFillRegion(coordinate: PointF) {
+        val preview = colorPreview ?: return
+        if (preview.contains(coordinate)) {
+            preview.removeRegionAt(coordinate)
+            if (preview.isEmpty) {
+                preview.release()
+                colorPreview = null
+                toolOptionsViewController.hideCheckmark()
+            }
+        } else {
+            addColorFillRegion(coordinate, createsPreview = false)
         }
     }
 

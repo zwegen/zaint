@@ -180,6 +180,7 @@
     <string name="fill_tool_dialog_gradient_radial">Radial füllen</string>
     <string name="fill_tool_dialog_gradient_wave">Zufällige Welle füllen</string>
     <string name="fill_tool_dialog_image">Mit Bild füllen</string>
+    <string name="fill_tool_antialiasing">Antialiasing</string>
     <string name="fill_tool_dialog_tap_area">Fläche antippen</string>
     <string name="filter_tool_dialog_exposure_title">Belichtung</string>
     <string name="filter_tool_dialog_brightness_title">Helligkeit</string>

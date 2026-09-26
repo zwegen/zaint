@@ -2,6 +2,7 @@ package de.zwegen.zpaint.tools.implementation
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.PointF
 import android.graphics.Rect
@@ -62,6 +63,7 @@ internal object ImageFillRegionFinder {
             queue.add(index)
         }
     }
+
 }
 
 /**
@@ -71,7 +73,8 @@ internal object ImageFillRegionFinder {
 internal class ImageFillPreview(
     private val source: Bitmap,
     initialRegion: ImageFillRegion,
-    initialCenter: PointF
+    initialCenter: PointF,
+    private var antialiasing: Boolean = true
 ) {
     private val lock = Any()
     private val regions = mutableListOf(initialRegion)
@@ -82,6 +85,15 @@ internal class ImageFillPreview(
     private var scale = 1f
     private var rotation = 0f
     private var rendered: Bitmap? = null
+    private var regionAlpha: IntArray? = null
+
+    fun setAntialiasing(enabled: Boolean) {
+        synchronized(lock) {
+            if (antialiasing == enabled) return
+            antialiasing = enabled
+            invalidateRegionMask()
+        }
+    }
 
     fun moveBy(dx: Float, dy: Float) {
         synchronized(lock) {
@@ -115,7 +127,7 @@ internal class ImageFillPreview(
                 "Image fill regions must share a canvas"
             }
             regions += region
-            invalidateRender()
+            invalidateRegionMask()
         }
     }
 
@@ -130,7 +142,7 @@ internal class ImageFillPreview(
             }
             if (index < 0) return@synchronized false
             regions.removeAt(index)
-            invalidateRender()
+            invalidateRegionMask()
             true
         }
     }
@@ -147,6 +159,7 @@ internal class ImageFillPreview(
         }
     }
 
+    /** Returns the transformed image, limited to the selected fill areas, for direct insertion. */
     fun bitmapForCommit(): Bitmap {
         return synchronized(lock) {
             check(regions.isNotEmpty()) { "Image fill preview must contain a region before it is committed" }
@@ -183,34 +196,57 @@ internal class ImageFillPreview(
         rendered = null
     }
 
+    private fun invalidateRegionMask() {
+        regionAlpha = null
+        invalidateRender()
+    }
+
     private fun applyRegionMask(bitmap: Bitmap) {
         val width = bitmap.width
         val pixels = IntArray(width * bitmap.height)
         bitmap.getPixels(pixels, 0, width, 0, 0, width, bitmap.height)
         val bounds = bounds
+        val alphaMask = alphaMask()
         for (localY in 0 until bitmap.height) {
             val sourceY = bounds.top + localY
             for (localX in 0 until width) {
                 val sourceX = bounds.left + localX
-                if (regions.none { region ->
-                        region.pixels[sourceY * region.canvasWidth + sourceX]
-                    }) {
-                    pixels[localY * width + localX] = 0
+                val index = localY * width + localX
+                val alpha = alphaMask[sourceY * regions.first().canvasWidth + sourceX]
+                if (alpha == 0) {
+                    pixels[index] = 0
+                } else {
+                    pixels[index] = Color.argb(
+                        Color.alpha(pixels[index]) * alpha / ALPHA_MAX,
+                        Color.red(pixels[index]),
+                        Color.green(pixels[index]),
+                        Color.blue(pixels[index])
+                    )
                 }
             }
         }
         bitmap.setPixels(pixels, 0, width, 0, 0, width, bitmap.height)
     }
 
-    private fun combinedBounds(): Rect {
-        val first = regions.firstOrNull() ?: return Rect()
-        return regions.drop(1).fold(Rect(first.bounds)) { combined, next ->
-            combined.apply { union(next.bounds) }
+    private fun alphaMask(): IntArray {
+        regionAlpha?.let { return it }
+        val mask = if (antialiasing) {
+            FillSelectionMask.antialiasedImageMask(regions)
+        } else {
+            FillSelectionMask.combine(regions).let { selected ->
+                IntArray(selected.size) { if (selected[it]) ALPHA_MAX else 0 }
+            }
         }
+        return mask.also { regionAlpha = it }
+    }
+
+    private fun combinedBounds(): Rect {
+        return FillSelectionMask.previewBounds(regions)
     }
 
     private companion object {
         const val MIN_SCALE = 0.05f
         const val MAX_SCALE = 20f
+        const val ALPHA_MAX = 255
     }
 }

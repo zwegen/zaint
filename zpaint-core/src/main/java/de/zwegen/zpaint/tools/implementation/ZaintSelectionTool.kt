@@ -54,6 +54,9 @@ class ZaintSelectionTool(
     private var freeStart: PointF? = null
     private var tracingFreePath = false
     private val angleSnap = FloatingBoxAngleSnap()
+    private val centerGuideSnap = CanvasCenterGuideSnap()
+    private var showVerticalCenterGuide = false
+    private var showHorizontalCenterGuide = false
     private var lockedSnapAngle: Float? = null
     private var showAngleSnapGuide = false
     private var rawBoxRotation = 0f
@@ -81,6 +84,7 @@ class ZaintSelectionTool(
     }
 
     override fun handleDown(coordinate: PointF?): Boolean {
+        resetCenterGuides()
         if (!usesFreePath() || readyForPaste) {
             val handled = super.handleDown(coordinate)
             lockedSnapAngle = null
@@ -102,7 +106,11 @@ class ZaintSelectionTool(
 
     override fun handleMove(coordinate: PointF?, shouldAnimate: Boolean): Boolean {
         if (!usesFreePath() || readyForPaste || !tracingFreePath) {
-            return super.handleMove(coordinate, shouldAnimate)
+            val handled = super.handleMove(coordinate, shouldAnimate)
+            if (handled && readyForPaste && isMovingFloatingBox()) {
+                snapToCanvasCenter(coordinate)
+            }
+            return handled
         }
         coordinate ?: return false
 
@@ -112,6 +120,7 @@ class ZaintSelectionTool(
     }
 
     override fun handleUp(coordinate: PointF?): Boolean {
+        resetCenterGuides()
         if (!usesFreePath() || readyForPaste || !tracingFreePath) {
             lockedSnapAngle = null
             showAngleSnapGuide = false
@@ -135,8 +144,41 @@ class ZaintSelectionTool(
     }
 
     override fun drawToolSpecifics(canvas: Canvas, boxWidth: Float, boxHeight: Float) {
+        CanvasCenterGuideRenderer.draw(
+            canvas,
+            workspace.width.toFloat(),
+            workspace.height.toFloat(),
+            toolPosition.x,
+            toolPosition.y,
+            boxRotation,
+            workspace.scale,
+            linePaint,
+            showVerticalCenterGuide,
+            showHorizontalCenterGuide
+        )
         drawAngleSnapGuide(canvas)
         super.drawToolSpecifics(canvas, boxWidth, boxHeight)
+    }
+
+    private fun snapToCanvasCenter(coordinate: PointF?) {
+        val result = centerGuideSnap.resolve(
+            toolPosition.x,
+            toolPosition.y,
+            coordinate?.x,
+            coordinate?.y,
+            workspace.width.toFloat(),
+            workspace.height.toFloat()
+        )
+        toolPosition.set(result.x, result.y)
+        showVerticalCenterGuide = result.showVerticalGuide
+        showHorizontalCenterGuide = result.showHorizontalGuide
+        workspace.invalidate()
+    }
+
+    private fun resetCenterGuides() {
+        centerGuideSnap.reset()
+        showVerticalCenterGuide = false
+        showHorizontalCenterGuide = false
     }
 
     override fun rotationReferenceForDrag(): Float = rawBoxRotation

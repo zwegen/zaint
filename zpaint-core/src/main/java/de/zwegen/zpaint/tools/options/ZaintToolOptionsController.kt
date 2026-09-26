@@ -27,6 +27,10 @@ interface ZaintToolOptionsController : ToolOptionsVisibilityController {
 
     fun hideCheckmark()
 
+    fun showImageFillGestureToggle(viewTransformMode: Boolean)
+
+    fun hideImageFillGestureToggle()
+
     fun showLayerPlus()
 
     fun hideLayerPlus()

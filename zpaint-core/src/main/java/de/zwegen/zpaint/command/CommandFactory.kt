@@ -3,6 +3,7 @@ package de.zwegen.zpaint.command
 import android.graphics.Bitmap
 import android.graphics.Paint
 import android.graphics.PointF
+import android.graphics.Rect
 import de.zwegen.zpaint.command.implementation.ZaintMirrorDirection
 import de.zwegen.zpaint.command.implementation.FillGradientDirection
 import de.zwegen.zpaint.command.implementation.ZaintRotationDirection
@@ -119,6 +120,12 @@ interface ZaintCommandFactoryApi {
         boxWidth: Float,
         boxHeight: Float,
         boxRotation: Float
+    ): Command
+
+    /** Creates an undoable alpha-mask erase operation on the active layer. */
+    fun createMaskedClearCommand(
+        mask: Bitmap,
+        bounds: Rect
     ): Command
 
     fun createCutCommand(

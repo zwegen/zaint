@@ -85,6 +85,9 @@ class ZaintToolCoordinator(
     }
 
     override fun switchTool(toolType: ZaintToolKind) {
+        if (toolType != ZaintToolKind.FILL) {
+            (currentTool as? ZaintFillTool)?.resetInternalState(Tool.StateChange.RESET_INTERNAL_STATE)
+        }
         val replacement = buildTool(toolType)
         replaceActiveTool(replacement)
     }

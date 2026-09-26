@@ -17,6 +17,7 @@ class TopBarViewHolder(val layout: ViewGroup) : ZaintEditorContracts.TopBarViewH
     val helpButton: ImageButton = layout.findViewById(R.id.zpaint_btn_top_help)
     val redoButton: ImageButton = layout.findViewById(R.id.zpaint_btn_top_redo)
     val checkmarkButton: ImageButton = layout.findViewById(R.id.zpaint_btn_top_checkmark)
+    val imageFillGestureModeButton: ImageButton = layout.findViewById(R.id.zpaint_btn_top_fill_gesture_mode)
     val layerPlusButton: ImageButton = layout.findViewById(R.id.zpaint_btn_top_layer_plus)
     val checkmarkProgress: ProgressBar = layout.findViewById(R.id.zpaint_progress_top_checkmark)
     val menuButton: ImageButton = layout.findViewById(R.id.zpaint_btn_top_menu)

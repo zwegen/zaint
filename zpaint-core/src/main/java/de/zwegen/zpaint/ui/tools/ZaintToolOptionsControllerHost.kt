@@ -23,6 +23,8 @@ class ZaintToolOptionsControllerHost(
         activity.findViewById(R.id.zpaint_layout_tool_options)
     private val topBarSpecificViewCheckmark: ImageButton =
         activity.findViewById(R.id.zpaint_btn_top_checkmark)
+    private val imageFillGestureToggle: ImageButton =
+        activity.findViewById(R.id.zpaint_btn_top_fill_gesture_mode)
     private val topBarSpecificViewLayerPlus: View =
         activity.findViewById(R.id.zpaint_btn_top_layer_plus)
     private val topBar: View =
@@ -159,6 +161,20 @@ class ZaintToolOptionsControllerHost(
         topBarSpecificViewCheckmark.setImageResource(R.drawable.ic_zpaint_checkmark)
         topBarSpecificViewCheckmark.isEnabled = false
         topBarSpecificViewCheckmark.visibility = View.VISIBLE
+    }
+
+    override fun showImageFillGestureToggle(viewTransformMode: Boolean) {
+        imageFillGestureToggle.setImageResource(
+            if (viewTransformMode) R.drawable.ic_zpaint_zoom else R.drawable.ic_zpaint_fill_transform
+        )
+        imageFillGestureToggle.contentDescription = activity.getString(
+            if (viewTransformMode) R.string.fill_tool_view_mode else R.string.fill_tool_transform_mode
+        )
+        imageFillGestureToggle.visibility = View.VISIBLE
+    }
+
+    override fun hideImageFillGestureToggle() {
+        imageFillGestureToggle.visibility = View.GONE
     }
 
     override fun showLayerPlus() {
