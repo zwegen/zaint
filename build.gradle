@@ -26,8 +26,8 @@ ext {
 
     androidSupportLibraryVersion = '28.0.0'
 
-    androidVersionCode = 1255
-    androidVersionName = '1.255'
+    androidVersionCode = 1258
+    androidVersionName = '1.258'
 }
 
 if(project.hasProperty("snapshot")) {

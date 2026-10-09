@@ -306,6 +306,7 @@ open class ZaintEditorPresenter(
     }
 
     override fun onNewImage() {
+        model.colorHistory.clearImageColors()
         resetPerspectiveAfterNextCommand = true
         model.savedPictureUri = null
         ZaintDocumentStorage.sourceFolderName = null
@@ -705,6 +706,7 @@ open class ZaintEditorPresenter(
     }
 
     override fun initializeFromCleanState() {
+        model.colorHistory.clearImageColors()
         wasImageLoaded = false
         toolController.resetToolInternalStateOnImageLoaded()
         model.savedPictureUri = null
@@ -879,6 +881,7 @@ open class ZaintEditorPresenter(
             commandManager.loadProjectHistory(result.model)
             resetPerspectiveAfterNextCommand = true
             setColorHistoryAfterLoadImage(result.colorHistory)
+            model.colorHistory.requestImageColors()
             model.savedPictureUri = uri
             model.cameraImageUri = null
             wasImageLoaded = true
@@ -910,6 +913,7 @@ open class ZaintEditorPresenter(
                     }
                 }
                 commandManager.reset()
+                model.colorHistory.requestImageColors()
                 toolController.resetToolInternalStateOnImageLoaded()
                 model.savedPictureUri = uri
                 model.cameraImageUri = null

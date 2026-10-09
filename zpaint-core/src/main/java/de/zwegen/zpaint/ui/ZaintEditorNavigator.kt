@@ -122,6 +122,9 @@ class ZaintEditorNavigator(
     override fun showColorPickerDialog() {
         if (findFragmentByTag(COLOR_PICKER_DIALOG_TAG) == null) {
             toolReference.tool?.let {
+                if (host.model.colorHistory.needsImageColors) {
+                    host.model.colorHistory.seedImageColors(ImagePaletteFromLayers.extract(host.layerModel))
+                }
                 val dialog = ColorPickerDialog.newInstance(
                     it.drawPaint.color,
                     host.model.colorHistory,

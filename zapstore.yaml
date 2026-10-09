@@ -1,4 +1,5 @@
 repository: https://github.com/zwegen/zaint
+icon: zaint_icon.png
 images:
     - zaint_01.png
     - zaint_02.png

@@ -176,31 +176,22 @@ private class PickerPanel(
     private fun addHistoryRow(colors: List<Int>) {
         val swatches = LinearLayout(context).apply {
             orientation = HORIZONTAL
-            setPadding(dp(6), dp(6), dp(6), dp(6))
-            background = historyContainerBackground()
-            repeat(4) { index ->
+            repeat(ColorHistory.MAX_ENTRIES) { index ->
                 val color = colors.getOrNull(index)
-                addView(historySwatch(color), LayoutParams(dp(40), dp(40)).apply {
+                addView(historySwatch(color), LayoutParams(0, dp(40), 1f).apply {
                     if (index > 0) marginStart = dp(4)
                 })
             }
-            addView(historyPipetteButton(), LayoutParams(dp(40), dp(40)).apply {
+            addView(historyPipetteButton(), LayoutParams(0, dp(40), 1f).apply {
                 marginStart = dp(4)
             })
         }
         addView(LinearLayout(context).apply {
             gravity = Gravity.CENTER
-            addView(swatches)
+            addView(swatches, LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT))
         }, LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT).apply {
-            topMargin = dp(12)
+            topMargin = dp(6)
         })
-    }
-
-    private fun historyContainerBackground(): GradientDrawable = GradientDrawable().apply {
-        shape = GradientDrawable.RECTANGLE
-        setColor(Color.TRANSPARENT)
-        setStroke(dp(1), Color.rgb(158, 158, 158))
-        cornerRadius = dp(8).toFloat()
     }
 
     private fun historySwatchBackground(color: Int?): GradientDrawable = GradientDrawable().apply {

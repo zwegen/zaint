@@ -123,7 +123,7 @@ class ZaintEditorActivity : AppCompatActivity(), MainView, CommandListener, Colo
     lateinit var workspace: Workspace
 
     @VisibleForTesting
-    lateinit var layerModel: ZaintLayerContracts.Model
+    override lateinit var layerModel: ZaintLayerContracts.Model
 
     @VisibleForTesting
     lateinit var toolReference: ToolReference
@@ -440,7 +440,10 @@ class ZaintEditorActivity : AppCompatActivity(), MainView, CommandListener, Colo
             perspective,
             ::refreshDrawingSurfaceWhenReady,
         )
-        model = ZaintEditorSession()
+        model = ZaintEditorSession().apply {
+            colorHistory = appFragment.colorHistory ?: colorHistory
+            appFragment.colorHistory = colorHistory
+        }
         commandSerializer = ZaintProjectSerializer(this, commandManager, model)
         toolCoordinator = ZaintToolCoordinator(
             toolReference,
@@ -822,6 +825,7 @@ class ZaintEditorActivity : AppCompatActivity(), MainView, CommandListener, Colo
             appFragment.currentTool = null
             appFragment.commandManager = null
             appFragment.layerModel = null
+            appFragment.colorHistory = null
         } else {
             presenterMain.saveNewTemporaryImage()
         }
@@ -830,6 +834,7 @@ class ZaintEditorActivity : AppCompatActivity(), MainView, CommandListener, Colo
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
+        appFragment.colorHistory = model.colorHistory
         with(outState) {
             putBoolean(IS_SAVED_KEY, model.isSaved)
             putParcelable(SAVED_PICTURE_URI_KEY, model.savedPictureUri)

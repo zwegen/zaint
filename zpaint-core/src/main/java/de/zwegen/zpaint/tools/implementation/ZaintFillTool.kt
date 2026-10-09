@@ -245,9 +245,12 @@ class ZaintFillTool(
 
     override fun draw(canvas: Canvas) {
         imagePreview?.draw(canvas)
-        colorPreview?.draw(canvas, toolPaint.checkeredShader)
+        colorPreview?.takeUnless { it.isTransparentSolidFill() }?.draw(canvas, toolPaint.checkeredShader)
         tapAreaHintCenter?.let { center -> drawTapAreaHint(canvas, center) }
     }
+
+    fun drawTransparentLayerPreview(canvas: Canvas, layer: Bitmap, layerPaint: Paint): Boolean =
+        colorPreview?.drawLayerPreview(canvas, layer, layerPaint) ?: false
 
     fun setBitmapFromSource(bitmap: Bitmap) {
         imageSource = bitmap

@@ -108,6 +108,20 @@ internal class ColorFillPreview(
         }
     }
 
+    /** Draws a transparent fill on an isolated layer, preserving the layers underneath. */
+    fun drawLayerPreview(canvas: Canvas, layer: Bitmap, layerPaint: Paint): Boolean = synchronized(lock) {
+        if (regions.isEmpty() || !isTransparentSolidFill()) return@synchronized false
+        val bounds = FillSelectionMask.previewBounds(regions)
+        val saveCount = canvas.saveLayer(0f, 0f, layer.width.toFloat(), layer.height.toFloat(), layerPaint)
+        try {
+            canvas.drawBitmap(layer, 0f, 0f, null)
+            canvas.drawBitmap(render(), bounds.left.toFloat(), bounds.top.toFloat(), clearPaint)
+        } finally {
+            canvas.restoreToCount(saveCount)
+        }
+        true
+    }
+
     fun bitmapForCommit(): Bitmap = synchronized(lock) {
         check(regions.isNotEmpty()) { "Color fill preview must contain a region before it is committed" }
         render().copy(Bitmap.Config.ARGB_8888, false)
@@ -207,6 +221,9 @@ internal class ColorFillPreview(
 
     private companion object {
         const val COLOR_FEATHER_PIXELS = 1
+        val clearPaint = Paint().apply {
+            xfermode = PorterDuffXfermode(PorterDuff.Mode.DST_OUT)
+        }
         val maskPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             xfermode = PorterDuffXfermode(PorterDuff.Mode.DST_IN)
         }

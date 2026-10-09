@@ -52,7 +52,7 @@ open class ZaintProjectSerializer(
         private const val FORMAT_VERSION = 1
         private const val MAX_LAYER_COUNT = 100
         private const val MAX_ENCODED_BITMAP_BYTES = 32 * 1024 * 1024
-        private const val MAX_COLOR_HISTORY_ENTRIES = 4
+        private const val MAX_COLOR_HISTORY_ENTRIES = ColorHistory.MAX_ENTRIES
     }
 
     fun writeToFile(fileName: String): Uri? {
@@ -139,7 +139,7 @@ open class ZaintProjectSerializer(
     }
 
     private fun writeColorHistory(output: DataOutputStream) {
-        val colors = model.colorHistory.colors.takeLast(MAX_COLOR_HISTORY_ENTRIES)
+        val colors = model.colorHistory.storedColors.takeLast(MAX_COLOR_HISTORY_ENTRIES)
         output.writeInt(colors.size)
         colors.forEach(output::writeInt)
     }

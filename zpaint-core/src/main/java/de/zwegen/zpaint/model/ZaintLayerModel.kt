@@ -7,6 +7,7 @@ import de.zwegen.zpaint.contract.ZaintLayerContracts
 import de.zwegen.zpaint.tools.Tool
 import de.zwegen.zpaint.tools.implementation.PlaceTool
 import de.zwegen.zpaint.tools.implementation.ShadowTool
+import de.zwegen.zpaint.tools.implementation.ZaintFillTool
 
 /**
  * The document's ordered layer stack.
@@ -107,8 +108,17 @@ open class ZaintLayerModel : ZaintLayerContracts.Model {
                 drawingBoardCanvas?.let(shadowTool!!::drawPreviewBelowSourceLayer)
             }
             if (!toolPlacesLayer) {
-                surfaceViewCanvas?.drawBitmap(layer.bitmap, 0f, 0f, paint)
-                drawingBoardCanvas?.drawBitmap(layer.bitmap, 0f, 0f, paint)
+                val fillTool = if (index == currentLayerIndex) tool as? ZaintFillTool else null
+                surfaceViewCanvas?.let { canvas ->
+                    if (fillTool?.drawTransparentLayerPreview(canvas, layer.bitmap, paint) != true) {
+                        canvas.drawBitmap(layer.bitmap, 0f, 0f, paint)
+                    }
+                }
+                drawingBoardCanvas?.let { canvas ->
+                    if (fillTool?.drawTransparentLayerPreview(canvas, layer.bitmap, paint) != true) {
+                        canvas.drawBitmap(layer.bitmap, 0f, 0f, paint)
+                    }
+                }
             }
             if (shadowPreviewBelowSource) {
                 surfaceViewCanvas?.let(shadowTool!!::drawPreviewOverlay)
