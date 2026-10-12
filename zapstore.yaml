@@ -1,9 +1,15 @@
 repository: https://github.com/zwegen/zaint
-icon: zaint_icon.png
+name: Zaint
+summary: Android image editor for drawing, retouching and creative photo editing.
+
+icon: https://raw.githubusercontent.com/zwegen/zaint/main/assets/zaint_icon.png
+
 images:
-    - zaint_01.png
-    - zaint_02.png
-    - zaint_03.png
+  - https://raw.githubusercontent.com/zwegen/zaint/main/assets/screenshots/zaint_01.png
+  - https://raw.githubusercontent.com/zwegen/zaint/main/assets/screenshots/zaint_02.png
+  - https://raw.githubusercontent.com/zwegen/zaint/main/assets/screenshots/zaint_03.png
+
 metadata_sources:
-    - github
+  - github
+
 pubkey: npub18xg25ns8m8hhsjtgnsxzpty2ftepu857xsafsqy5nm0jftpvzkyqgv4c2c

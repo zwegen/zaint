@@ -1,6 +1,9 @@
 package de.zwegen.zpaint.colorpicker
 
 import android.app.Dialog
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
@@ -9,6 +12,7 @@ import android.view.Gravity
 import android.view.View
 import android.widget.Button
 import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.SeekBar
 import android.widget.TextView
@@ -136,9 +140,22 @@ private class PickerPanel(
     private val hsv = FloatArray(3)
     private var alpha = Color.alpha(color)
     private val preview = TextView(context).apply { gravity = Gravity.CENTER; textSize = 18f; minHeight = 96 }
+    private val copyIcon = ImageView(context).apply {
+        setImageResource(R.drawable.ic_color_picker_copy)
+        importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
+    }
     private val previewContainer = FrameLayout(context).apply {
+        setOnClickListener {
+            val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            clipboard.setPrimaryClip(ClipData.newPlainText("Hexcode", preview.text))
+        }
         setBackgroundResource(R.drawable.color_picker_checkeredbg_repeat)
         addView(preview, FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT))
+        preview.importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
+        addView(copyIcon, FrameLayout.LayoutParams(dp(16), dp(16), Gravity.TOP or Gravity.END).apply {
+            topMargin = dp(6)
+            marginEnd = dp(6)
+        })
     }
     private val sliders = mutableListOf<SeekBar>()
 
@@ -244,7 +261,12 @@ private class PickerPanel(
             progressBackgroundTintList = ColorStateList.valueOf(Color.rgb(130, 138, 145))
             thumbTintList = ColorStateList.valueOf(Color.rgb(52, 58, 64))
             setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-                override fun onProgressChanged(bar: SeekBar, progress: Int, fromUser: Boolean) { set(progress); update() }
+                override fun onProgressChanged(bar: SeekBar, progress: Int, fromUser: Boolean) {
+                    // Synchronizing slider positions must not quantize a selected history color.
+                    if (!fromUser) return
+                    set(progress)
+                    update()
+                }
                 override fun onStartTrackingTouch(bar: SeekBar) = Unit
                 override fun onStopTrackingTouch(bar: SeekBar) = Unit
             })
@@ -255,6 +277,8 @@ private class PickerPanel(
         preview.setBackgroundColor(color)
         preview.setTextColor(if (isDark(color)) Color.WHITE else Color.BLACK)
         preview.text = String.format("#%08X", color)
+        copyIcon.setColorFilter(preview.currentTextColor)
+        previewContainer.contentDescription = "Hexcode kopieren: " + preview.text
         changed(color)
     }
 

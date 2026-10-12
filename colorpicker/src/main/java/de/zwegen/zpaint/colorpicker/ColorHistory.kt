@@ -42,7 +42,7 @@ class ColorHistory : Serializable {
     }
 
     private fun update(colors: ArrayList<Int>, color: Int) {
-        colors.remove(color)
+        colors.removeAll { it == color }
         colors.add(color)
         if (colors.size > MAX_ENTRIES) colors.removeAt(0)
     }

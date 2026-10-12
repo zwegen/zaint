@@ -4,8 +4,6 @@
 package de.zwegen.zpaint.tools.implementation
 
 import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
 import android.graphics.PointF
 import androidx.test.espresso.idling.CountingIdlingResource
 import de.zwegen.zpaint.command.ZaintCommandTimeline
@@ -35,6 +33,7 @@ class BorderTool(
     override val toolType: ZaintToolKind = ZaintToolKind.BORDER
     override var drawTime: Long = 0L
     private var pendingAmount = DEFAULT_AMOUNT
+    private val previewRenderer = BorderPreviewRenderer()
 
     init {
         toolOptionsViewController.showCheckmark()
@@ -59,11 +58,10 @@ class BorderTool(
 
     override fun draw(canvas: Canvas) {
         val amount = effectiveAmount(pendingAmount, workspace.layerModel.width, workspace.layerModel.height)
-        if (amount > 0) {
-            drawAddedBorderPreview(canvas, amount)
-        } else if (amount < 0) {
-            drawCropPreview(canvas, -amount)
-        }
+        previewRenderer.draw(
+            canvas, workspace.layerModel.width, workspace.layerModel.height,
+            amount, toolPaint.color, workspace.perspective.scale
+        )
     }
 
     override fun handleUpAnimations(coordinate: PointF?) = Unit
@@ -114,42 +112,6 @@ class BorderTool(
         pendingAmount = amount
         resetPerspectiveForBorderPreview(amount)
         workspace.invalidate()
-    }
-
-    private fun drawAddedBorderPreview(canvas: Canvas, amount: Int) {
-        val width = workspace.layerModel.width.toFloat()
-        val height = workspace.layerModel.height.toFloat()
-        val border = amount.toFloat()
-        val paint = Paint().apply {
-            style = Paint.Style.FILL
-            color = toolPaint.color
-        }
-
-        canvas.drawRect(-border, -border, width + border, 0f, paint)
-        canvas.drawRect(-border, height, width + border, height + border, paint)
-        canvas.drawRect(-border, 0f, 0f, height, paint)
-        canvas.drawRect(width, 0f, width + border, height, paint)
-    }
-
-    private fun drawCropPreview(canvas: Canvas, crop: Int) {
-        val width = workspace.layerModel.width.toFloat()
-        val height = workspace.layerModel.height.toFloat()
-        val inset = crop.toFloat()
-        val overlayPaint = Paint().apply {
-            style = Paint.Style.FILL
-            color = Color.argb(CROP_OVERLAY_ALPHA, 0, 0, 0)
-        }
-        val outlinePaint = Paint().apply {
-            style = Paint.Style.STROKE
-            strokeWidth = CROP_OUTLINE_WIDTH
-            color = Color.WHITE
-        }
-
-        canvas.drawRect(0f, 0f, width, inset, overlayPaint)
-        canvas.drawRect(0f, height - inset, width, height, overlayPaint)
-        canvas.drawRect(0f, inset, inset, height - inset, overlayPaint)
-        canvas.drawRect(width - inset, inset, width, height - inset, overlayPaint)
-        canvas.drawRect(inset, inset, width - inset, height - inset, outlinePaint)
     }
 
     private fun resetPerspectiveForBorderTool() {
@@ -219,8 +181,6 @@ class BorderTool(
     companion object {
         private const val DEFAULT_AMOUNT = 0
         private const val PREVIEW_EDGE_PADDING = 2
-        private const val CROP_OVERLAY_ALPHA = 150
-        private const val CROP_OUTLINE_WIDTH = 2f
         private const val MAXIMUM_BITMAP_SIZE_FACTOR = 10L
     }
 }

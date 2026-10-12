@@ -1,5 +1,11 @@
 # Zaint
 
+## Source snapshot
+
+Version **1.261**, exported from the current local working tree.
+
+The working-tree changes are not yet committed to `main`.
+
 Zaint is a free Android image editor for drawing, retouching, and creative photo editing. It is designed for working directly on images with layers, text, drawing tools, and effects.
 
 ## Features

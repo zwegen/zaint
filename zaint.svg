@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="1024"
+   height="1024"
+   viewBox="0 0 1024 1024"
+   version="1.1"
+   id="svg7"
+   sodipodi:docname="tasche05.svg"
+   inkscape:version="1.4.4 (dcaf3e7d9e, 2026-05-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs7" />
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.55"
+     inkscape:cx="512.72727"
+     inkscape:cy="658.18182"
+     inkscape:window-width="1920"
+     inkscape:window-height="1048"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g6" />
+  <title
+     id="title1">Werkzeugtasche mit Lineal und Pinsel</title>
+  <desc
+     id="desc1">Flaches Vektor-Icon: Tasche mit durchgezogener weißer Kontur, orangefarbenem Lineal und blauem Pinsel.</desc>
+  <!-- Hintergrund -->
+  <rect
+     x="0"
+     y="0"
+     width="1024"
+     height="1024"
+     fill="#3f3f3d"
+     id="rect1"
+     style="fill:#b3b3b3" />
+  <!-- Lineal -->
+  <!-- Pinsel -->
+  <!-- Tasche mit komplett durchgezogener Linie -->
+  <g
+     id="g2"
+     transform="matrix(0.98333333,0,0,0.98333333,8.533335,7.3318847)">
+    <g
+       id="g1"
+       transform="translate(21.802529,6.922092)"
+       style="fill:#ffffff;stroke-width:17;stroke-dasharray:none">
+      <g
+         transform="rotate(0.39577035,-14868.739,82821.87)"
+         stroke="#ffffff"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         id="g6"
+         style="fill:#ffffff;stroke-width:0;stroke-dasharray:none">
+        <path
+           d="m 70.86595,22.186696 c 52.00004,50.000003 52.00004,142.000054 0,194.000054 -52,-52 -52,-144.000051 0,-194.000054 z"
+           fill="#13aee5"
+           stroke-width="26"
+           id="path5"
+           style="fill:#217867;stroke-width:0;stroke-dasharray:none" />
+        <rect
+           x="53.694595"
+           y="194.93924"
+           width="34"
+           height="48"
+           rx="2"
+           ry="2"
+           fill="#13aee5"
+           stroke-width="20"
+           id="rect5"
+           style="fill:#ffffff;stroke-width:0;stroke-dasharray:none" />
+        <path
+           d="m 36,240 h 68 l 8,125 H 28 Z"
+           fill="#13aee5"
+           stroke-width="26"
+           id="path6"
+           style="fill:#ffffff;stroke-width:0;stroke-dasharray:none" />
+      </g>
+      <rect
+         x="378.33002"
+         y="48.398388"
+         width="220"
+         height="305"
+         rx="14"
+         ry="14"
+         fill="#ff9416"
+         stroke-width="26"
+         id="rect2"
+         style="fill:#ffffff;stroke:#ffffff;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+         transform="rotate(12)" />
+      <line
+         x1="378.16455"
+         y1="213.69292"
+         x2="468.15414"
+         y2="232.8208"
+         stroke-width="22"
+         id="line2"
+         style="fill:#165044;stroke:#217867;stroke-width:17;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none" />
+      <line
+         x1="368.18478"
+         y1="260.64401"
+         x2="422.96106"
+         y2="272.28705"
+         stroke-width="22"
+         id="line3"
+         style="fill:#165044;stroke:#217867;stroke-width:17;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none" />
+      <line
+         x1="358.20502"
+         y1="307.59509"
+         x2="448.19461"
+         y2="326.72296"
+         stroke-width="22"
+         id="line4"
+         style="fill:#165044;stroke:#217867;stroke-width:17;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none" />
+      <line
+         x1="348.22528"
+         y1="354.54617"
+         x2="403.00153"
+         y2="366.18924"
+         stroke-width="22"
+         id="line5"
+         style="fill:#165044;stroke:#217867;stroke-width:17;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none" />
+    </g>
+    <path
+       d="M 212,410.92209 H 812 L 764.41379,828.31339 512,890.92209 259.58621,828.31339 Z"
+       fill="none"
+       stroke="#ffffff"
+       stroke-width="22"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       id="path7"
+       style="fill:#217867;stroke-width:0;stroke-dasharray:none"
+       sodipodi:nodetypes="cccccc" />
+    <path
+       d="M 251.93972,446.13476 H 772.06028 L 730.80935,802.28493 512,855.70746 293.19065,802.28493 Z"
+       fill="none"
+       stroke="#ffffff"
+       stroke-width="22"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       id="path20"
+       style="opacity:0.81;fill:none;stroke:#ffffff;stroke-width:17.4196;stroke-linejoin:miter;stroke-dasharray:none"
+       sodipodi:nodetypes="cccccc" />
+  </g>
+  <rect
+     style="opacity:0.12;fill:#000000;stroke:#ffffff;stroke-width:0"
+     id="rect3"
+     width="512"
+     height="1024"
+     x="0"
+     y="-4.3774415e-07" />
+  <metadata
+     id="metadata1">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Werkzeugtasche mit Lineal und Pinsel</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

@@ -80,7 +80,15 @@ open class Perspective(private var bitmapWidth: Int, private var bitmapHeight: I
         centerBitmap()
         val paddedWidth = bitmapWidth + totalPadding.coerceAtLeast(0)
         val paddedHeight = bitmapHeight + totalPadding.coerceAtLeast(0)
-        scale = fitScale(paddedWidth) * calculateZoomFactor(paddedWidth, paddedHeight)
+        // Used by the border tool: include all four edges, even for very tall images.
+        scale = if (paddedWidth > 0 && paddedHeight > 0 && surfaceWidth > 0 && surfaceHeight > 0) {
+            min(
+                (surfaceWidth - 8f).coerceAtLeast(1f) / paddedWidth,
+                (surfaceHeight - 8f).coerceAtLeast(1f) / paddedHeight
+            )
+        } else {
+            1f
+        }
     }
 
     @Synchronized

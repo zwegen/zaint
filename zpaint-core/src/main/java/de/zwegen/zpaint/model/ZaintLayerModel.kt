@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import de.zwegen.zpaint.contract.ZaintLayerContracts
 import de.zwegen.zpaint.tools.Tool
+import de.zwegen.zpaint.tools.implementation.BorderTool
 import de.zwegen.zpaint.tools.implementation.PlaceTool
 import de.zwegen.zpaint.tools.implementation.ShadowTool
 import de.zwegen.zpaint.tools.implementation.ZaintFillTool
@@ -123,10 +124,15 @@ open class ZaintLayerModel : ZaintLayerContracts.Model {
             if (shadowPreviewBelowSource) {
                 surfaceViewCanvas?.let(shadowTool!!::drawPreviewOverlay)
                 drawingBoardCanvas?.let(shadowTool!!::drawPreviewOverlay)
-            } else if (index == currentLayerIndex) {
+            } else if (index == currentLayerIndex && tool !is BorderTool) {
                 surfaceViewCanvas?.let { tool?.draw(it) }
                 drawingBoardCanvas?.let { tool?.draw(it) }
             }
+        }
+        // Border changes affect the whole image, not just the active layer.
+        if (tool is BorderTool) {
+            surfaceViewCanvas?.let(tool::draw)
+            drawingBoardCanvas?.let(tool::draw)
         }
     }
 

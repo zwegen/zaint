@@ -81,4 +81,27 @@ class ColorHistoryTest {
         assertEquals(listOf(9), restored.colors)
         assertFalse(restored.needsImageColors)
     }
+    @Test fun repeatedColorDoesNotEvictOthersOrChangeTheirRelativeOrder() {
+        val history = ColorHistory()
+        val colors = listOf(0xff111111.toInt(), 0xff5090c0.toInt(), 0xff222222.toInt(),
+            0xff333333.toInt(), 0xff444444.toInt())
+        colors.forEach(history::addColor)
+        history.addColor(colors[1])
+        assertEquals(listOf(colors[0], colors[2], colors[3], colors[4], colors[1]), history.colors)
+    }
+
+    @Test fun reusingColorRemovesAllLegacyDuplicatesWithoutEvictingOtherColors() {
+        val history = ColorHistory()
+        val repeated = 0xff5090c0.toInt()
+        val first = 0xff111111.toInt()
+        val second = 0xff222222.toInt()
+        val field = ColorHistory::class.java.getDeclaredField("entries").apply { isAccessible = true }
+        @Suppress("UNCHECKED_CAST")
+        val entries = field.get(history) as ArrayList<Int>
+        entries.addAll(listOf(first, repeated, second, repeated, repeated))
+        history.addColor(repeated)
+        assertEquals(listOf(first, second, repeated), history.colors)
+        assertEquals(listOf(first, second, repeated), history.storedColors)
+    }
+
 }
