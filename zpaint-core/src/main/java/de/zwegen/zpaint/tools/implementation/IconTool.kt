@@ -226,10 +226,11 @@ class IconTool(
                 withContext(Dispatchers.IO) {
                     val iconIds = iconifyClient.search(query, displayLimit + 1)
                     canLoadMoreIcons = iconIds.size > displayLimit
-                    iconIds
+                    val newIconIds = iconIds
                         .take(displayLimit)
                         .filterNot { loadedResult -> loadedResults.any { it.id == loadedResult } }
-                        .mapNotNull { iconId -> loadPreview(iconId) }
+                    val svgs = iconifyClient.loadSvgs(newIconIds.filterNot { previewCache.containsKey(it) })
+                    newIconIds.mapNotNull { iconId -> loadPreview(iconId, svgs[iconId]) }
                 }
             }.onSuccess { results ->
                 loadedResults.addAll(results)
@@ -249,11 +250,10 @@ class IconTool(
         }
     }
 
-    private fun loadPreview(iconId: String): IconResult? =
+    private fun loadPreview(iconId: String, svg: Result<String>?): IconResult? =
         runCatching {
             val preview = previewCache.getOrPut(iconId) {
-                val svg = iconifyClient.loadSvg(iconId)
-                svgBitmapRenderer.render(svg, ICON_PREVIEW_SIZE)
+                svgBitmapRenderer.render(requireNotNull(svg).getOrThrow(), ICON_PREVIEW_SIZE)
             }
             IconResult(iconId, preview)
         }.getOrNull()

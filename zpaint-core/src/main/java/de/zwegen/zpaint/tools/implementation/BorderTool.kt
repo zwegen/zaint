@@ -38,7 +38,7 @@ class BorderTool(
     init {
         toolOptionsViewController.showCheckmark()
         borderToolOptionsView.setBorderAmount(DEFAULT_AMOUNT)
-        resetPerspectiveForBorderTool()
+        workspace.invalidate()
         borderToolOptionsView.setCallback(object : BorderToolOptionsView.Callback {
             override fun onBorderAmountChanged(amount: Int) {
                 pendingAmount = amount
@@ -110,24 +110,7 @@ class BorderTool(
             return
         }
         pendingAmount = amount
-        resetPerspectiveForBorderPreview(amount)
         workspace.invalidate()
-    }
-
-    private fun resetPerspectiveForBorderTool() {
-        resetPerspectiveForBorderPreview(DEFAULT_AMOUNT)
-        workspace.invalidate()
-    }
-
-    /**
-     * A positive border is drawn outside the current bitmap while it is still only a preview.
-     * Reserve exactly that extra space in the viewport so the preview is never hidden beyond
-     * the old bitmap edge.
-     */
-    private fun resetPerspectiveForBorderPreview(amount: Int) {
-        workspace.perspective.setBitmapDimensions(workspace.layerModel.width, workspace.layerModel.height)
-        val previewPadding = if (amount > 0) amount * 2 + PREVIEW_EDGE_PADDING else 0
-        workspace.perspective.resetScaleAndTranslationWithPadding(previewPadding)
     }
 
     private fun centerPerspectiveOnCurrentBitmap() {
@@ -180,7 +163,6 @@ class BorderTool(
 
     companion object {
         private const val DEFAULT_AMOUNT = 0
-        private const val PREVIEW_EDGE_PADDING = 2
         private const val MAXIMUM_BITMAP_SIZE_FACTOR = 10L
     }
 }

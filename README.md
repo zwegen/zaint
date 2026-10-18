@@ -2,7 +2,7 @@
 
 ## Source snapshot
 
-Version **1.261**, exported from the current local working tree.
+Version **1.263** (version code **1263**), exported from the current local working tree.
 
 The working-tree changes are not yet committed to `main`.
 

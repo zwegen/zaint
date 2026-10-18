@@ -10,14 +10,19 @@ import org.json.JSONObject
 
 private const val ICONIFY_API_BASE_URL = "https://api.iconify.design"
 private const val ICONIFY_TIMEOUT_MS = 12000
+private const val ICONIFY_MAX_URL_LENGTH = 500
 private const val LOCAL_SIMPLE_STAR_ID = "local:simple-star"
 private const val LOCAL_SIMPLE_STAR_SVG =
     """<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="#000000" d="M12 2.5l2.9 6.1 6.6.9-4.8 4.7 1.2 6.6-5.9-3.1-5.9 3.1 1.2-6.6-4.8-4.7 6.6-.9z"/></svg>"""
 
-class IconifyClient {
+class IconifyClient internal constructor(private val request: (String) -> String) {
+    constructor() : this(::readIconifyUrl)
+
+    private val svgCache = mutableMapOf<String, String>()
+
     fun search(query: String, limit: Int): List<String> {
         val encodedQuery = URLEncoder.encode(query, "UTF-8")
-        val response = readUrl("$ICONIFY_API_BASE_URL/search?query=$encodedQuery&limit=$limit")
+        val response = request("$ICONIFY_API_BASE_URL/search?query=$encodedQuery&limit=$limit")
         val icons = JSONObject(response).optJSONArray("icons") ?: return emptyList()
         val results = (0 until icons.length()).mapNotNull { icons.optString(it).takeIf(String::isNotBlank) }
         return if (query.trim().lowercase(Locale.getDefault()) in setOf("star", "stern")) {
@@ -27,33 +32,96 @@ class IconifyClient {
         }
     }
 
+    /**
+     * Fetch only uncached icons, grouped by collection. Failures stay per icon, just like
+     * the old preview loader: one unavailable icon must not hide successful previews.
+     * In particular, a failed batch never triggers one SVG request per icon.
+     */
+    @Synchronized
+    fun loadSvgs(iconIds: List<String>): Map<String, Result<String>> {
+        val results = linkedMapOf<String, Result<String>>()
+        val collections = linkedMapOf<String, MutableList<String>>()
+        for (iconId in iconIds.distinct()) {
+            val cached = if (iconId == LOCAL_SIMPLE_STAR_ID) LOCAL_SIMPLE_STAR_SVG else svgCache[iconId]
+            if (cached != null) {
+                results[iconId] = Result.success(cached)
+                continue
+            }
+            val parts = iconId.split(':', limit = 2)
+            if (parts.size != 2 || parts.any(String::isBlank)) {
+                results[iconId] = Result.failure(IllegalArgumentException("Invalid icon id: $iconId"))
+                continue
+            }
+            collections.getOrPut(parts[0]) { mutableListOf() }.add(parts[1])
+        }
+        for ((prefix, names) in collections) {
+            val baseUrl = "$ICONIFY_API_BASE_URL/${URLEncoder.encode(prefix, "UTF-8")}.json?icons="
+            var batch = mutableListOf<String>()
+            var urlLength = baseUrl.length
+            fun fetchBatch() {
+                if (batch.isEmpty()) return
+                val response = runCatching {
+                    val query = batch.joinToString(",") { URLEncoder.encode(it, "UTF-8") }
+                    JSONObject(request(baseUrl + query)).also {
+                        require(it.getString("prefix") == prefix) { "Unexpected Iconify collection" }
+                    }
+                }
+                for (name in batch) {
+                    val iconId = "$prefix:$name"
+                    results[iconId] = response.mapCatching { iconifySvg(it, name) }.onSuccess {
+                        svgCache[iconId] = it
+                    }
+                }
+                batch = mutableListOf()
+                urlLength = baseUrl.length
+            }
+            // Stable URLs improve HTTP caching without changing the search result order.
+            for (name in names.sorted()) {
+                val encodedLength = URLEncoder.encode(name, "UTF-8").length
+                if (baseUrl.length + encodedLength > ICONIFY_MAX_URL_LENGTH) {
+                    results["$prefix:$name"] = Result.failure(IllegalArgumentException("Iconify icon name is too long"))
+                    continue
+                }
+                if (urlLength + encodedLength + (if (batch.isEmpty()) 0 else 1) > ICONIFY_MAX_URL_LENGTH) {
+                    fetchBatch()
+                }
+                urlLength += encodedLength + if (batch.isEmpty()) 0 else 1
+                batch.add(name)
+            }
+            fetchBatch()
+        }
+        return iconIds.distinct().associateWith { results.getValue(it) }
+    }
+
+    @Synchronized
     fun loadSvg(iconId: String): String {
         if (iconId == LOCAL_SIMPLE_STAR_ID) {
             return LOCAL_SIMPLE_STAR_SVG
         }
+        svgCache[iconId]?.let { return it }
         val parts = iconId.split(':', limit = 2)
         require(parts.size == 2) { "Invalid icon id: $iconId" }
         val prefix = URLEncoder.encode(parts[0], "UTF-8")
         val name = URLEncoder.encode(parts[1], "UTF-8")
-        return readUrl("$ICONIFY_API_BASE_URL/$prefix/$name.svg?color=%23000000")
+        return request("$ICONIFY_API_BASE_URL/$prefix/$name.svg?color=%23000000").also { svgCache[iconId] = it }
     }
+}
 
-    private fun readUrl(url: String): String {
-        val connection = URL(url).openConnection() as HttpURLConnection
-        connection.connectTimeout = ICONIFY_TIMEOUT_MS
-        connection.readTimeout = ICONIFY_TIMEOUT_MS
-        connection.requestMethod = "GET"
-        connection.setRequestProperty("Accept", "application/json,image/svg+xml,text/plain")
-        try {
-            val code = connection.responseCode
-            if (code !in 200..299) {
-                throw IllegalStateException("Iconify request failed: HTTP $code")
-            }
-            BufferedReader(InputStreamReader(connection.inputStream)).use { reader ->
-                return reader.readText()
-            }
-        } finally {
-            connection.disconnect()
+private fun readIconifyUrl(url: String): String {
+    val connection = URL(url).openConnection() as HttpURLConnection
+    connection.connectTimeout = ICONIFY_TIMEOUT_MS
+    connection.readTimeout = ICONIFY_TIMEOUT_MS
+    connection.requestMethod = "GET"
+    connection.setRequestProperty("Accept", "application/json,image/svg+xml,text/plain")
+    try {
+        val code = connection.responseCode
+        if (code !in 200..299) {
+            throw IllegalStateException("Iconify request failed: HTTP $code")
         }
+        BufferedReader(InputStreamReader(connection.inputStream)).use { reader ->
+            return reader.readText()
+        }
+    } finally {
+        connection.disconnect()
     }
 }
