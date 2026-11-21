@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="color_picker_title">Couleur</string>
+    <string name="color_picker_cancel">Annuler</string>
+    <string name="color_picker_apply">Appliquer</string>
+    <string name="color_picker_hue">Teinte</string>
+    <string name="color_picker_saturation">Saturation</string>
+    <string name="color_picker_brightness">Luminosité</string>
+    <string name="color_picker_opacity">Opacité</string>
+    <string name="color_picker_empty_history">Emplacement vide des couleurs récentes</string>
+    <string name="color_picker_canvas_pipette">Choisir une couleur sur le canevas</string>
+    <string name="color_picker_copy_hex">Copier le code hexadécimal : %1$s</string>
+    <string name="color_picker_edit_hex">Modifier le code hexadécimal</string>
+    <string name="color_picker_invalid_hex">Saisissez 6 ou 8 chiffres hexadécimaux.</string>
+</resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="color_picker_title">Kolor</string>
+    <string name="color_picker_cancel">Anuluj</string>
+    <string name="color_picker_apply">Zastosuj</string>
+    <string name="color_picker_hue">Odcień</string>
+    <string name="color_picker_saturation">Nasycenie</string>
+    <string name="color_picker_brightness">Jasność</string>
+    <string name="color_picker_opacity">Krycie</string>
+    <string name="color_picker_empty_history">Puste miejsce w ostatnio używanych kolorach</string>
+    <string name="color_picker_canvas_pipette">Pobierz kolor z płótna</string>
+    <string name="color_picker_copy_hex">Kopiuj kod szesnastkowy: %1$s</string>
+    <string name="color_picker_edit_hex">Edytuj kod szesnastkowy</string>
+    <string name="color_picker_invalid_hex">Wpisz 6 lub 8 cyfr szesnastkowych.</string>
+</resources>

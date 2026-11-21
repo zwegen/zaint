@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="color_picker_title">Farbe</string>
+    <string name="color_picker_cancel">Abbrechen</string>
+    <string name="color_picker_apply">Übernehmen</string>
+    <string name="color_picker_hue">Farbton</string>
+    <string name="color_picker_saturation">Sättigung</string>
+    <string name="color_picker_brightness">Helligkeit</string>
+    <string name="color_picker_opacity">Deckkraft</string>
+    <string name="color_picker_empty_history">Leerer Platz für zuletzt verwendete Farben</string>
+    <string name="color_picker_canvas_pipette">Farbe aus der Leinwand wählen</string>
+    <string name="color_picker_copy_hex">Hexcode kopieren: %1$s</string>
+    <string name="color_picker_edit_hex">Hexcode bearbeiten</string>
+    <string name="color_picker_invalid_hex">6 oder 8 Hex-Zeichen eingeben.</string>
+</resources>

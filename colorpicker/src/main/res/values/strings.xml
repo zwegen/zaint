@@ -1,0 +1,13 @@
+<resources>
+    <string name="color_picker_cancel">Cancel</string>
+    <string name="color_picker_apply">Apply</string>
+    <string name="color_picker_hue">Hue</string>
+    <string name="color_picker_saturation">Saturation</string>
+    <string name="color_picker_brightness">Brightness</string>
+    <string name="color_picker_opacity">Opacity</string>
+    <string name="color_picker_empty_history">Empty recent color slot</string>
+    <string name="color_picker_canvas_pipette">Pick a color from the canvas</string>
+    <string name="color_picker_copy_hex">Copy hex code: %1$s</string>
+    <string name="color_picker_edit_hex">Edit hex code</string>
+    <string name="color_picker_invalid_hex">Enter 6 or 8 hex digits.</string>
+</resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="color_picker_title">Χρώμα</string>
+    <string name="color_picker_cancel">Ακύρωση</string>
+    <string name="color_picker_apply">Εφαρμογή</string>
+    <string name="color_picker_hue">Απόχρωση</string>
+    <string name="color_picker_saturation">Κορεσμός</string>
+    <string name="color_picker_brightness">Φωτεινότητα</string>
+    <string name="color_picker_opacity">Αδιαφάνεια</string>
+    <string name="color_picker_empty_history">Κενή θέση πρόσφατου χρώματος</string>
+    <string name="color_picker_canvas_pipette">Επιλογή χρώματος από τον καμβά</string>
+    <string name="color_picker_copy_hex">Αντιγραφή δεκαεξαδικού κωδικού: %1$s</string>
+    <string name="color_picker_edit_hex">Επεξεργασία δεκαεξαδικού κωδικού</string>
+    <string name="color_picker_invalid_hex">Εισαγάγετε 6 ή 8 δεκαεξαδικά ψηφία.</string>
+</resources>

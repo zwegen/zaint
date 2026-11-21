@@ -1,0 +1,8 @@
+<resources>
+    <!-- Targets and artwork are separate roles; never size an interactive swatch in raw px. -->
+    <dimen name="color_picker_touch_target">48dp</dimen>
+    <dimen name="color_picker_history_artwork">40dp</dimen>
+    <dimen name="color_picker_swatch_gap">2dp</dimen>
+    <dimen name="color_picker_history_top_gap">4dp</dimen>
+    <dimen name="color_picker_preview_min_height">56dp</dimen>
+</resources>

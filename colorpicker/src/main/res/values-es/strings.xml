@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="color_picker_title">Color</string>
+    <string name="color_picker_cancel">Cancelar</string>
+    <string name="color_picker_apply">Aplicar</string>
+    <string name="color_picker_hue">Tono</string>
+    <string name="color_picker_saturation">Saturación</string>
+    <string name="color_picker_brightness">Brillo</string>
+    <string name="color_picker_opacity">Opacidad</string>
+    <string name="color_picker_empty_history">Espacio vacío de colores recientes</string>
+    <string name="color_picker_canvas_pipette">Elegir un color del lienzo</string>
+    <string name="color_picker_copy_hex">Copiar código hexadecimal: %1$s</string>
+    <string name="color_picker_edit_hex">Editar código hexadecimal</string>
+    <string name="color_picker_invalid_hex">Introduce 6 u 8 dígitos hexadecimales.</string>
+</resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="color_picker_title">Renk</string>
+    <string name="color_picker_cancel">İptal et</string>
+    <string name="color_picker_apply">Uygula</string>
+    <string name="color_picker_hue">Ton</string>
+    <string name="color_picker_saturation">Doygunluk</string>
+    <string name="color_picker_brightness">Parlaklık</string>
+    <string name="color_picker_opacity">Opaklık</string>
+    <string name="color_picker_empty_history">Son renklerde boş yuva</string>
+    <string name="color_picker_canvas_pipette">Tuvalden renk seç</string>
+    <string name="color_picker_copy_hex">Onaltılık kodu kopyala: %1$s</string>
+    <string name="color_picker_edit_hex">Onaltılık kodu düzenle</string>
+    <string name="color_picker_invalid_hex">6 veya 8 onaltılık basamak girin.</string>
+</resources>
