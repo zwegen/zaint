@@ -122,6 +122,9 @@ interface ZaintCommandFactoryApi {
         boxRotation: Float
     ): Command
 
+    /** Replaces color and alpha within the selection, without SRC_OVER accumulation. */
+    fun createMaskedColorFillCommand(bitmap: Bitmap, mask: Bitmap, bounds: Rect): Command
+
     /** Creates an undoable alpha-mask erase operation on the active layer. */
     fun createMaskedClearCommand(
         mask: Bitmap,

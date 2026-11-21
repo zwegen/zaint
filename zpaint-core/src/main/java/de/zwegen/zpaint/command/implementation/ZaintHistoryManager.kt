@@ -127,6 +127,7 @@ class ZaintHistoryManager(
         releaseHistory(redoHistory)
         undoHistory.clear()
         redoHistory.clear()
+        historyIds.clear()
         layerModel.reset()
         baseCommand?.let(::run)
         replaceBaseSnapshot(captureCurrentModel())
@@ -139,6 +140,7 @@ class ZaintHistoryManager(
         releaseHistory(redoHistory)
         undoHistory.clear()
         redoHistory.clear()
+        historyIds.clear()
         baseSnapshot?.release()
         baseSnapshot = null
         listeners.clear()
@@ -187,11 +189,11 @@ class ZaintHistoryManager(
     }
 
     override fun popFirstCommandInUndo() {
-        undoHistory.pollFirst()?.freeResources()
+        undoHistory.pollFirst()?.let(::releaseCommand)
     }
 
     override fun popFirstCommandInRedo() {
-        redoHistory.pollFirst()?.freeResources()
+        redoHistory.pollFirst()?.let(::releaseCommand)
     }
 
     override fun executeAllCommands() {
@@ -237,7 +239,7 @@ class ZaintHistoryManager(
 
     private fun discardLeadingColorChanges(history: Deque<Command>) {
         while (history.firstOrNull() is ZaintColorChange) {
-            history.removeFirst().freeResources()
+            releaseCommand(history.removeFirst())
         }
     }
 
@@ -283,7 +285,7 @@ class ZaintHistoryManager(
         }
         baseCommand = snapshotCommand(checkpoint)
         replaceBaseSnapshot(checkpoint)
-        repeat(commands.size) { undoHistory.removeLast().freeResources() }
+        repeat(commands.size) { releaseCommand(undoHistory.removeLast()) }
     }
 
     private fun snapshotCommand(snapshot: LayerModelSnapshot): Command = ZaintCommandBatch().apply {
@@ -305,8 +307,13 @@ class ZaintHistoryManager(
     private fun historyId(command: Command): Long =
         historyIds.getOrPut(command) { ++nextHistoryId }
 
+    private fun releaseCommand(command: Command) {
+        historyIds.remove(command)
+        command.freeResources()
+    }
+
     private fun releaseHistory(history: Iterable<Command>) {
-        history.forEach(Command::freeResources)
+        history.forEach(::releaseCommand)
     }
 
     private fun notifyListeners() {

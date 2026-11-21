@@ -23,16 +23,16 @@
     <string name="dialog_error_sdcard_text">Проверьте изображение или SD-карту!</string>
     <string name="dialog_warning_new_image">Сохранить изменения?</string>
     <string name="help_content_eraser">Стирайте части изображения с помощью ластика.</string>
-    <string name="help_content_brush">Нажимайте на символы на нижней панели, чтобы изменить цвет или размер кисти.</string>
+    <string name="help_content_brush">Ползунок размера задаёт ширину кисти. Кнопки позволяют выбрать жёсткую или мягкую кисть, маркер, каллиграфическое перо или стрелку.</string>
     <string name="help_content_eyedropper">Нажимайте на изображение, чтобы выбрать цвет.</string>
     <string name="help_content_undo">Нажмите, чтобы отменить свое предыдущее действие.</string>
     <string name="help_content_redo">Нажимайте, чтобы вернуть отмененное действие.</string>
-    <string name="help_content_fill">Нажимайте на изображение, чтобы заполнить область выбранным цветом.</string>
-    <string name="help_content_transform">Используйте для изменения размера изображения.</string>
-    <string name="help_content_clipboard">Перемещайте и изменяйте размер прямоугольника, чтобы выделить область, к которой вы хотите применить штамп. Нажимайте на нужную область, чтобы скопировать или вырезать ее. Перемещайте и нажимайте снова, чтобы применить штамп.</string>
+    <string name="help_content_fill">Нажмите на связную область, чтобы залить её. Ползунок допуска задаёт необходимое сходство соседних цветов. Можно выбрать до трёх цветов и создать линейный, волнистый или круговой градиент.</string>
+    <string name="help_content_transform">Измените размер и обрежьте изображение.</string>
+    <string name="help_content_clipboard">Переместите прямоугольник и измените его размер, чтобы охватить нужную область. Нажмите «Копировать» или «Вырезать», чтобы выбрать её. Переместите её и нажмите «Вставить».</string>
     <string name="help_content_import_png">Импортируйте изображение из галереи в буфер обмена.</string>
     <string name="help_content_line">Рисуйте прямую линию.</string>
-    <string name="help_content_text">Пишите текст и задавайте ему разные форматы. После, изменяйте размер текстового поля. Нажимайте на галочку, чтобы вставить текст на изображение.</string>
+    <string name="help_content_text">Введите текст и выберите шрифт, размер, цвет и выравнивание. Кнопки ниже задают контур, тень и цвет фона. Текст можно перемещать, поворачивать, увеличивать и уменьшать. Одну строку также можно изогнуть. Нажмите на галочку, чтобы вставить текст в изображение.</string>
     <string name="help_content_shape">Найдите стикеры и вставьте выбранный стикер.</string>
     <string name="help_content_layer">Создать новые слои или изменить существующие.</string>
     <string name="help_content_color_chooser">Выбрать или настроить цвет.</string>
@@ -55,7 +55,7 @@
     <string name="copy_to">Копия сохранена в\n</string>
     <string name="menu_quit">Закрыть</string>
     <string name="save_button_text">Сохранить</string>
-    <string name="discard_button_text">Сбросить</string>
+    <string name="discard_button_text">Не сохранять</string>
     <string name="cancel_button_text">Отменить</string>
     <string name="overwrite_button_text">Перезаписать</string>
     <string name="resize_nothing_to_resize">нечего менять</string>
@@ -66,8 +66,8 @@
     <string name="text_tool_dialog_bold_shortcut">Ж</string>
     <string name="text_tool_dialog_input_hint">Нажмите здесь, чтобы написать</string>
     <string name="text_tool_dialog_font_monospace">Моноспейс</string>
-    <string name="text_tool_dialog_font_serif">Serif</string>
-    <string name="text_tool_dialog_font_sans_serif">Sans Serif</string>
+    <string name="text_tool_dialog_font_serif">С засечками</string>
+    <string name="text_tool_dialog_font_sans_serif">Без засечек</string>
     <string name="smudge_tool_dialog_pressure_title">Нажим</string>
     <string name="smudge_tool_dialog_drag_title">Перетащить</string>
     <string name="transform_tool_rotate_left">повернуть влево</string>
@@ -92,7 +92,7 @@
     <string name="dialog_save_image_name">Название изображения</string>
     <string name="dialog_save_image_format">Формат изображения</string>
     <string name="dialog_save_jpg_option_quality">Качество:</string>
-    <string name="zpaint_jpg_message_dialog">Занимает <b>минимального пространства для хранения</b>. <b>Прозрачности</b> не запоминается.</string>
+    <string name="zpaint_jpg_message_dialog">Занимает <b>минимум места</b>. <b>Прозрачность не сохраняется</b>.</string>
     <string name="zpaint_png_message_dialog">Сжатие без потерь. Прозрачность сохраняется.</string>
     <string name="permission_info_external_storage_text">Этому приложению требуется запрошенное разрешение для корректной работы. Чтобы сохранять изображения в локальной памяти, приложению необходим доступ для чтения и записи.</string>
     <string name="permission_info_permanent_denial_text">Этому приложению требуется запрошенное разрешение для корректной работы. Чтобы сохранять изображения в локальное хранилище, приложению необходим доступ для чтения и записи.
@@ -128,27 +128,27 @@
     <string name="help_content_perspective">Перетащите четыре угла на видимую область, затем нажмите галочку для выравнивания.</string>
     <string name="help_content_pixel">Пикселизирует все изображение или выбранную круглую область.</string>
     <string name="perspective_invalid_selection">Переместите углы так, чтобы получилась допустимая область.</string>
-    <string name="text_tool_dialog_outline" translatable="false">Outline</string>
-    <string name="text_tool_dialog_shadow" translatable="false">Shadow</string>
-    <string name="text_tool_dialog_font_inter" translatable="false">Sans</string>
-    <string name="text_tool_dialog_font_source_serif" translatable="false">Serif</string>
-    <string name="text_tool_dialog_font_caveat" translatable="false">Handdraw</string>
+    <string name="text_tool_dialog_outline">Контур</string>
+    <string name="text_tool_dialog_shadow">Тень</string>
+    <string name="text_tool_dialog_font_inter">Без засечек</string>
+    <string name="text_tool_dialog_font_source_serif">С засечками</string>
+    <string name="text_tool_dialog_font_caveat">Рукописный</string>
     <string name="text_tool_dialog_font_bangers" translatable="false">Anton</string>
     <string name="brush_preset_pencil">Карандаш</string>
     <string name="brush_preset_brush">Кисть</string>
     <string name="brush_preset_marker">Маркер</string>
     <string name="brush_preset_calligraphy">Каллиграфия</string>
-    <string name="icon_tool_search_title">Поиск значков</string>
-    <string name="icon_tool_search_hint">Поиск в Iconify</string>
+    <string name="icon_tool_search_title">Поиск наклеек</string>
+    <string name="icon_tool_search_hint">Поиск наклеек в Iconify</string>
     <string name="icon_tool_search_button">Поиск</string>
     <string name="icon_tool_load_more">Загрузить еще</string>
-    <string name="icon_tool_empty_state">Найдите значок.</string>
+    <string name="icon_tool_empty_state">Найдите наклейку.</string>
     <string name="icon_tool_loading">Загрузка…</string>
     <string name="icon_tool_empty_query">Введите поисковый запрос.</string>
-    <string name="icon_tool_no_results">Значки не найдены.</string>
-    <string name="icon_tool_results_loaded">Выберите значок.</string>
-    <string name="icon_tool_error">Не удалось загрузить значки.</string>
-    <string name="icon_tool_select_hint">Сначала выберите значок.</string>
+    <string name="icon_tool_no_results">Наклейки не найдены.</string>
+    <string name="icon_tool_results_loaded">Выберите наклейку.</string>
+    <string name="icon_tool_error">Не удалось загрузить наклейки.</string>
+    <string name="icon_tool_select_hint">Сначала выберите наклейку.</string>
     <string name="filter_tool_dialog_exposure_title">Экспозиция</string>
     <string name="filter_tool_dialog_brightness_title">Яркость</string>
     <string name="filter_tool_dialog_contrast_title">Контраст</string>
@@ -257,7 +257,7 @@
     <string name="help_content_filter_pixel">Пикселизирует изображение. Используйте ползунок для настройки размера пикселей.</string>
     <string name="text_tool_dialog_align_justify">По ширине</string>
     <string name="text_tool_dialog_case_uppercase">ПРОПИСНЫЕ</string>
-    <string name="text_tool_dialog_case_title">Первая буква прописная</string>
+    <string name="text_tool_dialog_case_title">Каждое слово с прописной буквы</string>
     <string name="text_tool_dialog_case_lowercase">строчные</string>
     <string name="filter_tool_dialog_bloom_title">Сила свечения</string>
     <string name="filter_tool_dialog_median_title">Медиана</string>
@@ -285,4 +285,17 @@
     <string name="slider_label_line_spacing">Межстрочный интервал</string>
     <string name="slider_label_line_width">Ширина линии</string>
     <string name="slider_label_scale">Масштаб (%)</string>
+    <string name="brush_preset_line">Линия</string>
+    <string name="button_replace">Замена</string>
+    <string name="fill_tool_antialiasing">Сглаживание</string>
+    <string name="fill_tool_dialog_image">Заливка изображением</string>
+    <string name="fill_tool_dialog_tap_area">Нажмите на область</string>
+    <string name="fill_tool_transform_mode">Преобразовать изображение заливки</string>
+    <string name="fill_tool_view_mode">Перемещение и масштабирование холста</string>
+    <string name="help_content_replace">Установите размер кисти от 5 до 50 и закрасьте целевую область. Затем нажмите на источник, чтобы скопировать его в отмеченную область.</string>
+    <string name="layer_merge_active">Объединить активные слои</string>
+    <string name="layer_merge_confirm_button">Объединить</string>
+    <string name="layer_merge_confirmation_message">Активные слои будут объединены в один слой.</string>
+    <string name="layer_merge_confirmation_title">Объединить активные слои?</string>
+    <string name="replace_tool_source_hint">Нажмите на\nисточник</string>
 </resources>

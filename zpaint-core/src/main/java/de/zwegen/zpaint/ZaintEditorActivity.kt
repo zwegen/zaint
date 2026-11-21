@@ -144,11 +144,12 @@ class ZaintEditorActivity : AppCompatActivity(), MainView, CommandListener, Colo
     private lateinit var commandSerializer: ZaintProjectSerializer
     private lateinit var layerPresenter: ZaintLayerPresenter
     private lateinit var drawingSurface: ZaintDrawingSurface
-    private lateinit var presenterMain: ZaintEditorContracts.Presenter
+    private lateinit var presenterMain: ZaintEditorPresenter
     private lateinit var drawerLayoutViewHolder: DrawerLayoutViewHolder
     private lateinit var topBarViewHolder: TopBarViewHolder
     private lateinit var keyboardListener: KeyboardListener
     private lateinit var appFragment: ZPaintApplicationFragment
+    private var hasRetainedDocument = false
     lateinit var toolCoordinator: ZaintToolCoordinator
     private lateinit var commandFactory: ZaintCommandFactoryApi
     private lateinit var progressBar: ContentLoadingProgressBar
@@ -192,6 +193,7 @@ class ZaintEditorActivity : AppCompatActivity(), MainView, CommandListener, Colo
     companion object {
         const val TAG = "ZaintEditorActivity"
         private const val IS_SAVED_KEY = "isSaved"
+        private const val HAS_DOCUMENT_KEY = "hasDocument"
         private const val SAVED_PICTURE_URI_KEY = "savedPictureUri"
         private const val CAMERA_IMAGE_URI_KEY = "cameraImageUri"
         private const val APP_FRAGMENT_KEY = "customActivityState"
@@ -304,25 +306,27 @@ class ZaintEditorActivity : AppCompatActivity(), MainView, CommandListener, Colo
             savedInstanceState == null -> {
                 presenterMain.initializeFromCleanState()
 
-                if (presenterMain.checkForTemporaryFile() && (!isRunningEspressoTests || isTemporaryFileSavingTest)) {
-                    val workspaceReturnValue = presenterMain.openTemporaryFile()
-                    presenterMain.resetPerspectiveAfterNextCommand()
-                    commandManager.loadProjectHistory(workspaceReturnValue?.commandManagerModel)
-                    model.colorHistory = workspaceReturnValue?.colorHistory ?: ColorHistory()
-                    model.colorHistory.colors.lastOrNull()?.let {
-                        toolReference.tool?.changePaintColor(it)
-                        presenterMain.setBottomNavigationColor(it)
-                    }
-                }
+                restoreTemporaryDocument()
                 workspace.perspective.setBitmapDimensions(layerModel.width, layerModel.height)
             }
             else -> {
-                val isSaved = savedInstanceState.getBoolean(IS_SAVED_KEY, false)
+                // A restored Fragment object is not proof that its in-memory document survived
+                // process death. Only retain the model if both it and its history actually exist.
+                val recovered = !hasRetainedDocument && restoreTemporaryDocument()
+                val isSaved = hasRetainedDocument && savedInstanceState.getBoolean(IS_SAVED_KEY, false)
                 val savedPictureUri = savedInstanceState.getParcelable<Uri>(SAVED_PICTURE_URI_KEY)
                 val cameraImageUri = savedInstanceState.getParcelable<Uri>(CAMERA_IMAGE_URI_KEY)
                 presenterMain.restoreState(
-                    isSaved, savedPictureUri, cameraImageUri
+                    isSaved,
+                    // Recovery may predate a document switch captured in the Bundle. Without a
+                    // retained model there is no proof that this URI belongs to the recovered pixels.
+                    if (hasRetainedDocument) savedPictureUri else null,
+                    cameraImageUri
                 )
+                presenterMain.restoreDocumentPresence(
+                    recovered || hasRetainedDocument && savedInstanceState.getBoolean(HAS_DOCUMENT_KEY, true)
+                )
+                workspace.perspective.setBitmapDimensions(layerModel.width, layerModel.height)
             }
         }
 
@@ -333,6 +337,22 @@ class ZaintEditorActivity : AppCompatActivity(), MainView, CommandListener, Colo
         }
         presenterMain.finishInitialize()
 
+    }
+
+    private fun restoreTemporaryDocument(): Boolean {
+        if ((isRunningEspressoTests && !isTemporaryFileSavingTest) || !presenterMain.checkForTemporaryFile()) {
+            return false
+        }
+        val restored = presenterMain.openTemporaryFile() ?: return false
+        val history = restored.commandManagerModel ?: return false
+        presenterMain.resetPerspectiveAfterNextCommand()
+        (commandManager as ZaintHistoryDispatcher).restoreProjectHistoryBeforeEditing(history)
+        model.colorHistory = restored.colorHistory ?: ColorHistory()
+        model.colorHistory.colors.lastOrNull()?.let {
+            toolReference.tool?.changePaintColor(it)
+            presenterMain.setBottomNavigationColor(it)
+        }
+        return true
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -390,6 +410,7 @@ class ZaintEditorActivity : AppCompatActivity(), MainView, CommandListener, Colo
     }
 
     private fun onCreateGlobals() {
+        hasRetainedDocument = appFragment.layerModel != null && appFragment.commandManager != null
         val currentLayerModel = appFragment.layerModel ?: ZaintLayerModel()
         appFragment.layerModel = currentLayerModel
         layerModel = currentLayerModel
@@ -837,6 +858,7 @@ class ZaintEditorActivity : AppCompatActivity(), MainView, CommandListener, Colo
         appFragment.colorHistory = model.colorHistory
         with(outState) {
             putBoolean(IS_SAVED_KEY, model.isSaved)
+            putBoolean(HAS_DOCUMENT_KEY, presenterMain.hasDocumentContent)
             putParcelable(SAVED_PICTURE_URI_KEY, model.savedPictureUri)
             putParcelable(CAMERA_IMAGE_URI_KEY, model.cameraImageUri)
         }

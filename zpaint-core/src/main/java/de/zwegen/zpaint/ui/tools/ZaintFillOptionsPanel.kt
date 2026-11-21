@@ -1,7 +1,6 @@
 package de.zwegen.zpaint.ui.tools
 
 import android.graphics.Color
-import android.graphics.drawable.LayerDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.text.InputFilter
@@ -208,12 +207,12 @@ class ZaintFillOptionsPanel(
         }
         colorSwatches.forEachIndexed { index, swatch ->
             if (index < displayedColors.size) {
-                swatch.background = swatchBackground(displayedColors[index], index)
+                swatch.background = GroupedSwatchBackground.color(gradientControls.context, displayedColors[index], index, MAX_FILL_COLORS - 1)
                 swatch.setImageDrawable(null)
                 swatch.clearColorFilter()
                 swatch.contentDescription = swatch.context.getString(R.string.help_content_color_chooser)
             } else {
-                swatch.background = emptySwatchBackground(index)
+                swatch.background = GroupedSwatchBackground.empty(gradientControls.context, index, MAX_FILL_COLORS - 1)
                 swatch.setImageResource(R.drawable.ic_zpaint_plus_enabled)
                 swatch.setColorFilter(primaryColor)
                 swatch.contentDescription = swatch.context.getString(R.string.fill_tool_dialog_add_color)
@@ -233,41 +232,6 @@ class ZaintFillOptionsPanel(
         cornerRadius = 0f
         setColor(if (selected) Color.BLACK else Color.WHITE)
         setStroke(dp(1f), if (selected) Color.BLACK else primaryColor)
-    }
-
-    private fun swatchBackground(color: Int, index: Int): Drawable {
-        val border = GradientDrawable().apply {
-            shape = GradientDrawable.RECTANGLE
-            cornerRadii = swatchCornerRadii(index)
-            setColor(color)
-            setStroke(dp(1f), Color.rgb(208, 208, 208))
-        }
-        return if (Color.alpha(color) == 0) {
-            LayerDrawable(
-                arrayOf(
-                    ContextCompat.getDrawable(gradientControls.context, R.drawable.zpaint_checkeredbg_repeat),
-                    border
-                )
-            )
-        } else {
-            border
-        }
-    }
-
-    private fun emptySwatchBackground(index: Int): Drawable = GradientDrawable().apply {
-        shape = GradientDrawable.RECTANGLE
-        cornerRadii = swatchCornerRadii(index)
-        setColor(Color.WHITE)
-        setStroke(dp(1f), Color.rgb(208, 208, 208))
-    }
-
-    private fun swatchCornerRadii(index: Int): FloatArray {
-        val radius = dp(4f).toFloat()
-        return when (index) {
-            0 -> floatArrayOf(radius, radius, 0f, 0f, 0f, 0f, radius, radius)
-            MAX_FILL_COLORS - 1 -> floatArrayOf(0f, 0f, radius, radius, radius, radius, 0f, 0f)
-            else -> FloatArray(8)
-        }
     }
 
     private fun dp(value: Float): Int = TypedValue.applyDimension(

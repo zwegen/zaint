@@ -9,4 +9,8 @@
 
     <!-- ZPaint Zoom Window -->
     <dimen name="zpaint_icon_result_size">64dp</dimen>
+    <dimen name="zaint_dialog_touch_target">48dp</dimen>
+    <dimen name="zaint_dialog_surface_padding">20dp</dimen>
+    <dimen name="zaint_grouped_swatch_stroke">1dp</dimen>
+    <dimen name="zaint_grouped_swatch_radius">4dp</dimen>
 </resources>

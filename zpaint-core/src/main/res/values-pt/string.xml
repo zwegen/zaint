@@ -23,16 +23,16 @@
     <string name="dialog_error_sdcard_text">Verifique a imagem ou cartão SD!</string>
     <string name="dialog_warning_new_image">Guardar alterações?</string>
     <string name="help_content_eraser">Remova partes da imagem com uma borracha.</string>
-    <string name="help_content_brush">Toque nos ícones na barra inferior para alterar a cor ou o tamanho do pincel.</string>
+    <string name="help_content_brush">Use o controle de tamanho para definir a largura do pincel. Os botões permitem escolher um pincel duro ou suave, marcador, caligrafia ou seta.</string>
     <string name="help_content_eyedropper">Toque na imagem para selecionar uma cor.</string>
     <string name="help_content_undo">Toque para desfazer a ação anterior.</string>
     <string name="help_content_redo">Toque para refazer uma ação desfeita.</string>
-    <string name="help_content_fill">Toque na imagem para preencher uma área com a cor selecionada.</string>
-    <string name="help_content_transform">Use para transformar a imagem.</string>
-    <string name="help_content_clipboard">Mova e redimensione o retângulo para cobrir a área que pretende carimbar. Toque prolongadamente para selecionar a área. Mova e toque novamente para carimbar.</string>
+    <string name="help_content_fill">Toque numa área contínua para a preencher. O controle de tolerância define a semelhança necessária entre as cores vizinhas. Pode escolher até três cores e criar gradientes lineares, ondulados ou circulares.</string>
+    <string name="help_content_transform">Ajuste o tamanho e recorte a imagem.</string>
+    <string name="help_content_clipboard">Mova e redimensione o retângulo para cobrir a área a reproduzir. Toque em Copiar ou Cortar para a selecionar. Mova-a e depois toque em Colar para a inserir.</string>
     <string name="help_content_import_png">Importe uma imagem da galeria para a ferramenta carimbo.</string>
     <string name="help_content_line">Desenhe uma linha reta.</string>
-    <string name="help_content_text">Escreva texto e formate-o. Redimensione a caixa de texto depois. Toque para inserir o texto na imagem.</string>
+    <string name="help_content_text">Introduza texto e escolha a fonte, o tamanho, a cor e o alinhamento. Os botões abaixo definem o contorno, a sombra e a cor de fundo. Pode mover, rodar, ampliar ou reduzir o texto. Uma única linha também pode ser curvada. O visto insere o texto na imagem.</string>
     <string name="help_content_shape">Pesquise adesivos e insira o adesivo selecionado.</string>
     <string name="help_content_layer">Crie uma nova camada ou altere as existentes.</string>
     <string name="help_content_color_chooser">Selecione ou ajuste uma cor.</string>
@@ -55,7 +55,7 @@
     <string name="copy_to">Cópia guardada em\n</string>
     <string name="menu_quit">Sair</string>
     <string name="save_button_text">Guardar</string>
-    <string name="discard_button_text">Eliminar</string>
+    <string name="discard_button_text">Descartar</string>
     <string name="cancel_button_text">Cancelar</string>
     <string name="overwrite_button_text">Substituir</string>
     <string name="resize_nothing_to_resize">não há nada para ser redimensionado</string>
@@ -65,9 +65,9 @@
     <string name="text_tool_dialog_italic_shortcut">I</string>
     <string name="text_tool_dialog_bold_shortcut">B</string>
     <string name="text_tool_dialog_input_hint">Toque aqui para escrever</string>
-    <string name="text_tool_dialog_font_monospace">Monospace</string>
-    <string name="text_tool_dialog_font_serif">Serif</string>
-    <string name="text_tool_dialog_font_sans_serif">Sans Serif</string>
+    <string name="text_tool_dialog_font_monospace">Monoespaçada</string>
+    <string name="text_tool_dialog_font_serif">Com serifa</string>
+    <string name="text_tool_dialog_font_sans_serif">Sem serifa</string>
     <string name="smudge_tool_dialog_pressure_title">Pressão</string>
     <string name="smudge_tool_dialog_drag_title">Arrastar</string>
     <string name="transform_tool_rotate_left">rodar à esquerda</string>
@@ -128,27 +128,27 @@
     <string name="help_content_perspective">Arraste os quatro cantos para a area visivel e toque na marca para endireitar.</string>
     <string name="help_content_pixel">Pixeliza a imagem inteira ou uma area circular selecionada.</string>
     <string name="perspective_invalid_selection">Mova os cantos para formar uma area valida.</string>
-    <string name="text_tool_dialog_outline" translatable="false">Outline</string>
-    <string name="text_tool_dialog_shadow" translatable="false">Shadow</string>
-    <string name="text_tool_dialog_font_inter" translatable="false">Sans</string>
-    <string name="text_tool_dialog_font_source_serif" translatable="false">Serif</string>
-    <string name="text_tool_dialog_font_caveat" translatable="false">Handdraw</string>
+    <string name="text_tool_dialog_outline">Contorno</string>
+    <string name="text_tool_dialog_shadow">Sombra</string>
+    <string name="text_tool_dialog_font_inter">Sem serifa</string>
+    <string name="text_tool_dialog_font_source_serif">Com serifa</string>
+    <string name="text_tool_dialog_font_caveat">Manuscrita</string>
     <string name="text_tool_dialog_font_bangers" translatable="false">Anton</string>
     <string name="brush_preset_pencil">Lapis</string>
     <string name="brush_preset_brush">Pincel</string>
     <string name="brush_preset_marker">Marcador</string>
     <string name="brush_preset_calligraphy">Caligrafia</string>
-    <string name="icon_tool_search_title">Busca de icones</string>
-    <string name="icon_tool_search_hint">Buscar no Iconify</string>
+    <string name="icon_tool_search_title">Pesquisa de autocolantes</string>
+    <string name="icon_tool_search_hint">Pesquisar autocolantes no Iconify</string>
     <string name="icon_tool_search_button">Buscar</string>
     <string name="icon_tool_load_more">Carregar mais</string>
-    <string name="icon_tool_empty_state">Procure um icone.</string>
+    <string name="icon_tool_empty_state">Pesquise um autocolante.</string>
     <string name="icon_tool_loading">Carregando…</string>
     <string name="icon_tool_empty_query">Digite um termo de busca.</string>
-    <string name="icon_tool_no_results">Nenhum icone encontrado.</string>
-    <string name="icon_tool_results_loaded">Escolha um icone.</string>
-    <string name="icon_tool_error">Não foi possível carregar icones.</string>
-    <string name="icon_tool_select_hint">Escolha primeiro um icone.</string>
+    <string name="icon_tool_no_results">Nenhum autocolante encontrado.</string>
+    <string name="icon_tool_results_loaded">Escolha um autocolante.</string>
+    <string name="icon_tool_error">Não foi possível carregar os autocolantes.</string>
+    <string name="icon_tool_select_hint">Escolha primeiro um autocolante.</string>
     <string name="filter_tool_dialog_exposure_title">Exposição</string>
     <string name="filter_tool_dialog_brightness_title">Brilho</string>
     <string name="filter_tool_dialog_contrast_title">Contraste</string>
@@ -257,7 +257,7 @@
     <string name="help_content_filter_pixel">Pixeliza a imagem. Use o controle deslizante para ajustar o tamanho do pixel.</string>
     <string name="text_tool_dialog_align_justify">Justificar</string>
     <string name="text_tool_dialog_case_uppercase">MAIÚSCULAS</string>
-    <string name="text_tool_dialog_case_title">Primeira letra maiúscula</string>
+    <string name="text_tool_dialog_case_title">Inicial maiúscula em cada palavra</string>
     <string name="text_tool_dialog_case_lowercase">minúsculas</string>
     <string name="filter_tool_dialog_bloom_title">Intensidade do brilho</string>
     <string name="filter_tool_dialog_median_title">Mediana</string>
@@ -285,4 +285,17 @@
     <string name="slider_label_line_spacing">Espaçamento entre linhas</string>
     <string name="slider_label_line_width">Largura da linha</string>
     <string name="slider_label_scale">Escala (%)</string>
+    <string name="brush_preset_line">Linha</string>
+    <string name="button_replace">Substituir</string>
+    <string name="fill_tool_antialiasing">Suavização de bordas</string>
+    <string name="fill_tool_dialog_image">Preencher com imagem</string>
+    <string name="fill_tool_dialog_tap_area">Toque numa área</string>
+    <string name="fill_tool_transform_mode">Transformar imagem de preenchimento</string>
+    <string name="fill_tool_view_mode">Mover e ampliar a tela</string>
+    <string name="help_content_replace">Defina o tamanho do pincel entre 5 e 50 e pinte a área de destino. Depois toque na origem para a copiar para a área marcada.</string>
+    <string name="layer_merge_active">Mesclar camadas ativas</string>
+    <string name="layer_merge_confirm_button">Mesclar</string>
+    <string name="layer_merge_confirmation_message">As camadas ativas serão mescladas numa única camada.</string>
+    <string name="layer_merge_confirmation_title">Mesclar camadas ativas?</string>
+    <string name="replace_tool_source_hint">Toque na\norigem</string>
 </resources>

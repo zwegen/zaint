@@ -40,7 +40,7 @@ android {
         versionName rootProject.ext.androidVersionName
         manifestPlaceholders += [appName: appName]
         setProperty("archivesBaseName", "zpaint")
-        resConfigs "en", "es", "de", "fr", "el", "pt", "it", "ru", "tr"
+        resConfigs "en", "es", "de", "fr", "el", "pt", "it", "ru", "tr", "pl"
     }
 
     compileOptions {

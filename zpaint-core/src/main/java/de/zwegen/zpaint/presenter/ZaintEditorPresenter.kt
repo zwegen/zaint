@@ -72,6 +72,7 @@ import de.zwegen.zpaint.iotasks.BitmapReturnValue
 import de.zwegen.zpaint.iotasks.CreateFile.CreateFileCallback
 import de.zwegen.zpaint.iotasks.ZaintDocumentLoadTask.LoadImageCallback
 import de.zwegen.zpaint.iotasks.ZaintDocumentSaveTask.SaveImageCallback
+import de.zwegen.zpaint.iotasks.ZaintDocumentSaveTask.SaveState
 import de.zwegen.zpaint.tools.Tool
 import de.zwegen.zpaint.iotasks.WorkspaceReturnValue
 import de.zwegen.zpaint.tools.ZaintToolKind
@@ -123,8 +124,17 @@ open class ZaintEditorPresenter(
     private var isExport = false
     private var pendingCreateDocumentPermission = PERMISSION_EXTERNAL_STORAGE_SAVE
     private var wasImageLoaded = false
+    private var documentId = 0L
+    private var editRevision = 0L
+
+    val hasDocumentContent: Boolean
+        get() = wasImageLoaded || commandManager.isUndoAvailable || commandManager.isRedoAvailable
+
+    fun restoreDocumentPresence(hasContent: Boolean) {
+        wasImageLoaded = hasContent
+    }
     private val isImageUnchanged: Boolean
-        get() = !commandManager.isUndoAvailable
+        get() = !hasDocumentContent
 
     override val bitmap: Bitmap?
         get() = workspace.bitmapOfAllLayers
@@ -306,6 +316,8 @@ open class ZaintEditorPresenter(
     }
 
     override fun onNewImage() {
+        documentId++
+        wasImageLoaded = false
         model.colorHistory.clearImageColors()
         resetPerspectiveAfterNextCommand = true
         model.savedPictureUri = null
@@ -695,6 +707,7 @@ open class ZaintEditorPresenter(
                 workspace.perspective.resetScaleAndTranslationToFitWidth()
             }
         }
+        editRevision++
         model.isSaved = false
         toolController.resetToolInternalState()
         view.refreshDrawingSurface()
@@ -706,6 +719,7 @@ open class ZaintEditorPresenter(
     }
 
     override fun initializeFromCleanState() {
+        documentId++
         model.colorHistory.clearImageColors()
         wasImageLoaded = false
         toolController.resetToolInternalStateOnImageLoaded()
@@ -878,6 +892,7 @@ open class ZaintEditorPresenter(
             return
         }
         if (result.model != null) {
+            documentId++
             commandManager.loadProjectHistory(result.model)
             resetPerspectiveAfterNextCommand = true
             setColorHistoryAfterLoadImage(result.colorHistory)
@@ -901,6 +916,7 @@ open class ZaintEditorPresenter(
         }
         when (requestCode) {
             LOAD_IMAGE_DEFAULT -> {
+                documentId++
                 resetPerspectiveAfterNextCommand = true
                 fitPerspectiveToWidthAfterNextCommand = true
                 if (result.bitmap != null) {
@@ -970,16 +986,30 @@ open class ZaintEditorPresenter(
         view.showContentLoadingProgressBar()
     }
 
+    override fun captureSaveState(): SaveState = SaveState(
+        documentId, editRevision, commandManager.revision, !commandManager.isBusy
+    )
+
     override fun onSaveImagePostExecute(
         @SaveImageRequestCode requestCode: Int,
         uri: Uri?,
         saveAsCopy: Boolean
+    ) = onSaveImagePostExecute(requestCode, uri, saveAsCopy, captureSaveState())
+
+    override fun onSaveImagePostExecute(
+        @SaveImageRequestCode requestCode: Int,
+        uri: Uri?,
+        saveAsCopy: Boolean,
+        saveState: SaveState?
     ) {
         view.hideContentLoadingProgressBar()
         if (uri == null) {
             navigator.showSaveErrorDialog()
             return
         }
+        val sameDocument = saveState?.documentId == documentId
+        val savedCurrentRevision = saveState != null && sameDocument && saveState.revision == editRevision &&
+            saveState.timelineRevision == commandManager.revision && saveState.wasIdle && !commandManager.isBusy
         if (saveAsCopy) {
             var msg: String? = context.getString(R.string.copy_to)
             fileActivity?.let {
@@ -992,10 +1022,15 @@ open class ZaintEditorPresenter(
                 msg += getPathFromUri(it, uri)
             }
             navigator.showToast(msg ?: "null", Toast.LENGTH_LONG)
-            model.savedPictureUri = uri
-            model.isSaved = true
+            if (sameDocument) {
+                model.savedPictureUri = uri
+                model.isSaved = savedCurrentRevision
+            }
         }
         navigator.broadcastAddPictureToGallery(uri)
+        // A successful copy/export does not save the current document. An older save may still
+        // update its target URI, but must never discard newer edits or act on another document.
+        if (saveAsCopy || !savedCurrentRevision) return
         when (requestCode) {
             SAVE_IMAGE_NEW_EMPTY -> onNewImage()
             SAVE_IMAGE_DEFAULT -> {
@@ -1115,7 +1150,11 @@ open class ZaintEditorPresenter(
     }
 
     override fun openTemporaryFile(): WorkspaceReturnValue? =
-        ZaintDocumentStorage.openTemporaryPictureFile(internalMemoryPath, commandSerializer)
+        ZaintDocumentStorage.openTemporaryPictureFile(internalMemoryPath, commandSerializer)?.also {
+            documentId++
+            wasImageLoaded = true
+            model.isSaved = false
+        }
 
     override fun checkForTemporaryFile(): Boolean =
         ZaintDocumentStorage.checkForTemporaryFile(internalMemoryPath)

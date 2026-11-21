@@ -211,6 +211,9 @@ class ZaintCommandFactory : ZaintCommandFactoryApi {
         boxRotation
     )
 
+    override fun createMaskedColorFillCommand(bitmap: Bitmap, mask: Bitmap, bounds: Rect): Command =
+        ZaintMaskedColorFill(bitmap, mask, Rect(bounds))
+
     override fun createMaskedClearCommand(
         mask: Bitmap,
         bounds: Rect

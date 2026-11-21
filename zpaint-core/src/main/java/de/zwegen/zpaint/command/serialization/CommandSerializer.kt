@@ -55,7 +55,9 @@ open class ZaintProjectSerializer(
         private const val MAX_COLOR_HISTORY_ENTRIES = ColorHistory.MAX_ENTRIES
     }
 
-    fun writeToFile(fileName: String): Uri? {
+    fun writeToFile(fileName: String): Uri? = writeToFile(fileName, ::writeToStream)
+
+    private fun writeToFile(fileName: String, writer: (OutputStream) -> Unit): Uri? {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             val values = ContentValues().apply {
                 put(MediaStore.Downloads.DISPLAY_NAME, fileName)
@@ -63,25 +65,30 @@ open class ZaintProjectSerializer(
                 put(MediaStore.Downloads.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS)
             }
             activityContext.contentResolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, values)?.also { uri ->
-                activityContext.contentResolver.openOutputStream(uri)?.use(::writeToStream)
+                activityContext.contentResolver.openOutputStream(uri)?.use(writer)
                     ?: throw IOException("Could not open project output stream")
             }
         } else {
             val downloads = File(Environment.getExternalStorageDirectory(), Environment.DIRECTORY_DOWNLOADS)
             if (!downloads.exists() && !downloads.mkdirs()) return null
             val file = File(downloads, fileName)
-            FileOutputStream(file).use(::writeToStream)
+            FileOutputStream(file).use(writer)
             Uri.fromFile(file)
         }
     }
 
-    fun overWriteFile(fileName: String, uri: Uri, resolver: ContentResolver): Uri? {
+    fun overWriteFile(fileName: String, uri: Uri, resolver: ContentResolver): Uri? =
+        overWriteFile(fileName, uri, resolver, ::writeToStream)
+
+    private fun overWriteFile(
+        fileName: String, uri: Uri, resolver: ContentResolver, writer: (OutputStream) -> Unit
+    ): Uri? {
         return try {
-            resolver.openOutputStream(uri, "wt")?.use(::writeToStream)
+            resolver.openOutputStream(uri, "wt")?.use(writer)
                 ?.let { uri }
-                ?: writeToFile(fileName)
+                ?: writeToFile(fileName, writer)
         } catch (_: IOException) {
-            writeToFile(fileName)
+            writeToFile(fileName, writer)
         }
     }
 
@@ -100,18 +107,50 @@ open class ZaintProjectSerializer(
         return input.use(::readProject)
     }
 
+    fun prepareSave(): PreparedSave {
+        val snapshot = commandManager.captureProjectSnapshot()
+            ?: throw IOException("There is no image state to save")
+        return PreparedSave(snapshot, model.colorHistory.storedColors.takeLast(MAX_COLOR_HISTORY_ENTRIES))
+    }
+
+    inner class PreparedSave internal constructor(
+        private val snapshot: de.zwegen.zpaint.model.LayerModelSnapshot,
+        private val colors: List<Int>
+    ) : java.io.Closeable {
+        fun writeToFile(fileName: String): Uri? =
+            this@ZaintProjectSerializer.writeToFile(fileName, ::write)
+
+        fun overWriteFile(fileName: String, uri: Uri, resolver: ContentResolver): Uri? =
+            this@ZaintProjectSerializer.overWriteFile(fileName, uri, resolver, ::write)
+
+        private fun write(stream: OutputStream) {
+            writeSnapshot(stream, snapshot, colors)
+        }
+
+        override fun close() { snapshot.release() }
+    }
+
     private fun writeToStream(stream: OutputStream) {
         val snapshot = commandManager.captureProjectSnapshot()
             ?: throw IOException("There is no image state to save")
         try {
-            DataOutputStream(stream).use { output ->
-                output.writeUTF(FORMAT_MAGIC)
-                output.writeInt(FORMAT_VERSION)
-                writeDocumentState(output, snapshot)
-                writeColorHistory(output)
-            }
+            writeSnapshot(stream, snapshot, model.colorHistory.storedColors.takeLast(MAX_COLOR_HISTORY_ENTRIES))
         } finally {
             snapshot.release()
+        }
+    }
+
+    private fun writeSnapshot(
+        stream: OutputStream,
+        snapshot: de.zwegen.zpaint.model.LayerModelSnapshot,
+        colors: List<Int>
+    ) {
+        DataOutputStream(stream).use { output ->
+            output.writeUTF(FORMAT_MAGIC)
+            output.writeInt(FORMAT_VERSION)
+            writeDocumentState(output, snapshot)
+            output.writeInt(colors.size)
+            colors.forEach(output::writeInt)
         }
     }
 
@@ -136,12 +175,6 @@ open class ZaintProjectSerializer(
             }
         }
         output.writeInt(snapshot.currentLayerIndex ?: -1)
-    }
-
-    private fun writeColorHistory(output: DataOutputStream) {
-        val colors = model.colorHistory.storedColors.takeLast(MAX_COLOR_HISTORY_ENTRIES)
-        output.writeInt(colors.size)
-        colors.forEach(output::writeInt)
     }
 
     private fun readProject(stream: InputStream): ZaintProjectContent {

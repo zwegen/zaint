@@ -298,4 +298,40 @@
         <item name="cornerSizeTopRight">4dp</item>
         <item name="cornerSizeBottomRight">4dp</item>
     </style>
+    <!-- Shared presentation only. IDs, labels, layout weights and callbacks stay at the use site. -->
+    <style name="ZaintDialogSurface" parent="">
+        <item name="android:background">@drawable/zaint_more_menu_background</item>
+        <item name="android:padding">@dimen/zaint_dialog_surface_padding</item>
+    </style>
+    <style name="ZaintDialogTitle" parent="">
+        <item name="android:textColor">@color/zpaint_colorAccent</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="ZaintDialogAction" parent="Widget.AppCompat.Button">
+        <item name="android:backgroundTint">@null</item>
+        <item name="backgroundTint">@null</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+    <style name="ZaintDialogAction.Secondary">
+        <item name="android:background">@drawable/zpaint_save_cancel_button_bg</item>
+    </style>
+    <style name="ZaintDialogAction.Primary">
+        <item name="android:background">@drawable/zpaint_save_confirm_button_bg</item>
+    </style>
+    <style name="ZaintDialogClose" parent="Widget.AppCompat.Button">
+        <item name="android:layout_width">@dimen/zaint_dialog_touch_target</item>
+        <item name="android:layout_height">@dimen/zaint_dialog_touch_target</item>
+        <item name="android:background">@drawable/zaint_dialog_close_touch_background</item>
+        <item name="android:backgroundTint">@null</item>
+        <item name="backgroundTint">@null</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>

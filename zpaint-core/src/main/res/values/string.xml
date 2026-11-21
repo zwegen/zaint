@@ -166,28 +166,28 @@
     <string name="text_tool_dialog_align_center">Align center</string>
     <string name="text_tool_dialog_align_right">Align right</string>
     <string name="text_tool_dialog_align_justify">Justify</string>
-    <string name="text_tool_dialog_outline" translatable="false">Outline</string>
-    <string name="text_tool_dialog_shadow" translatable="false">Shadow</string>
-    <string name="text_tool_dialog_background" translatable="false">Background</string>
-    <string name="text_tool_dialog_case_uppercase" translatable="false">Uppercase</string>
-    <string name="text_tool_dialog_case_title" translatable="false">First letter uppercase</string>
-    <string name="text_tool_dialog_case_lowercase" translatable="false">Lowercase</string>
+    <string name="text_tool_dialog_outline">Outline</string>
+    <string name="text_tool_dialog_shadow">Shadow</string>
+    <string name="text_tool_dialog_background">Background</string>
+    <string name="text_tool_dialog_case_uppercase">Uppercase</string>
+    <string name="text_tool_dialog_case_title">Capitalize each word</string>
+    <string name="text_tool_dialog_case_lowercase">Lowercase</string>
     <string name="text_tool_dialog_placeholder">Enter text</string>
     <string name="text_tool_dialog_input_hint">Tap here to write</string>
     <string name="text_tool_dialog_font_monospace">Monospace</string>
     <string name="text_tool_dialog_font_serif">Serif</string>
     <string name="text_tool_dialog_font_sans_serif">Sans Serif</string>
-    <string name="text_tool_dialog_font_inter" translatable="false">Sans</string>
-    <string name="text_tool_dialog_font_source_serif" translatable="false">Serif</string>
-    <string name="text_tool_dialog_font_caveat" translatable="false">Handdraw</string>
+    <string name="text_tool_dialog_font_inter">Sans</string>
+    <string name="text_tool_dialog_font_source_serif">Serif</string>
+    <string name="text_tool_dialog_font_caveat">Handwritten</string>
     <string name="text_tool_dialog_font_bangers" translatable="false">Anton</string>
-    <string name="text_tool_dialog_font_search">Suchen</string>
-    <string name="text_tool_dialog_font_search_hint">Google Fonts suchen</string>
+    <string name="text_tool_dialog_font_search">Search</string>
+    <string name="text_tool_dialog_font_search_hint">Search Google Fonts</string>
     <string name="text_tool_dialog_font_preview" translatable="false">Zaint 123</string>
-    <string name="text_tool_dialog_font_load_more">Weitere laden</string>
-    <string name="text_tool_dialog_font_delete_title">Schrift löschen?</string>
-    <string name="text_tool_dialog_font_delete_message">%1$s aus Zaint Fonts löschen?</string>
-    <string name="text_tool_dialog_font_delete_confirm">Löschen</string>
+    <string name="text_tool_dialog_font_load_more">Load more</string>
+    <string name="text_tool_dialog_font_delete_title">Delete font?</string>
+    <string name="text_tool_dialog_font_delete_message">Delete %1$s from Zaint Fonts?</string>
+    <string name="text_tool_dialog_font_delete_confirm">Delete</string>
 
     <string name="brush_preset_pencil">Pencil</string>
     <string name="brush_control_size">Size</string>

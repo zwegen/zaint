@@ -6,6 +6,7 @@ import android.view.View
 import de.zwegen.zpaint.tools.Tool
 import de.zwegen.zpaint.tools.Tool.StateChange
 import de.zwegen.zpaint.tools.TwoFingerTransformTool
+import de.zwegen.zpaint.tools.implementation.ZaintFillTool
 import de.zwegen.zpaint.tools.options.ZaintToolOptionsController
 import de.zwegen.zpaint.ui.ZaintDrawingSurface
 import kotlin.math.hypot
@@ -114,7 +115,11 @@ open class DrawingSurfaceListener(
         val tool = callback.getCurrentTool()
         if (gesture == Gesture.DRAW) {
             tool?.drawTime = System.currentTimeMillis() - downTime
-            tool?.handleUp(toCanvasPoint(event.x, event.y))
+            if (event.actionMasked == MotionEvent.ACTION_CANCEL && tool is ZaintFillTool) {
+                tool.handleCanceledRelease(toCanvasPoint(event.x, event.y))
+            } else {
+                tool?.handleUp(toCanvasPoint(event.x, event.y))
+            }
         } else if (gesture == Gesture.TOOL_TRANSFORM) {
             (tool as? TwoFingerTransformTool)?.endTwoFingerTransform()
         } else {

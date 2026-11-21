@@ -13,6 +13,8 @@ interface ZaintCommandTimeline {
     val isUndoAvailable: Boolean
     val isRedoAvailable: Boolean
     val lastExecutedCommand: Command?
+    val revision: Long
+        get() = 0L
     val isBusy: Boolean
     val commandManagerModel: CommandManagerModel?
 

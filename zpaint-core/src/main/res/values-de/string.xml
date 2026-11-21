@@ -220,7 +220,7 @@
     <string name="transform_width_text">Breite</string>
     <string name="transform_height_text">Höhe</string>
     <string name="pixel">px</string>
-    <string name="clipboard_tool_copy_hint">Tap on copy to copy content</string>
+    <string name="clipboard_tool_copy_hint">Tippe auf Kopieren, um den Inhalt zu kopieren</string>
     <string name="layers_title">Ebenen</string>
     <string name="layer_new">Neue Ebene</string>
     <string name="layer_toggle_visibility">Ebenensichtbarkeit ändern</string>
@@ -262,12 +262,12 @@
     <string name="text_tool_dialog_align_center">Mittig ausrichten</string>
     <string name="text_tool_dialog_align_right">Rechts ausrichten</string>
     <string name="text_tool_dialog_align_justify">Blocksatz</string>
-    <string name="text_tool_dialog_outline" translatable="false">Outline</string>
-    <string name="text_tool_dialog_shadow" translatable="false">Shadow</string>
-    <string name="text_tool_dialog_background" translatable="false">Background</string>
-    <string name="text_tool_dialog_font_inter" translatable="false">Sans</string>
-    <string name="text_tool_dialog_font_source_serif" translatable="false">Serif</string>
-    <string name="text_tool_dialog_font_caveat" translatable="false">Handdraw</string>
+    <string name="text_tool_dialog_outline">Kontur</string>
+    <string name="text_tool_dialog_shadow">Schatten</string>
+    <string name="text_tool_dialog_background">Hintergrund</string>
+    <string name="text_tool_dialog_font_inter">Serifenlos</string>
+    <string name="text_tool_dialog_font_source_serif">Serif</string>
+    <string name="text_tool_dialog_font_caveat">Handschrift</string>
     <string name="text_tool_dialog_font_bangers" translatable="false">Anton</string>
     <string name="dialog_save_remove_metadata">Metadaten entfernen</string>
     <string name="dialog_save_options">Optionen</string>
@@ -286,10 +286,16 @@
     <string name="zpaint_ok" translatable="false">@android:string/ok</string>
     <string name="help_content_shadow">Erzeugt aus der aktiven Ebene einen Schatten.</string>
     <string name="text_tool_dialog_case_uppercase">GROSSBUCHSTABEN</string>
-    <string name="text_tool_dialog_case_title">Erster Buchstabe groß</string>
+    <string name="text_tool_dialog_case_title">Jedes Wort groß beginnen</string>
     <string name="text_tool_dialog_case_lowercase">kleinbuchstaben</string>
     <string name="zpaint_app_name" translatable="false">Zaint</string>
     <string name="zpaint_zero_marker" translatable="false">0</string>
     <string name="zpaint_close_symbol" translatable="false">X</string>
     <string name="dialog_save_jpg_quality_percentage">%1$d%%</string>
+    <string name="fill_tool_view_mode">Leinwand verschieben und zoomen</string>
+    <string name="fill_tool_transform_mode">Füllbild transformieren</string>
+    <string name="menu_info">Info</string>
+    <string name="info_title_zaint">Über Zaint</string>
+    <string name="info_content_zaint">Zaint ist eine Android-App zum Zeichnen und Bearbeiten von Bildern. Du kannst Fotos kreativ verändern, eigene Bilder erstellen und mit Ebenen, Text und vielen Werkzeugen arbeiten. Die App bleibt dabei einfach und übersichtlich.</string>
+    <string name="info_version_format">Version %1$s</string>
 </resources>

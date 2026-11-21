@@ -35,65 +35,90 @@ class ZaintDocumentSaveTask(
 
     private fun getImageUri(
         callback: SaveImageCallback,
-        bitmap: Bitmap?
+        bitmap: Bitmap?,
+        filename: String,
+        options: ZaintDocumentStorage.ImageSaveOptions
     ): Uri? {
-        val filename = ZaintDocumentStorage.defaultFileName
         return if (uri == null) {
-            val imageUri = ZaintDocumentStorage.saveBitmapToFile(filename, bitmap, callback.contentResolver, context)
+            val imageUri = ZaintDocumentStorage.saveBitmapToFile(filename, bitmap, callback.contentResolver, context, options)
             imageUri
         } else {
-            uri?.let { ZaintDocumentStorage.saveBitmapToUri(it, bitmap, context) }
-        }
-    }
-
-    private fun saveZaintProject(callback: SaveImageCallback): Uri? {
-        val fileName = ZaintDocumentStorage.defaultFileName
-        val serializer = commandSerializer ?: throw IOException("Zaint project serializer is unavailable")
-        return if (uri == null) {
-            serializer.writeToFile(fileName)
-        } else {
-            serializer.overWriteFile(fileName, requireNotNull(uri), callback.contentResolver)
+            uri?.let { ZaintDocumentStorage.saveBitmapToUri(it, bitmap, context, options) }
         }
     }
 
     @SuppressWarnings("TooGenericExceptionCaught")
     fun execute() {
-        val callback = callbackRef.get()
-        if (callback == null || callback.isFinishing) {
+        val callback = callbackRef.get() ?: return
+        if (callback.isFinishing) return
+        val saveState = callback.captureSaveState()
+        val fileType = ZaintDocumentStorage.fileType
+        val filename = ZaintDocumentStorage.defaultFileName
+        val imageOptions = ZaintDocumentStorage.captureImageSaveOptions()
+        callback.onSaveImagePreExecute(requestCode)
+
+        // Bind the actual pixels/layers to this request before another document can replace them.
+        // Disk I/O remains asynchronous; snapshots are released even when a save fails or cancels.
+        var preparedProject: ZaintProjectSerializer.PreparedSave? = null
+        var preparedBitmap: Bitmap? = null
+        try {
+            synchronized(layerModel) {
+                if (fileType == ZaintDocumentStorage.FileType.ZAINT) {
+                    preparedProject = (commandSerializer
+                        ?: throw IOException("Zaint project serializer is unavailable")).prepareSave()
+                } else {
+                    preparedBitmap = layerModel.getBitmapOfAllLayers()
+                }
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Can't capture image for saving", e)
+            callback.onSaveImagePostExecute(requestCode, null, saveAsCopy, saveState)
             return
-        } else {
-            callback.onSaveImagePreExecute(requestCode)
         }
 
-        var currentUri: Uri? = null
-        scopeIO.launch {
+        idlingResource.increment()
+        val saveJob = scopeIO.launch {
+            var currentUri: Uri? = null
             try {
-                idlingResource.increment()
-                currentUri = when (ZaintDocumentStorage.fileType) {
-                    ZaintDocumentStorage.FileType.ZAINT -> saveZaintProject(callback)
-                    else -> getImageUri(callback, layerModel.getBitmapOfAllLayers())
+                currentUri = if (fileType == ZaintDocumentStorage.FileType.ZAINT) {
+                    val project = requireNotNull(preparedProject)
+                    if (uri == null) project.writeToFile(filename)
+                    else project.overWriteFile(filename, requireNotNull(uri), callback.contentResolver)
+                } else {
+                    getImageUri(callback, preparedBitmap, filename, imageOptions)
                 }
-                idlingResource.decrement()
             } catch (e: Exception) {
-                idlingResource.decrement()
-                when (e) {
-                    is IOException -> Log.d(TAG, "Can't save image file", e)
-                    is NullPointerException -> Log.e(TAG, "Can't load image file", e)
-                }
+                Log.e(TAG, "Can't save image file", e)
             }
 
             withContext(Dispatchers.Main) {
                 if (!callback.isFinishing) {
-                    callback.onSaveImagePostExecute(requestCode, currentUri, saveAsCopy)
+                    callback.onSaveImagePostExecute(requestCode, currentUri, saveAsCopy, saveState)
                 }
             }
         }
+        saveJob.invokeOnCompletion {
+            preparedProject?.close()
+            preparedBitmap?.let { if (!it.isRecycled) it.recycle() }
+            idlingResource.decrement()
+        }
     }
+
+    data class SaveState(
+        val documentId: Long,
+        val revision: Long,
+        val timelineRevision: Long,
+        val wasIdle: Boolean
+    )
 
     interface SaveImageCallback {
         val contentResolver: ContentResolver
         val isFinishing: Boolean
+        fun captureSaveState(): SaveState? = null
         fun onSaveImagePreExecute(requestCode: Int)
         fun onSaveImagePostExecute(requestCode: Int, uri: Uri?, saveAsCopy: Boolean)
+        fun onSaveImagePostExecute(requestCode: Int, uri: Uri?, saveAsCopy: Boolean, saveState: SaveState?) {
+            onSaveImagePostExecute(requestCode, uri, saveAsCopy)
+        }
     }
 }

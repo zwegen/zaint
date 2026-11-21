@@ -14,6 +14,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
+import java.util.concurrent.atomic.AtomicInteger
+import java.util.concurrent.atomic.AtomicLong
 
 /**
  * Serializes editing operations away from the UI thread.
@@ -33,8 +35,14 @@ open class ZaintHistoryDispatcher(
     @Volatile
     private var acceptingOperations = true
 
+    private val pendingOperations = AtomicInteger()
+    private val editRevision = AtomicLong()
+
+    override val revision: Long
+        get() = editRevision.get()
+
     override val isBusy: Boolean
-        get() = operationMutex.isLocked
+        get() = pendingOperations.get() != 0
 
     override val lastExecutedCommand: Command?
         get() = commandManager.lastExecutedCommand
@@ -68,11 +76,19 @@ open class ZaintHistoryDispatcher(
     }
 
     override fun setInitialStateCommand(command: Command) {
+        editRevision.incrementAndGet()
         synchronized(layerModel) { commandManager.setInitialStateCommand(command) }
     }
 
     override fun loadProjectHistory(model: CommandManagerModel?) = submit {
         commandManager.loadProjectHistory(model)
+    }
+
+    /** Startup-only restore, before listeners, tools or queued editing can observe a blank model. */
+    fun restoreProjectHistoryBeforeEditing(model: CommandManagerModel) {
+        check(!isBusy)
+        editRevision.incrementAndGet()
+        synchronized(layerModel) { commandManager.loadProjectHistory(model) }
     }
 
     override fun undo() = submitIf(ZaintCommandTimeline::isUndoAvailable) {
@@ -84,6 +100,7 @@ open class ZaintHistoryDispatcher(
     }
 
     override fun reset() {
+        editRevision.incrementAndGet()
         synchronized(layerModel) { commandManager.reset() }
         notifyListeners()
     }
@@ -133,30 +150,23 @@ open class ZaintHistoryDispatcher(
     override fun isLastColorCommandOnTop(): Boolean =
         synchronized(layerModel) { commandManager.isLastColorCommandOnTop() }
 
-    private fun submit(work: () -> Unit) {
-        workerScope.launch {
-            operationMutex.withLock {
-                if (acceptingOperations) {
-                    synchronized(layerModel) { work() }
-                }
-                publishCompletion()
-            }
-        }
-    }
+    private fun submit(work: () -> Unit) = submitIf({ true }, work)
 
     private fun submitIf(condition: ZaintCommandTimeline.() -> Boolean, work: () -> Unit) {
-        workerScope.launch {
+        if (!acceptingOperations) return
+        editRevision.incrementAndGet()
+        pendingOperations.incrementAndGet()
+        val operation = workerScope.launch {
             operationMutex.withLock {
                 if (acceptingOperations) {
                     synchronized(layerModel) {
-                        if (commandManager.condition()) {
-                            work()
-                        }
+                        if (commandManager.condition()) work()
                     }
                 }
                 publishCompletion()
             }
         }
+        operation.invokeOnCompletion { pendingOperations.decrementAndGet() }
     }
 
     private suspend fun publishCompletion() {

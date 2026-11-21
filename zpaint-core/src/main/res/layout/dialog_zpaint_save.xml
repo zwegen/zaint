@@ -4,11 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/zaint_more_menu_background"
+    style="@style/ZaintDialogSurface"
     android:clipChildren="false"
     android:clipToPadding="false"
-    android:orientation="vertical"
-    android:padding="20dp">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,29 +16,17 @@
         android:orientation="horizontal">
 
         <TextView
+            style="@style/ZaintDialogTitle"
             android:id="@+id/zpaint_save_dialog_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/dialog_save_image_title"
-            android:textColor="@color/zpaint_colorAccent"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:text="@string/dialog_save_image_title" />
 
         <androidx.appcompat.widget.AppCompatButton
+            style="@style/ZaintDialogClose"
             android:id="@+id/zpaint_save_close_button"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/zpaint_dialog_close_button_bg"
-            android:backgroundTint="@null"
-            android:minWidth="0dp"
-            android:minHeight="0dp"
-            android:padding="0dp"
-            android:text="@string/zpaint_close_symbol"
-            android:textColor="@android:color/white"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:backgroundTint="@null" />
+            android:text="@string/zpaint_close_symbol" />
     </LinearLayout>
 
     <View
@@ -111,10 +98,10 @@
         <ImageButton
             android:id="@+id/zpaint_btn_save_info"
             style="@style/ZPaintSelectableButton"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="@dimen/zaint_dialog_touch_target"
+            android:layout_height="@dimen/zaint_dialog_touch_target"
             android:contentDescription="@string/button_info"
-            android:padding="8dp"
+            android:padding="14dp"
             android:src="@drawable/ic_zpaint_save_info"
             app:tint="@android:color/white" />
     </LinearLayout>
@@ -200,30 +187,20 @@
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatButton
+            style="@style/ZaintDialogAction.Secondary"
             android:id="@+id/zpaint_save_in_button"
             android:layout_width="0dp"
             android:layout_height="48dp"
-            android:background="@drawable/zpaint_save_cancel_button_bg"
-            android:backgroundTint="@null"
             android:layout_weight="1"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:text="@string/save_in_button_text"
-            android:textColor="@android:color/white"
-            app:backgroundTint="@null" />
+            android:text="@string/save_in_button_text" />
 
         <androidx.appcompat.widget.AppCompatButton
+            style="@style/ZaintDialogAction.Primary"
             android:id="@+id/zpaint_save_confirm_button"
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_marginStart="8dp"
-            android:background="@drawable/zpaint_save_confirm_button_bg"
-            android:backgroundTint="@null"
             android:layout_weight="1"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:text="@string/save_button_text"
-            android:textColor="@android:color/white"
-            app:backgroundTint="@null" />
+            android:text="@string/save_button_text" />
     </LinearLayout>
 </LinearLayout>

@@ -48,6 +48,7 @@ open class ZaintDrawingSurface : SurfaceView, SurfaceHolder.Callback {
     private val outsideColor = ContextCompat.getColor(context, R.color.zpaint_main_drawing_surface_background)
     private val touchListener: DrawingSurfaceListener
 
+    @Volatile
     private var surfaceAvailable = false
     private var renderRequested = false
     private var renderThread: DrawingSurfaceThread? = null
@@ -94,6 +95,7 @@ open class ZaintDrawingSurface : SurfaceView, SurfaceHolder.Callback {
     }
 
     override fun onDetachedFromWindow() {
+        stopRendering()
         holder.removeCallback(this)
         super.onDetachedFromWindow()
     }
@@ -113,7 +115,7 @@ open class ZaintDrawingSurface : SurfaceView, SurfaceHolder.Callback {
 
     override fun surfaceCreated(holder: SurfaceHolder) {
         holder.setFormat(PixelFormat.RGBA_8888)
-        renderThread?.stop()
+        stopRendering()
         renderThread = DrawingSurfaceThread(Runnable(::drawWhenRequested))
     }
 
@@ -130,10 +132,14 @@ open class ZaintDrawingSurface : SurfaceView, SurfaceHolder.Callback {
     }
 
     override fun surfaceDestroyed(holder: SurfaceHolder) {
+        stopRendering()
+    }
+
+    private fun stopRendering() {
         surfaceAvailable = false
-        val monitor = renderMonitor ?: return
-        synchronized(monitor) { monitor.notifyAll() }
+        renderMonitor?.let { monitor -> synchronized(monitor) { monitor.notifyAll() } }
         renderThread?.stop()
+        renderThread = null
     }
 
     private fun drawWhenRequested() {

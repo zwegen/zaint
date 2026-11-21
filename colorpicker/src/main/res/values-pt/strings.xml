@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="color_picker_title">Cor</string>
+    <string name="color_picker_cancel">Cancelar</string>
+    <string name="color_picker_apply">Aplicar</string>
+    <string name="color_picker_hue">Matiz</string>
+    <string name="color_picker_saturation">Saturação</string>
+    <string name="color_picker_brightness">Brilho</string>
+    <string name="color_picker_opacity">Opacidade</string>
+    <string name="color_picker_empty_history">Espaço vazio nas cores recentes</string>
+    <string name="color_picker_canvas_pipette">Selecionar uma cor da tela</string>
+    <string name="color_picker_copy_hex">Copiar código hexadecimal: %1$s</string>
+    <string name="color_picker_edit_hex">Editar código hexadecimal</string>
+    <string name="color_picker_invalid_hex">Introduza 6 ou 8 dígitos hexadecimais.</string>
+</resources>

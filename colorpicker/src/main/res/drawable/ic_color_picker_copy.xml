@@ -3,7 +3,11 @@
     android:height="16dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
+    <!-- Enlarge only the artwork inside the unchanged 16dp icon frame. -->
+    <group android:pivotX="12" android:pivotY="12"
+        android:scaleX="1.090909" android:scaleY="1.090909">
     <path
         android:fillColor="#FFFFFFFF"
         android:pathData="M16,1H4C2.9,1 2,1.9 2,3v14h2V3h12V1zM19,5H8C6.9,5 6,5.9 6,7v14c0,1.1 0.9,2 2,2h11c1.1,0 2,-0.9 2,-2V7c0,-1.1 -0.9,-2 -2,-2zM19,21H8V7h11V21z" />
+    </group>
 </vector>

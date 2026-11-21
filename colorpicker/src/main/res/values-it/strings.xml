@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="color_picker_title">Colore</string>
+    <string name="color_picker_cancel">Annulla</string>
+    <string name="color_picker_apply">Applica</string>
+    <string name="color_picker_hue">Tonalità</string>
+    <string name="color_picker_saturation">Saturazione</string>
+    <string name="color_picker_brightness">Luminosità</string>
+    <string name="color_picker_opacity">Opacità</string>
+    <string name="color_picker_empty_history">Spazio vuoto nei colori recenti</string>
+    <string name="color_picker_canvas_pipette">Preleva un colore dalla tela</string>
+    <string name="color_picker_copy_hex">Copia codice esadecimale: %1$s</string>
+    <string name="color_picker_edit_hex">Modifica codice esadecimale</string>
+    <string name="color_picker_invalid_hex">Inserisci 6 o 8 cifre esadecimali.</string>
+</resources>

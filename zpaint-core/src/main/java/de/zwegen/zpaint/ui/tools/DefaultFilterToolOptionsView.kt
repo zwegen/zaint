@@ -4,9 +4,6 @@
 package de.zwegen.zpaint.ui.tools
 
 import android.graphics.Color
-import android.graphics.drawable.Drawable
-import android.graphics.drawable.GradientDrawable
-import android.graphics.drawable.LayerDrawable
 import android.text.InputFilter
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -16,7 +13,6 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatSeekBar
-import androidx.core.content.ContextCompat
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.button.MaterialButtonToggleGroup
 import de.zwegen.zpaint.R
@@ -129,7 +125,7 @@ class DefaultFilterToolOptionsView(toolSpecificOptionsLayout: ViewGroup) : Filte
             if (index < displayedSplashColors.size) {
                 val color = displayedSplashColors[index]
                 val active = index == activeSplashColorIndex
-                swatch.background = splashSwatchBackground(color, index)
+                swatch.background = GroupedSwatchBackground.color(splashColorPalette.context, color, index, MAX_SPLASH_COLORS - 1)
                 if (active) {
                     val iconPadding = dp(12f)
                     swatch.setPadding(iconPadding, iconPadding, iconPadding, iconPadding)
@@ -142,7 +138,7 @@ class DefaultFilterToolOptionsView(toolSpecificOptionsLayout: ViewGroup) : Filte
                 }
                 swatch.contentDescription = swatch.context.getString(R.string.help_content_color_chooser)
             } else {
-                swatch.background = emptySplashSwatchBackground(index)
+                swatch.background = GroupedSwatchBackground.empty(splashColorPalette.context, index, MAX_SPLASH_COLORS - 1)
                 swatch.setPadding(0, 0, 0, 0)
                 swatch.setImageResource(R.drawable.ic_zpaint_plus_enabled)
                 swatch.setColorFilter(Color.BLACK)
@@ -156,41 +152,6 @@ class DefaultFilterToolOptionsView(toolSpecificOptionsLayout: ViewGroup) : Filte
     }
 
     private fun isTwoDirectionRange(): Boolean = minValue < 0 && maxValue > 0
-
-    private fun splashSwatchBackground(color: Int, index: Int): Drawable {
-        val border = GradientDrawable().apply {
-            shape = GradientDrawable.RECTANGLE
-            cornerRadii = splashSwatchCornerRadii(index)
-            setColor(color)
-            setStroke(dp(1f), Color.rgb(208, 208, 208))
-        }
-        return if (Color.alpha(color) == 0) {
-            LayerDrawable(
-                arrayOf(
-                    ContextCompat.getDrawable(splashColorPalette.context, R.drawable.zpaint_checkeredbg_repeat),
-                    border
-                )
-            )
-        } else {
-            border
-        }
-    }
-
-    private fun emptySplashSwatchBackground(index: Int): GradientDrawable = GradientDrawable().apply {
-        shape = GradientDrawable.RECTANGLE
-        cornerRadii = splashSwatchCornerRadii(index)
-        setColor(Color.WHITE)
-        setStroke(dp(1f), Color.rgb(208, 208, 208))
-    }
-
-    private fun splashSwatchCornerRadii(index: Int): FloatArray {
-        val radius = dp(4f).toFloat()
-        return when (index) {
-            0 -> floatArrayOf(radius, radius, 0f, 0f, 0f, 0f, radius, radius)
-            MAX_SPLASH_COLORS - 1 -> floatArrayOf(0f, 0f, radius, radius, radius, radius, 0f, 0f)
-            else -> FloatArray(8)
-        }
-    }
 
     private fun contrastingFrameColor(color: Int): Int {
         val brightness = Color.red(color) * 0.299f + Color.green(color) * 0.587f + Color.blue(color) * 0.114f

@@ -124,11 +124,12 @@ internal object FillSelectionMask {
         val inverse = ALPHA_MAX - weight
         val fillAlpha = android.graphics.Color.alpha(fill)
         val outsideAlpha = android.graphics.Color.alpha(outside)
-        val alpha = (fillAlpha * weight + outsideAlpha * inverse + 127) / ALPHA_MAX
+        val alphaWeight = fillAlpha * weight + outsideAlpha * inverse
+        val alpha = (alphaWeight + 127) / ALPHA_MAX
         if (alpha == 0) return 0
         fun channel(fillChannel: Int, outsideChannel: Int): Int =
             (fillChannel * fillAlpha * weight + outsideChannel * outsideAlpha * inverse +
-                alpha * ALPHA_MAX / 2) / (alpha * ALPHA_MAX)
+                alphaWeight / 2) / alphaWeight
         return android.graphics.Color.argb(
             alpha,
             channel(android.graphics.Color.red(fill), android.graphics.Color.red(outside)),

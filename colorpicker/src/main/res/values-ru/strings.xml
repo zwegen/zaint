@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="color_picker_title">Цвет</string>
+    <string name="color_picker_cancel">Отменить</string>
+    <string name="color_picker_apply">Применить</string>
+    <string name="color_picker_hue">Оттенок</string>
+    <string name="color_picker_saturation">Насыщенность</string>
+    <string name="color_picker_brightness">Яркость</string>
+    <string name="color_picker_opacity">Непрозрачность</string>
+    <string name="color_picker_empty_history">Пустая ячейка недавних цветов</string>
+    <string name="color_picker_canvas_pipette">Выбрать цвет с холста</string>
+    <string name="color_picker_copy_hex">Скопировать шестнадцатеричный код: %1$s</string>
+    <string name="color_picker_edit_hex">Изменить шестнадцатеричный код</string>
+    <string name="color_picker_invalid_hex">Введите 6 или 8 шестнадцатеричных цифр.</string>
+</resources>

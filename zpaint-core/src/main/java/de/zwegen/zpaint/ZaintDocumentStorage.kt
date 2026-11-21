@@ -89,6 +89,18 @@ object ZaintDocumentStorage {
 
     var temporaryFilePath: String? = null
 
+    data class ImageSaveOptions(
+        val fileType: FileType,
+        val format: CompressFormat,
+        val quality: Int,
+        val removeMetadata: Boolean,
+        val relativePath: String
+    )
+
+    fun captureImageSaveOptions() = ImageSaveOptions(
+        fileType, compressFormat, compressQuality, removeMetadata, saveRelativePath
+    )
+
     val defaultFileName: String
         get() = filename + fileType.toExtension()
 
@@ -118,10 +130,12 @@ object ZaintDocumentStorage {
         }
 
     @Throws(IOException::class)
-    private fun saveBitmapToStream(outputStream: OutputStream?, bitmap: Bitmap?) {
+    private fun saveBitmapToStream(
+        outputStream: OutputStream?, bitmap: Bitmap?, options: ImageSaveOptions
+    ) {
         var currentBitmap = bitmap
         require(currentBitmap != null && !currentBitmap.isRecycled) { "Bitmap is invalid" }
-        if (compressFormat == CompressFormat.JPEG) {
+        if (options.format == CompressFormat.JPEG) {
             val newBitmap =
                 Bitmap.createBitmap(currentBitmap.width, currentBitmap.height, currentBitmap.config)
             val canvas = Canvas(newBitmap)
@@ -130,8 +144,8 @@ object ZaintDocumentStorage {
             currentBitmap = newBitmap
         }
         if (outputStream == null || !currentBitmap.compress(
-                compressFormat,
-                compressQuality,
+                options.format,
+                options.quality,
                 outputStream
             )
         ) {
@@ -140,8 +154,10 @@ object ZaintDocumentStorage {
     }
 
     @Throws(IOException::class)
-    fun saveBitmapToUri(uri: Uri, bitmap: Bitmap?, context: Context): Uri {
-        val cachedFile = createCompressedBitmapFile(bitmap, context, UUID.randomUUID().toString())
+    fun saveBitmapToUri(
+        uri: Uri, bitmap: Bitmap?, context: Context, options: ImageSaveOptions = captureImageSaveOptions()
+    ): Uri {
+        val cachedFile = createCompressedBitmapFile(bitmap, context, UUID.randomUUID().toString(), options)
         try {
             if (!copyFileToUri(cachedFile, context.contentResolver, uri)) {
                 throw IOException("Can not open URI.")
@@ -207,25 +223,26 @@ object ZaintDocumentStorage {
         fileName: String,
         bitmap: Bitmap?,
         resolver: ContentResolver?,
-        context: Context
+        context: Context,
+        options: ImageSaveOptions = captureImageSaveOptions()
     ): Uri {
         val imageUri: Uri? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             val contentValues = ContentValues().apply {
                 put(MediaStore.Images.Media.DISPLAY_NAME, fileName)
-                put(MediaStore.Images.Media.MIME_TYPE, imageMimeType)
-                put(MediaStore.Images.Media.RELATIVE_PATH, saveRelativePath)
+                put(MediaStore.Images.Media.MIME_TYPE, if (options.fileType == FileType.JPG) "image/jpeg" else "image/png")
+                put(MediaStore.Images.Media.RELATIVE_PATH, options.relativePath)
                 put(MediaStore.Images.Media.IS_PENDING, 1)
             }
             resolver?.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
         } else {
-            val targetDirectory = File(Environment.getExternalStorageDirectory(), saveRelativePath)
+            val targetDirectory = File(Environment.getExternalStorageDirectory(), options.relativePath)
             if (!(targetDirectory.exists() || targetDirectory.mkdirs())) {
                 throw IOException("Can not create media directory.")
             }
             Uri.fromFile(File(targetDirectory, fileName))
         }
 
-        val cachedFile = createCompressedBitmapFile(bitmap, context, UUID.randomUUID().toString())
+        val cachedFile = createCompressedBitmapFile(bitmap, context, UUID.randomUUID().toString(), options)
         try {
             if (imageUri == null || resolver == null || !copyFileToUri(cachedFile, resolver, imageUri)) {
                 throw IOException("Can not write image file.")
@@ -268,14 +285,17 @@ object ZaintDocumentStorage {
     }
 
     @Throws(IOException::class)
-    private fun createCompressedBitmapFile(bitmap: Bitmap?, context: Context, fileName: String): File {
+    private fun createCompressedBitmapFile(
+        bitmap: Bitmap?, context: Context, fileName: String,
+        options: ImageSaveOptions = captureImageSaveOptions()
+    ): File {
         val cachePath = File(context.cacheDir, cacheChildFolder)
         cachePath.mkdirs()
-        val imageFile = File(cachePath, fileName + fileType.toExtension())
+        val imageFile = File(cachePath, fileName + options.fileType.toExtension())
         FileOutputStream(imageFile).use { stream ->
-            saveBitmapToStream(stream, bitmap)
+            saveBitmapToStream(stream, bitmap, options)
         }
-        removeMetadataIfNeeded(imageFile)
+        removeMetadataIfNeeded(imageFile, options.fileType, options.removeMetadata)
         return imageFile
     }
 
@@ -290,12 +310,14 @@ object ZaintDocumentStorage {
         false
     }
 
-    private fun removeMetadataIfNeeded(file: File?) {
-        if (!removeMetadata || file == null || !file.exists()) {
+    private fun removeMetadataIfNeeded(
+        file: File?, type: FileType = fileType, shouldRemove: Boolean = removeMetadata
+    ) {
+        if (!shouldRemove || file == null || !file.exists()) {
             return
         }
         try {
-            MetadataStripper.stripMetadata(file, fileType)
+            MetadataStripper.stripMetadata(file, type)
         } catch (e: Exception) {
             Log.e("Metadata", "Can not remove image metadata.", e)
         }
@@ -710,56 +732,37 @@ object ZaintDocumentStorage {
         return bitmap
     }
 
+    @Synchronized
     fun saveTemporaryPictureFile(internalMemoryPath: File, commandSerializer: ZaintProjectSerializer) {
-        val newFileName = "${TEMP_IMAGE_NAME}1.$ZAINT_RECOVERY_ENDING"
-        val tempPath = File(internalMemoryPath, TEMP_IMAGE_DIRECTORY_NAME)
+        val staging = File(internalMemoryPath, TEMP_IMAGE_TEMP_PATH)
+        val recovery = File(internalMemoryPath, TEMP_IMAGE_PATH)
         try {
-            tempPath.mkdirs()
-
-            val stream = FileOutputStream("$tempPath/$newFileName")
-            commandSerializer.writeToInternalMemory(stream)
-            temporaryFilePath = TEMP_IMAGE_TEMP_PATH
-        } catch (e: IOException) {
-            Log.e("Cannot write", "Can't write to stream", e)
-        }
-        val oldFile = File(internalMemoryPath, TEMP_IMAGE_PATH)
-        if (oldFile.exists()) {
-            oldFile.delete()
-        }
-        val newFile = File(internalMemoryPath, TEMP_IMAGE_TEMP_PATH)
-        if (newFile.exists()) {
-            newFile.renameTo(File(internalMemoryPath, TEMP_IMAGE_PATH))
-            temporaryFilePath = TEMP_IMAGE_PATH
-        }
-    }
-
-    fun checkForTemporaryFile(internalMemoryPath: File): Boolean {
-        val tempPath = File(internalMemoryPath, TEMP_IMAGE_DIRECTORY_NAME)
-        if (!tempPath.exists()) {
-            return false
-        }
-        val fileList = tempPath.listFiles()
-        if (fileList != null && fileList.isNotEmpty()) {
-            if (fileList.size == 2) {
-                if (fileList[1].lastModified() > fileList[0].lastModified()) {
-                    reorganizeTempFiles(fileList[1], fileList[0], internalMemoryPath)
-                } else {
-                    reorganizeTempFiles(fileList[0], fileList[1], internalMemoryPath)
-                }
-            } else {
-                temporaryFilePath = fileList[0].path
+            val directory = File(internalMemoryPath, TEMP_IMAGE_DIRECTORY_NAME)
+            if (!directory.isDirectory && !directory.mkdirs()) {
+                throw IOException("Cannot create recovery directory")
             }
-            return true
+            FileOutputStream(staging).use { commandSerializer.writeToInternalMemory(it) }
+            // Both files share the same Android/Linux directory: rename replaces the old file
+            // atomically. Never delete the last good recovery before checking promotion success.
+            if (!staging.renameTo(recovery)) throw IOException("Cannot replace recovery")
+            temporaryFilePath = TEMP_IMAGE_PATH
+        } catch (e: IOException) {
+            Log.e("Cannot write", "Can't write recovery", e)
+        } finally {
+            staging.delete()
         }
-        return false
     }
 
-    private fun reorganizeTempFiles(file1: File, file2: File, internalMemoryPath: File) {
-        file2.delete()
-        file1.renameTo(File(internalMemoryPath, TEMP_IMAGE_PATH))
-        temporaryFilePath = TEMP_IMAGE_PATH
+    @Synchronized
+    fun checkForTemporaryFile(internalMemoryPath: File): Boolean {
+        val recovery = File(internalMemoryPath, TEMP_IMAGE_PATH)
+        // A leftover staging file may be a partial write from a killed process. Never select it
+        // merely because it is newer, and never delete the committed recovery to promote it.
+        temporaryFilePath = if (recovery.isFile) TEMP_IMAGE_PATH else null
+        return temporaryFilePath != null
     }
 
+    @Synchronized
     fun openTemporaryPictureFile(internalMemoryPath: File, commandSerializer: ZaintProjectSerializer): WorkspaceReturnValue? {
         var workspaceReturnValue: WorkspaceReturnValue? = null
         val temporaryFile = getTemporaryFile(internalMemoryPath)
@@ -794,6 +797,7 @@ object ZaintDocumentStorage {
         temporaryFilePath = null
     }
 
+    @Synchronized
     fun deleteTempFile(internalMemoryPath: File) {
         val tempPath = File(internalMemoryPath, TEMP_IMAGE_DIRECTORY_NAME)
         tempPath.listFiles()?.forEach { file ->

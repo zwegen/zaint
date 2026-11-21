@@ -3,17 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/zaint_more_menu_background"
-    android:orientation="vertical"
-    android:padding="20dp">
+    style="@style/ZaintDialogSurface"
+    android:orientation="vertical">
 
     <TextView
+        style="@style/ZaintDialogTitle"
         android:id="@+id/zaint_merge_layers_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/zpaint_colorAccent"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:layout_height="wrap_content" />
 
     <View
         android:layout_width="match_parent"
@@ -36,28 +33,18 @@
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatButton
+            style="@style/ZaintDialogAction.Secondary"
             android:id="@+id/zaint_merge_layers_cancel"
             android:layout_width="0dp"
             android:layout_height="48dp"
-            android:layout_weight="1"
-            android:background="@drawable/zpaint_save_cancel_button_bg"
-            android:backgroundTint="@null"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:textColor="@android:color/white"
-            app:backgroundTint="@null" />
+            android:layout_weight="1" />
 
         <androidx.appcompat.widget.AppCompatButton
+            style="@style/ZaintDialogAction.Primary"
             android:id="@+id/zaint_merge_layers_confirm"
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_marginStart="8dp"
-            android:layout_weight="1"
-            android:background="@drawable/zpaint_save_confirm_button_bg"
-            android:backgroundTint="@null"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:textColor="@android:color/white"
-            app:backgroundTint="@null" />
+            android:layout_weight="1" />
     </LinearLayout>
 </LinearLayout>

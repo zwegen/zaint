@@ -204,15 +204,13 @@ class ZaintFillTool(
             return true
         }
 
-        if (colorPreview == null) {
-            addColorFillRegion(coordinate, createsPreview = true) ?: return false
-            toolOptionsViewController.showCheckmark()
-        } else {
-            toggleColorFillRegion(coordinate)
-        }
-        workspace.invalidate()
-        return true
+        addColorFillRegion(coordinate, createsPreview = true) ?: return false
+        return applyPendingFill()
     }
+
+    /** Preserve the existing image gesture path, but never commit a canceled color fill. */
+    fun handleCanceledRelease(coordinate: PointF?): Boolean =
+        if (imageSource != null) handleUp(coordinate) else false
 
     override fun changePaintColor(@ColorInt color: Int, invalidate: Boolean) {
         super.changePaintColor(color, invalidate)
@@ -245,7 +243,6 @@ class ZaintFillTool(
 
     override fun draw(canvas: Canvas) {
         imagePreview?.draw(canvas)
-        colorPreview?.takeUnless { it.isTransparentSolidFill() }?.draw(canvas, toolPaint.checkeredShader)
         tapAreaHintCenter?.let { center -> drawTapAreaHint(canvas, center) }
     }
 
@@ -268,10 +265,13 @@ class ZaintFillTool(
             return true
         }
         val color = colorPreview ?: return false
-        if (color.isTransparentSolidFill()) {
-            commitMaskedClear(color.bounds, color.clearMaskForCommit())
-        } else {
-            commitPreview(color.bounds, color.bitmapForCommit())
+        val bitmap = color.bitmapForCommit()
+        val mask = color.selectionMaskForCommit()
+        try {
+            commandManager.addCommand(commandFactory.createMaskedColorFillCommand(bitmap, mask, color.bounds))
+        } finally {
+            bitmap.recycle()
+            mask.recycle()
         }
         clearPendingFillPreviews()
         return true
@@ -285,15 +285,6 @@ class ZaintFillTool(
                 bounds.width().toFloat(),
                 bounds.height().toFloat(),
                 0f
-            )
-        )
-    }
-
-    private fun commitMaskedClear(bounds: android.graphics.Rect, mask: Bitmap) {
-        commandManager.addCommand(
-            commandFactory.createMaskedClearCommand(
-                mask,
-                bounds
             )
         )
     }

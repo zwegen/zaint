@@ -5,7 +5,7 @@
     <string name="button_undo">Défaire</string>
     <string name="button_redo">Rétablir</string>
     <string name="button_info">Information</string>
-    <string name="button_clipboard">Clipboard</string>
+    <string name="button_clipboard">Presse-papiers</string>
     <string name="button_import_image">Importer</string>
     <string name="button_eraser">Gomme</string>
     <string name="button_transform">Transformer</string>
@@ -14,8 +14,8 @@
     <string name="button_text">Texte</string>
     <string name="button_shape">Stickers</string>
     <string name="button_hand">Main</string>
-    <string name="button_smudge">Smudge</string>
-    <string name="button_checkmark">Checkmark</string>
+    <string name="button_smudge">Estomper</string>
+    <string name="button_checkmark">Valider</string>
     <string name="clipboard_tool_paste">Coller</string>
     <string name="clipboard_tool_copy">Copier</string>
     <string name="clipboard_tool_cut">Couper</string>
@@ -23,16 +23,16 @@
     <string name="dialog_error_sdcard_text">Vérifie l\'image ou la carte SD !</string>
     <string name="dialog_warning_new_image">Enregistrer changements?</string>
     <string name="help_content_eraser">Supprime des parties de l\'image comme avec une gomme.</string>
-    <string name="help_content_brush">Tape sur les symboles de la barre inférieure pour modifier la couleur ou la taille du pinceau.</string>
+    <string name="help_content_brush">Utilise le curseur de taille pour régler la largeur du pinceau. Les boutons permettent de choisir un pinceau dur ou doux, un marqueur, une plume de calligraphie ou une flèche.</string>
     <string name="help_content_eyedropper">Tape sur l\'image pour sélectionner une couleur.</string>
     <string name="help_content_undo">Tape pour annuler ton action précédente.</string>
     <string name="help_content_redo">Tape pour refaire une action annulée.</string>
-    <string name="help_content_fill">Tape sur l\'image pour remplir une zone avec la couleur sélectionnée.</string>
-    <string name="help_content_transform">Sert à transformer l\'image.</string>
-    <string name="help_content_clipboard">Move and resize the rectangle to cover the area you want to stamp. Tap on copy or cut to select the area. Move it, then tap on paste to stamp.</string>
-    <string name="help_content_import_png">Importe une image de la galerie dans l\'outil tampon.</string>
+    <string name="help_content_fill">Touche une zone contiguë pour la remplir. Le curseur de tolérance définit la similarité requise entre les couleurs voisines. Tu peux choisir jusqu’à trois couleurs et créer des dégradés linéaires, ondulés ou circulaires.</string>
+    <string name="help_content_transform">Ajuste la taille et recadre l’image.</string>
+    <string name="help_content_clipboard">Déplace et redimensionne le rectangle pour couvrir la zone à reproduire. Touche Copier ou Couper pour la sélectionner. Déplace-la, puis touche Coller pour l’insérer.</string>
+    <string name="help_content_import_png">Importe une image de la galerie dans le presse-papiers.</string>
     <string name="help_content_line">Dessine une ligne droite.</string>
-    <string name="help_content_text">Écris du texte et mets-le en forme. Redimensionne ensuite la zone de texte. Tape pour insérer le texte sur l\'image.</string>
+    <string name="help_content_text">Saisis du texte et choisis la police, la taille, la couleur et l’alignement. Les boutons en dessous règlent le contour, l’ombre et la couleur de fond. Tu peux déplacer, faire pivoter, agrandir ou réduire le texte. Une seule ligne peut aussi être courbée. La coche insère le texte dans l’image.</string>
     <string name="help_content_shape">Recherchez des stickers et insérez le sticker sélectionné.</string>
     <string name="help_content_layer">Crée de nouvelles couches ou modifie les couches existantes.</string>
     <string name="help_content_color_chooser">Sélectionne ou ajuste une couleur.</string>
@@ -66,9 +66,9 @@
     <string name="text_tool_dialog_bold_shortcut">B</string>
     <string name="text_tool_dialog_input_hint">Tape ici pour écrire</string>
     <string name="text_tool_dialog_font_monospace">Monoespace</string>
-    <string name="text_tool_dialog_font_serif">Serif</string>
-    <string name="text_tool_dialog_font_sans_serif">Sans Serif</string>
-    <string name="smudge_tool_dialog_pressure_title">Pressure</string>
+    <string name="text_tool_dialog_font_serif">Avec empattements</string>
+    <string name="text_tool_dialog_font_sans_serif">Sans empattement</string>
+    <string name="smudge_tool_dialog_pressure_title">Pression</string>
     <string name="smudge_tool_dialog_drag_title">Drag</string>
     <string name="transform_tool_rotate_left">pivoter à gauche</string>
     <string name="transform_tool_rotate_right">pivoter à droite</string>
@@ -78,21 +78,21 @@
     <string name="transform_width_text">Largeur</string>
     <string name="transform_height_text">Hauteur</string>
     <string name="pixel">px</string>
-    <string name="clipboard_tool_copy_hint">Tap on copy to copy content</string>
+    <string name="clipboard_tool_copy_hint">Touche Copier pour copier le contenu</string>
     <string name="layers_title">Couches</string>
     <string name="layer_new">Nouvelle couche</string>
     <string name="layer_delete">Supprimer la couche</string>
     <string name="layer_too_many_layers">Trop de couches</string>
     <string name="layer_merged">Couches fusionnées</string>
     <string name="layer_background">Arrière-plan de la couce</string>
-    <string name="layer_preview">Layer preview</string>
+    <string name="layer_preview">Aperçu du calque</string>
     <string name="dialog_loading_image_failed_title">Erreur de chargement de l\'image</string>
     <string name="dialog_loading_image_failed_text">Pas une image valide</string>
     <string name="dialog_settings">Options</string>
     <string name="dialog_save_image_name">Nom de l\'image</string>
     <string name="dialog_save_image_format">Format d\'image</string>
     <string name="dialog_save_jpg_option_quality">Qualité :</string>
-    <string name="zpaint_jpg_message_dialog">Prend <b>espace de stockage minimal</b>. <b>Aucune transparence</b> n\'est mémorisée.</string>
+    <string name="zpaint_jpg_message_dialog">Occupe <b>très peu d’espace de stockage</b>. <b>La transparence n’est pas conservée</b>.</string>
     <string name="zpaint_png_message_dialog">Compression sans perte. La transparence est préservée.</string>
     <string name="permission_info_external_storage_text">Cette application a besoin de l\'autorisation requise pour fonctionner correctement. Afin d\'enregistrer des images dans la mémoire locale, l\'application a besoin d\'y accéder en lecture et en écriture.</string>
     <string name="permission_info_permanent_denial_text">Cette application a besoin de l\'autorisation requise pour fonctionner correctement. Afin d\'enregistrer des images dans la mémoire locale, l\'application a besoin d\'y accéder en lecture et en écriture.
@@ -126,43 +126,43 @@
     <string name="button_filter_clarity">Clarte</string>
     <string name="dialog_save_image_title" translatable="false">@string/menu_save_image</string>
     <string name="help_content_perspective">Fais glisser les quatre coins sur la zone visible, puis touche la coche pour la redresser.</string>
-    <string name="help_content_pixel">Pixelise toute image ou une zone circulaire selectionnee.</string>
+    <string name="help_content_pixel">Pixellise toute l’image ou une zone circulaire sélectionnée.</string>
     <string name="perspective_invalid_selection">Place les coins pour former une zone valide.</string>
-    <string name="text_tool_dialog_outline" translatable="false">Outline</string>
-    <string name="text_tool_dialog_shadow" translatable="false">Shadow</string>
-    <string name="text_tool_dialog_font_inter" translatable="false">Sans</string>
-    <string name="text_tool_dialog_font_source_serif" translatable="false">Serif</string>
-    <string name="text_tool_dialog_font_caveat" translatable="false">Handdraw</string>
+    <string name="text_tool_dialog_outline">Contour</string>
+    <string name="text_tool_dialog_shadow">Ombre</string>
+    <string name="text_tool_dialog_font_inter">Sans empattement</string>
+    <string name="text_tool_dialog_font_source_serif">Avec empattements</string>
+    <string name="text_tool_dialog_font_caveat">Manuscrite</string>
     <string name="text_tool_dialog_font_bangers" translatable="false">Anton</string>
     <string name="brush_preset_pencil">Crayon</string>
     <string name="brush_preset_brush">Pinceau</string>
     <string name="brush_preset_marker">Marqueur</string>
     <string name="brush_preset_calligraphy">Calligraphie</string>
-    <string name="icon_tool_search_title">Recherche icones</string>
-    <string name="icon_tool_search_hint">Rechercher Iconify</string>
+    <string name="icon_tool_search_title">Recherche de stickers</string>
+    <string name="icon_tool_search_hint">Rechercher des stickers sur Iconify</string>
     <string name="icon_tool_search_button">Rechercher</string>
     <string name="icon_tool_load_more">Charger plus</string>
-    <string name="icon_tool_empty_state">Recherche une icone.</string>
+    <string name="icon_tool_empty_state">Recherche un sticker.</string>
     <string name="icon_tool_loading">Chargement…</string>
     <string name="icon_tool_empty_query">Saisis un terme de recherche.</string>
-    <string name="icon_tool_no_results">Aucune icone trouvee.</string>
-    <string name="icon_tool_results_loaded">Choisis une icone.</string>
-    <string name="icon_tool_error">Impossible de charger les icones.</string>
-    <string name="icon_tool_select_hint">Choisis dabord une icone.</string>
+    <string name="icon_tool_no_results">Aucun sticker trouvé.</string>
+    <string name="icon_tool_results_loaded">Choisis un sticker.</string>
+    <string name="icon_tool_error">Impossible de charger les stickers.</string>
+    <string name="icon_tool_select_hint">Choisis d’abord un sticker.</string>
     <string name="filter_tool_dialog_exposure_title">Exposition</string>
     <string name="filter_tool_dialog_brightness_title">Luminosite</string>
     <string name="filter_tool_dialog_contrast_title">Contraste</string>
     <string name="filter_tool_dialog_blur_title">Flou</string>
     <string name="filter_tool_dialog_vibrance_title">Vibrance</string>
     <string name="filter_tool_dialog_saturation_title">Couleurs</string>
-    <string name="filter_tool_dialog_temperature_title">Temperature</string>
+    <string name="filter_tool_dialog_temperature_title">Température</string>
     <string name="filter_tool_dialog_highlights_title">Hautes lumieres</string>
     <string name="filter_tool_dialog_shadows_title">Ombres</string>
     <string name="filter_tool_dialog_sepia_title">Sepia</string>
     <string name="filter_tool_dialog_sharpen_title">Nettete</string>
     <string name="filter_tool_dialog_vignette_title">Intensite</string>
     <string name="filter_tool_dialog_clarity_title">Clarte</string>
-    <string name="pixel_tool_dialog_mode_whole_image">Image entiere</string>
+    <string name="pixel_tool_dialog_mode_whole_image">Image entière</string>
     <string name="pixel_tool_dialog_mode_area">Zone</string>
     <string name="pixel_tool_dialog_size_title">Taille des pixels</string>
     <string name="transform_ratio_free">Libre</string>
@@ -257,7 +257,7 @@
     <string name="help_content_filter_pixel">Pixellise l’image. Utilisez le curseur pour régler la taille des pixels.</string>
     <string name="text_tool_dialog_align_justify">Justifier</string>
     <string name="text_tool_dialog_case_uppercase">MAJUSCULES</string>
-    <string name="text_tool_dialog_case_title">Première lettre majuscule</string>
+    <string name="text_tool_dialog_case_title">Majuscule au début de chaque mot</string>
     <string name="text_tool_dialog_case_lowercase">minuscules</string>
     <string name="filter_tool_dialog_bloom_title">Intensité de la lueur</string>
     <string name="filter_tool_dialog_median_title">Médiane</string>
@@ -285,4 +285,17 @@
     <string name="slider_label_line_spacing">Interligne</string>
     <string name="slider_label_line_width">Largeur de ligne</string>
     <string name="slider_label_scale">Échelle (%)</string>
+    <string name="brush_preset_line">Ligne</string>
+    <string name="button_replace">Remplacer</string>
+    <string name="fill_tool_antialiasing">Lissage des contours</string>
+    <string name="fill_tool_dialog_image">Remplir avec une image</string>
+    <string name="fill_tool_dialog_tap_area">Touche une zone</string>
+    <string name="fill_tool_transform_mode">Transformer l’image de remplissage</string>
+    <string name="fill_tool_view_mode">Déplacer et zoomer sur le canevas</string>
+    <string name="help_content_replace">Règle la taille du pinceau de 5 à 50 et peins la zone cible. Touche ensuite la source pour la copier dans la zone marquée.</string>
+    <string name="layer_merge_active">Fusionner les calques actifs</string>
+    <string name="layer_merge_confirm_button">Fusionner</string>
+    <string name="layer_merge_confirmation_message">Les calques actifs seront fusionnés en un seul calque.</string>
+    <string name="layer_merge_confirmation_title">Fusionner les calques actifs ?</string>
+    <string name="replace_tool_source_hint">Touche la\nsource</string>
 </resources>

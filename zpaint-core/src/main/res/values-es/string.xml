@@ -5,7 +5,7 @@
     <string name="button_undo">Deshacer</string>
     <string name="button_redo">Rehacer</string>
     <string name="button_info">Información</string>
-    <string name="button_clipboard">Clipboard</string>
+    <string name="button_clipboard">Portapapeles</string>
     <string name="button_import_image">Importar</string>
     <string name="button_eraser">Borrador</string>
     <string name="button_transform">Transformar</string>
@@ -14,25 +14,25 @@
     <string name="button_text">Texto</string>
     <string name="button_shape">Pegatinas</string>
     <string name="button_hand">Mano</string>
-    <string name="button_smudge">Smudge</string>
+    <string name="button_smudge">Difuminar</string>
     <string name="button_checkmark">Marca de verificación</string>
-    <string name="clipboard_tool_paste">Paste</string>
+    <string name="clipboard_tool_paste">Pegar</string>
     <string name="clipboard_tool_copy">Copiar</string>
     <string name="clipboard_tool_cut">Cut</string>
     <string name="dialog_error_save_title">Error cargar/guardar archivo</string>
     <string name="dialog_error_sdcard_text">Revisar la imagen del cheque o tarjeta SD!</string>
     <string name="dialog_warning_new_image">¿Guardar cambios?</string>
     <string name="help_content_eraser">Quite partes de la imagen como si utilizara una goma de borrar.</string>
-    <string name="help_content_brush">Pulse sobre los símbolos de la barra de abajo para cambiar el color o el tamaño del pincel.</string>
+    <string name="help_content_brush">Usa el control de tamaño para ajustar el ancho del pincel. Los botones permiten elegir un pincel duro o suave, marcador, caligrafía o flecha.</string>
     <string name="help_content_eyedropper">Pulse sobre la imagen para seleccionar un color.</string>
     <string name="help_content_undo">Pulse deshacer, para deshacer la acción anterior.</string>
     <string name="help_content_redo">Pulse rehacer una acción deshecha.</string>
-    <string name="help_content_fill">Pulse sobre la imagen para rellenar un área con el color seleccionado.</string>
-    <string name="help_content_transform">Úsalo para cambiar el tamaño de la imagen.</string>
+    <string name="help_content_fill">Toca un área conectada para rellenarla. El control de tolerancia determina lo similares que deben ser los colores vecinos. Puedes elegir hasta tres colores y crear degradados lineales, ondulados o circulares.</string>
+    <string name="help_content_transform">Ajusta el tamaño y recorta la imagen.</string>
     <string name="help_content_clipboard">Mover y redimensionar el rectángulo para cubrir el área que desea estampar. Toque en copiar o cortar para seleccionar el área. Muévelo, luego toque en pegar para sellar.</string>
     <string name="help_content_import_png">Importe una imagen de la galería a la herramienta Insertar dibujo.</string>
     <string name="help_content_line">Trazar una línea recta.</string>
-    <string name="help_content_text">Escribir texto y darle formato. Redimensionar el cuadro de texto más tarde. Pulse para insertar el texto en la imagen.</string>
+    <string name="help_content_text">Introduce texto y elige la fuente, el tamaño, el color y la alineación. Los botones inferiores ajustan el contorno, la sombra y el color de fondo. Puedes mover, girar, ampliar o reducir el texto. También puedes curvar una sola línea. Toca la marca de verificación para insertar el texto en la imagen.</string>
     <string name="help_content_shape">Busca pegatinas e inserta la pegatina seleccionada.</string>
     <string name="help_content_layer">Crear nuevas capas o modificar existentes</string>
     <string name="help_content_color_chooser">Seleccionar o ajustar un color</string>
@@ -55,7 +55,7 @@
     <string name="copy_to">Copia guardada en\n</string>
     <string name="menu_quit">Salir</string>
     <string name="save_button_text">Guardar</string>
-    <string name="discard_button_text">Ignorar</string>
+    <string name="discard_button_text">Descartar</string>
     <string name="cancel_button_text">Cancelar</string>
     <string name="overwrite_button_text">Sobrescribir</string>
     <string name="resize_nothing_to_resize">nada para cambiar el tamaño</string>
@@ -65,10 +65,10 @@
     <string name="text_tool_dialog_italic_shortcut">I</string>
     <string name="text_tool_dialog_bold_shortcut">B</string>
     <string name="text_tool_dialog_input_hint">Pulsa aquí para escribir</string>
-    <string name="text_tool_dialog_font_monospace">Monospace</string>
-    <string name="text_tool_dialog_font_serif">Serif</string>
-    <string name="text_tool_dialog_font_sans_serif">Sans Serif</string>
-    <string name="smudge_tool_dialog_pressure_title">Pressure</string>
+    <string name="text_tool_dialog_font_monospace">Monoespaciada</string>
+    <string name="text_tool_dialog_font_serif">Con serifa</string>
+    <string name="text_tool_dialog_font_sans_serif">Sin serifa</string>
+    <string name="smudge_tool_dialog_pressure_title">Presión</string>
     <string name="smudge_tool_dialog_drag_title">Drag</string>
     <string name="transform_tool_rotate_left">girar a la izquierda</string>
     <string name="transform_tool_rotate_right">girar a la derecha</string>
@@ -78,14 +78,14 @@
     <string name="transform_width_text">Ancho</string>
     <string name="transform_height_text">Alto</string>
     <string name="pixel">px</string>
-    <string name="clipboard_tool_copy_hint">Tap on copy to copy content</string>
+    <string name="clipboard_tool_copy_hint">Toca Copiar para copiar el contenido</string>
     <string name="layers_title">Capas</string>
     <string name="layer_new">Nueva capa</string>
     <string name="layer_delete">Eliminar capa</string>
     <string name="layer_too_many_layers">Demasiadas capas</string>
     <string name="layer_merged">Capas fusionadas</string>
     <string name="layer_background">Capa de fondo</string>
-    <string name="layer_preview">Layer preview</string>
+    <string name="layer_preview">Vista previa de la capa</string>
     <string name="dialog_loading_image_failed_title">Error en la carga de la imagen</string>
     <string name="dialog_loading_image_failed_text">No es una imagen válida</string>
     <string name="dialog_settings">Configuración</string>
@@ -128,27 +128,27 @@
     <string name="help_content_perspective">Arrastra las cuatro esquinas al área visible y toca la marca para enderezarla.</string>
     <string name="help_content_pixel">Pixela toda la imagen o un área circular seleccionada.</string>
     <string name="perspective_invalid_selection">Mueve las esquinas para formar un área valida.</string>
-    <string name="text_tool_dialog_outline" translatable="false">Outline</string>
-    <string name="text_tool_dialog_shadow" translatable="false">Shadow</string>
-    <string name="text_tool_dialog_font_inter" translatable="false">Sans</string>
-    <string name="text_tool_dialog_font_source_serif" translatable="false">Serif</string>
-    <string name="text_tool_dialog_font_caveat" translatable="false">Handdraw</string>
+    <string name="text_tool_dialog_outline">Contorno</string>
+    <string name="text_tool_dialog_shadow">Sombra</string>
+    <string name="text_tool_dialog_font_inter">Sin serifa</string>
+    <string name="text_tool_dialog_font_source_serif">Con serifa</string>
+    <string name="text_tool_dialog_font_caveat">Manuscrita</string>
     <string name="text_tool_dialog_font_bangers" translatable="false">Anton</string>
     <string name="brush_preset_pencil">Lapiz</string>
     <string name="brush_preset_brush">Pincel</string>
     <string name="brush_preset_marker">Marcador</string>
     <string name="brush_preset_calligraphy">Caligrafia</string>
-    <string name="icon_tool_search_title">Busqueda de iconos</string>
-    <string name="icon_tool_search_hint">Buscar en Iconify</string>
+    <string name="icon_tool_search_title">Búsqueda de pegatinas</string>
+    <string name="icon_tool_search_hint">Buscar pegatinas en Iconify</string>
     <string name="icon_tool_search_button">Buscar</string>
     <string name="icon_tool_load_more">Cargar mas</string>
-    <string name="icon_tool_empty_state">Busca un icono.</string>
+    <string name="icon_tool_empty_state">Busca una pegatina.</string>
     <string name="icon_tool_loading">Cargando…</string>
     <string name="icon_tool_empty_query">Introduce un termino de busqueda.</string>
-    <string name="icon_tool_no_results">No se encontraron iconos.</string>
-    <string name="icon_tool_results_loaded">Elige un icono.</string>
-    <string name="icon_tool_error">No se pudieron cargar los iconos.</string>
-    <string name="icon_tool_select_hint">Elige primero un icono.</string>
+    <string name="icon_tool_no_results">No se encontraron pegatinas.</string>
+    <string name="icon_tool_results_loaded">Elige una pegatina.</string>
+    <string name="icon_tool_error">No se pudieron cargar las pegatinas.</string>
+    <string name="icon_tool_select_hint">Elige una pegatina primero.</string>
     <string name="filter_tool_dialog_exposure_title">Exposición</string>
     <string name="filter_tool_dialog_brightness_title">Brillo</string>
     <string name="filter_tool_dialog_contrast_title">Contraste</string>
@@ -257,7 +257,7 @@
     <string name="help_content_filter_pixel">Pixeliza la imagen. Usa el control deslizante para ajustar el tamaño de píxel.</string>
     <string name="text_tool_dialog_align_justify">Justificar</string>
     <string name="text_tool_dialog_case_uppercase">MAYÚSCULAS</string>
-    <string name="text_tool_dialog_case_title">Primera letra en mayúscula</string>
+    <string name="text_tool_dialog_case_title">Inicial de cada palabra en mayúscula</string>
     <string name="text_tool_dialog_case_lowercase">minúsculas</string>
     <string name="filter_tool_dialog_bloom_title">Intensidad del resplandor</string>
     <string name="filter_tool_dialog_median_title">Mediana</string>
@@ -285,4 +285,17 @@
     <string name="slider_label_line_spacing">Interlineado</string>
     <string name="slider_label_line_width">Ancho de línea</string>
     <string name="slider_label_scale">Escala (%)</string>
+    <string name="brush_preset_line">Línea</string>
+    <string name="button_replace">Reemplazar</string>
+    <string name="fill_tool_antialiasing">Suavizado de bordes</string>
+    <string name="fill_tool_dialog_image">Rellenar con imagen</string>
+    <string name="fill_tool_dialog_tap_area">Toca un área</string>
+    <string name="fill_tool_transform_mode">Transformar imagen de relleno</string>
+    <string name="fill_tool_view_mode">Mover y ampliar el lienzo</string>
+    <string name="help_content_replace">Ajusta el tamaño del pincel entre 5 y 50 y pinta el área de destino. Después toca el origen para copiarlo en el área marcada.</string>
+    <string name="layer_merge_active">Combinar capas activas</string>
+    <string name="layer_merge_confirm_button">Combinar</string>
+    <string name="layer_merge_confirmation_message">Las capas activas se combinarán en una sola capa.</string>
+    <string name="layer_merge_confirmation_title">¿Combinar capas activas?</string>
+    <string name="replace_tool_source_hint">Toca el\norigen</string>
 </resources>

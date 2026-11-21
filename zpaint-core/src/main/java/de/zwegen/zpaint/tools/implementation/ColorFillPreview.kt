@@ -6,10 +6,8 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Point
 import android.graphics.PointF
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffXfermode
 import android.graphics.Rect
-import android.graphics.Shader
+import de.zwegen.zpaint.command.bitmap.MaskedColorReplacement
 import de.zwegen.zpaint.command.implementation.FillGradientDirection
 import de.zwegen.zpaint.command.implementation.GradientFillCommand
 
@@ -27,11 +25,15 @@ internal class ColorFillPreview(
      * receives a bitmap that has just been released by a tool change or preview reset.
      */
     private val originalPixels = original?.let { bitmap ->
-        IntArray(bitmap.width * bitmap.height).also { bitmap.getPixels(it, 0, bitmap.width, 0, 0, bitmap.width, bitmap.height) }
+        IntArray(bitmap.width * bitmap.height).also {
+            bitmap.getPixels(it, 0, bitmap.width, 0, 0, bitmap.width, bitmap.height)
+        }
     }
     private val lock = Any()
     private val regions = mutableListOf(initialRegion)
     private var rendered: Bitmap? = null
+    private var selectionMask: Bitmap? = null
+    private var renderedLayer: Bitmap? = null
 
     val bounds: Rect
         get() = synchronized(lock) { FillSelectionMask.previewBounds(regions) }
@@ -81,44 +83,14 @@ internal class ColorFillPreview(
         true
     }
 
-    /**
-     * Draws the pending fill without changing the layer. Transparent fills use the same
-     * checkerboard as the drawing surface, clipped to the selected region, so the area to be
-     * cleared is visible before it is confirmed.
-     */
-    fun draw(canvas: Canvas, checkerboardShader: Shader? = null) {
-        synchronized(lock) {
-            if (regions.isEmpty()) return
-            val bounds = FillSelectionMask.previewBounds(regions)
-            val preview = render()
-            if (isTransparentSolidFill() && checkerboardShader != null) {
-                val saveCount = canvas.saveLayer(
-                    bounds.left.toFloat(),
-                    bounds.top.toFloat(),
-                    bounds.right.toFloat(),
-                    bounds.bottom.toFloat(),
-                    null
-                )
-                canvas.drawRect(bounds, Paint().apply { shader = checkerboardShader })
-                canvas.drawBitmap(preview, bounds.left.toFloat(), bounds.top.toFloat(), maskPaint)
-                canvas.restoreToCount(saveCount)
-            } else {
-                canvas.drawBitmap(preview, bounds.left.toFloat(), bounds.top.toFloat(), null)
-            }
-        }
-    }
-
-    /** Draws a transparent fill on an isolated layer, preserving the layers underneath. */
+    /** Draws the same replacement as commit, then applies the active layer opacity once. */
     fun drawLayerPreview(canvas: Canvas, layer: Bitmap, layerPaint: Paint): Boolean = synchronized(lock) {
-        if (regions.isEmpty() || !isTransparentSolidFill()) return@synchronized false
-        val bounds = FillSelectionMask.previewBounds(regions)
-        val saveCount = canvas.saveLayer(0f, 0f, layer.width.toFloat(), layer.height.toFloat(), layerPaint)
-        try {
-            canvas.drawBitmap(layer, 0f, 0f, null)
-            canvas.drawBitmap(render(), bounds.left.toFloat(), bounds.top.toFloat(), clearPaint)
-        } finally {
-            canvas.restoreToCount(saveCount)
+        if (regions.isEmpty()) return@synchronized false
+        val preview = renderedLayer ?: layer.copy(Bitmap.Config.ARGB_8888, true).also {
+            MaskedColorReplacement.apply(it, render(), mask(), bounds)
+            renderedLayer = it
         }
+        canvas.drawBitmap(preview, 0f, 0f, layerPaint)
         true
     }
 
@@ -127,36 +99,26 @@ internal class ColorFillPreview(
         render().copy(Bitmap.Config.ARGB_8888, false)
     }
 
-    /** A transparent solid fill removes the selected pixels instead of drawing an invisible stamp. */
-    fun isTransparentSolidFill(): Boolean = colors.size == 1 && Color.alpha(colors.first()) == 0
-
-    /**
-     * Opaque white is irrelevant here; its alpha is the selection mask used by DST_OUT when the
-     * selected area is cleared. Keeping the outer feather makes the clear operation match the
-     * visible fill boundary.
-     */
-    fun clearMaskForCommit(): Bitmap = synchronized(lock) {
+    /** Selection coverage is independent of the selected color's alpha, including alpha zero. */
+    fun selectionMaskForCommit(): Bitmap = synchronized(lock) {
         check(regions.isNotEmpty()) { "Color fill preview must contain a region before it is committed" }
+        mask().copy(Bitmap.Config.ARGB_8888, false)
+    }
+
+    fun release() = synchronized(lock) { invalidateRender() }
+
+    private fun mask(): Bitmap {
+        selectionMask?.let { return it }
         val bounds = bounds
         val width = regions.first().canvasWidth
         val alphaMask = FillSelectionMask.alphaMask(regions, if (antialiasing) COLOR_FEATHER_PIXELS else 0)
-        val pixels = IntArray(alphaMask.size) { index ->
-            Color.argb(alphaMask[index], 255, 255, 255)
+        val pixels = IntArray(bounds.width() * bounds.height()) { index ->
+            val x = bounds.left + index % bounds.width()
+            val y = bounds.top + index / bounds.width()
+            Color.argb(alphaMask[y * width + x], 255, 255, 255)
         }
-        Bitmap.createBitmap(width, pixels.size / width, Bitmap.Config.ARGB_8888).apply {
-            setPixels(pixels, 0, width, 0, 0, width, height)
-        }.let { fullMask ->
-            Bitmap.createBitmap(fullMask, bounds.left, bounds.top, bounds.width(), bounds.height()).also {
-                fullMask.recycle()
-            }
-        }
-    }
-
-    fun release() {
-        synchronized(lock) {
-            rendered?.recycle()
-            rendered = null
-        }
+        return Bitmap.createBitmap(pixels, bounds.width(), bounds.height(), Bitmap.Config.ARGB_8888)
+            .also { selectionMask = it }
     }
 
     private fun render(): Bitmap {
@@ -167,12 +129,7 @@ internal class ColorFillPreview(
         val alphaMask = FillSelectionMask.alphaMask(regions, if (antialiasing) COLOR_FEATHER_PIXELS else 0)
         val fillPixels = BooleanArray(alphaMask.size) { alphaMask[it] > 0 }
         val fullPreview = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-        if (isTransparentSolidFill()) {
-            // This bitmap is a selection mask for the checkerboard preview, not document data.
-            fillPixels.forEachIndexed { index, isFilled ->
-                if (isFilled) fullPreview.setPixel(index % width, index / width, Color.WHITE)
-            }
-        } else if (colors.size == 1) {
+        if (colors.size == 1) {
             val pixels = IntArray(alphaMask.size)
             fillPixels.forEachIndexed { index, isFilled ->
                 if (isFilled) pixels[index] = colors.first()
@@ -187,7 +144,7 @@ internal class ColorFillPreview(
                 direction
             ).renderPreviewInto(fullPreview, fillPixels)
         }
-        applyAlphaMask(fullPreview, alphaMask, width)
+        applyCoverage(fullPreview, alphaMask, width)
         return Bitmap.createBitmap(fullPreview, bounds.left, bounds.top, bounds.width(), bounds.height())
             .also {
                 fullPreview.recycle()
@@ -195,21 +152,21 @@ internal class ColorFillPreview(
             }
     }
 
-    private fun invalidateRender() {
-        rendered?.recycle()
-        rendered = null
-    }
-
-    private fun applyAlphaMask(bitmap: Bitmap, alphaMask: IntArray, width: Int) {
-        val pixels = IntArray(alphaMask.size)
+    /**
+     * Bake coverage once, blending with the unchanged side of the edge as before. The independent
+     * selection mask later gates replacement; multiplying by coverage again would soften twice,
+     * and blending with the old selected pixel would accumulate alpha on repeated fills.
+     */
+    private fun applyCoverage(bitmap: Bitmap, coverage: IntArray, width: Int) {
+        val pixels = IntArray(coverage.size)
         bitmap.getPixels(pixels, 0, width, 0, 0, width, bitmap.height)
-        val outside = if (antialiasing) originalPixels?.let { FillSelectionMask.outsideColors(regions, it, COLOR_FEATHER_PIXELS) } else null
+        val outside = if (antialiasing) originalPixels?.let {
+            FillSelectionMask.outsideColors(regions, it, COLOR_FEATHER_PIXELS)
+        } else null
         pixels.indices.forEach { index ->
             val color = pixels[index]
-            val weight = alphaMask[index]
-            pixels[index] = if (weight in 1 until FillSelectionMask.ALPHA_MAX && outside != null &&
-                Color.alpha(outside[index]) > 0 && !isTransparentSolidFill()
-            ) {
+            val weight = coverage[index]
+            pixels[index] = if (weight in 1 until FillSelectionMask.ALPHA_MAX && outside != null) {
                 FillSelectionMask.blend(color, outside[index], weight)
             } else {
                 Color.argb(Color.alpha(color) * weight / FillSelectionMask.ALPHA_MAX,
@@ -219,13 +176,16 @@ internal class ColorFillPreview(
         bitmap.setPixels(pixels, 0, width, 0, 0, width, bitmap.height)
     }
 
+    private fun invalidateRender() {
+        rendered?.recycle()
+        rendered = null
+        selectionMask?.recycle()
+        selectionMask = null
+        renderedLayer?.recycle()
+        renderedLayer = null
+    }
+
     private companion object {
         const val COLOR_FEATHER_PIXELS = 1
-        val clearPaint = Paint().apply {
-            xfermode = PorterDuffXfermode(PorterDuff.Mode.DST_OUT)
-        }
-        val maskPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            xfermode = PorterDuffXfermode(PorterDuff.Mode.DST_IN)
-        }
     }
 }
