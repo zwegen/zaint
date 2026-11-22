@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="filter_mode_auto">✦ Αυτόματο</string>
+    <string name="filter_auto_objects_empty">Αντικείμενα: αγγίξτε ένα αντικείμενο στη φωτογραφία</string>
+    <string name="filter_auto_background_empty">Φόντο: αγγίξτε ένα αντικείμενο για εξαίρεση</string>
+    <string name="filter_auto_objects">Φίλτρο στα αντικείμενα · Αυτόματο για φόντο</string>
+    <string name="filter_auto_background">Φίλτρο στο φόντο · Αυτόματο για αντικείμενα</string>
+    <string name="filter_auto_busy">Επιλογή αντικειμένου…</string>
+    <string name="filter_auto_failed">Το αντικείμενο δεν επιλέχθηκε. Αγγίξτε το ξανά.</string>
+</resources>

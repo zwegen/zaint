@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="filter_mode_auto">✦ Auto</string>
+    <string name="filter_auto_objects_empty">Objetos: toca un objeto en la foto</string>
+    <string name="filter_auto_background_empty">Fondo: toca un objeto para excluirlo</string>
+    <string name="filter_auto_objects">Filtro en objetos · Toca Auto para el fondo</string>
+    <string name="filter_auto_background">Filtro en el fondo · Toca Auto para los objetos</string>
+    <string name="filter_auto_busy">Seleccionando objeto…</string>
+    <string name="filter_auto_failed">No se seleccionó el objeto. Tócalo de nuevo.</string>
+</resources>

@@ -54,6 +54,7 @@ import de.zwegen.zpaint.command.implementation.ZaintHistoryManager
 import de.zwegen.zpaint.command.implementation.ZaintLayerOpacityChange
 import de.zwegen.zpaint.command.serialization.ZaintProjectSerializer
 import de.zwegen.zpaint.common.CommonFactory
+import de.zwegen.zpaint.common.LOAD_IMAGE_DEFAULT
 import de.zwegen.zpaint.common.DEFAULT_CANVAS_HEIGHT
 import de.zwegen.zpaint.common.DEFAULT_CANVAS_WIDTH
 import de.zwegen.zpaint.contract.ZaintLayerContracts
@@ -245,14 +246,13 @@ class ZaintEditorActivity : AppCompatActivity(), MainView, CommandListener, Colo
                 return false
             } else {
                 ZaintDocumentStorage.filename = "image"
-                ZaintDocumentStorage.getBitmapFromUri(myContentResolver, receivedUri)
-                    ?.let { receivedBitmap ->
-                        commandManager.setInitialStateCommand(
-                            commandFactory.createInitCommand(
-                                receivedBitmap
-                            )
-                        )
-                    }
+                val photo = ZaintDocumentStorage.getBitmapReturnValueFromUri(myContentResolver, receivedUri, this)
+                if (photo.toBeScaled) {
+                    presenterMain.onLoadImagePostExecute(LOAD_IMAGE_DEFAULT, receivedUri, photo)
+                } else {
+                    photo.bitmap?.let { commandManager.setInitialStateCommand(commandFactory.createInitCommand(it)) }
+                    presenterMain.showPhotoResizeNotice(photo)
+                }
             }
         } catch (e: Exception) {
             Log.e("Can not read", "Unable to retrieve Bitmap from Uri")
@@ -696,8 +696,10 @@ class ZaintEditorActivity : AppCompatActivity(), MainView, CommandListener, Colo
     }
 
     private fun showCurrentToolHelp() {
-        val toolType = toolReference.tool?.toolType ?: return
-        ZaintHelpDialog.newInstance(toolType.nameResource, toolType.helpTextResource)
+        val tool = toolReference.tool ?: return
+        val toolType = tool.toolType
+        val hint = if (tool is FilterTool && tool.supportsAreaMode()) R.string.help_filter_auto_hint else 0
+        ZaintHelpDialog.newInstance(toolType.nameResource, toolType.helpTextResource, hint = hint)
             .show(supportFragmentManager, ZaintHelpDialog.TAG)
     }
 
@@ -838,6 +840,7 @@ class ZaintEditorActivity : AppCompatActivity(), MainView, CommandListener, Colo
     }
 
     override fun onDestroy() {
+        if (::toolCoordinator.isInitialized) toolCoordinator.discardTransientSelection()
         stopAutoSaveCoroutine()
         commandManager.removeCommandListener(this)
         if (finishing) {

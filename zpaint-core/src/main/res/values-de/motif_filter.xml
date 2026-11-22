@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="filter_mode_auto">✦ Auto</string>
+    <string name="filter_auto_objects_empty">Objekte: Objekt im Foto antippen</string>
+    <string name="filter_auto_background_empty">Hintergrund: Auszusparendes Objekt antippen</string>
+    <string name="filter_auto_objects">Filter auf Objekten · Auto für Hintergrund</string>
+    <string name="filter_auto_background">Filter auf Hintergrund · Auto für Objekte</string>
+    <string name="filter_auto_busy">Objekt wird ausgewählt…</string>
+    <string name="filter_auto_failed">Objekt nicht ausgewählt. Erneut antippen.</string>
+</resources>

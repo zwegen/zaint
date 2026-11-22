@@ -11,12 +11,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.annotation.StringRes
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatSeekBar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.button.MaterialButtonToggleGroup
 import de.zwegen.zpaint.R
 import de.zwegen.zpaint.tools.helper.DefaultNumberRangeFilter
+import de.zwegen.zpaint.tools.options.FilterRegion
 import de.zwegen.zpaint.tools.options.FilterToolOptionsView
 
 class DefaultFilterToolOptionsView(toolSpecificOptionsLayout: ViewGroup) : FilterToolOptionsView {
@@ -27,19 +29,19 @@ class DefaultFilterToolOptionsView(toolSpecificOptionsLayout: ViewGroup) : Filte
     private val title: TextView
     private val seekBar: AppCompatSeekBar
     private val valueInput: AppCompatEditText
-    private val zeroMarker: TextView
+    private val neutralTick: View
     private val areaModeToggleGroup: MaterialButtonToggleGroup
     private val areaModeBottomSpacer: View
     private val wholeImageButton: MaterialButton
     private val areaButton: MaterialButton
+    private val autoButton: MaterialButton
+    private val autoHint: TextView
     private val splashColorPalette: ViewGroup
     private val splashColorSwatches: List<ImageButton>
     private var callback: FilterToolOptionsView.Callback? = null
     private var splashColorListener: FilterToolOptionsView.SplashColorListener? = null
     private var displayedSplashColors: List<Int> = emptyList()
     private var activeSplashColorIndex = 0
-    private var minValue = 0
-    private var maxValue = 100
     private val topSlider: ZaintTopNumberSlider
 
     init {
@@ -49,11 +51,13 @@ class DefaultFilterToolOptionsView(toolSpecificOptionsLayout: ViewGroup) : Filte
         title = filterToolOptionsView.findViewById(R.id.zpaint_filter_title)
         seekBar = filterToolOptionsView.findViewById(R.id.zpaint_filter_seek_bar)
         valueInput = filterToolOptionsView.findViewById(R.id.zpaint_filter_value_input)
-        zeroMarker = filterToolOptionsView.findViewById(R.id.zpaint_filter_zero_marker)
+        neutralTick = filterToolOptionsView.findViewById(R.id.zpaint_filter_neutral_tick)
         areaModeToggleGroup = filterToolOptionsView.findViewById(R.id.zpaint_filter_area_mode_toggle_group)
         areaModeBottomSpacer = filterToolOptionsView.findViewById(R.id.zpaint_filter_area_mode_bottom_spacer)
         wholeImageButton = filterToolOptionsView.findViewById(R.id.zpaint_filter_mode_whole_image)
         areaButton = filterToolOptionsView.findViewById(R.id.zpaint_filter_mode_area)
+        autoButton = filterToolOptionsView.findViewById(R.id.zpaint_filter_mode_auto)
+        autoHint = filterToolOptionsView.findViewById(R.id.zpaint_filter_auto_hint)
         splashColorPalette = filterToolOptionsView.findViewById(R.id.zpaint_splash_color_palette)
         splashColorSwatches = listOf(
             filterToolOptionsView.findViewById(R.id.zpaint_splash_color_0),
@@ -64,6 +68,7 @@ class DefaultFilterToolOptionsView(toolSpecificOptionsLayout: ViewGroup) : Filte
         topSlider = ZaintTopNumberSlider(
             input = valueInput,
             seekBar = seekBar,
+            showZeroOverlay = false,
             onValueChanged = { value, source ->
                 callback?.onValueChanged(value)
                 if (source == ZaintTopNumberSlider.Source.INPUT) callback?.onStopTracking(value)
@@ -71,8 +76,9 @@ class DefaultFilterToolOptionsView(toolSpecificOptionsLayout: ViewGroup) : Filte
             onStartTracking = { callback?.onStartTracking() },
             onStopTracking = { value -> callback?.onStopTracking(value) },
         )
-        wholeImageButton.setOnClickListener { callback?.setAreaMode(false) }
-        areaButton.setOnClickListener { callback?.setAreaMode(true) }
+        wholeImageButton.setOnClickListener { callback?.setRegion(FilterRegion.TOTAL) }
+        areaButton.setOnClickListener { callback?.setRegion(FilterRegion.AREA) }
+        autoButton.setOnClickListener { callback?.setRegion(FilterRegion.AUTO) }
         splashColorSwatches.forEachIndexed { index, swatch ->
             swatch.setOnClickListener {
                 if (index < displayedSplashColors.size) {
@@ -99,10 +105,8 @@ class DefaultFilterToolOptionsView(toolSpecificOptionsLayout: ViewGroup) : Filte
     }
 
     override fun setRange(min: Int, max: Int, value: Int) {
-        minValue = min
-        maxValue = max
         valueInput.filters = arrayOf<InputFilter>(DefaultNumberRangeFilter(min, max))
-        zeroMarker.visibility = if (isTwoDirectionRange()) View.VISIBLE else View.GONE
+        neutralTick.visibility = if (min < 0 && min == -max) View.VISIBLE else View.GONE
         val boundedValue = value.coerceIn(min, max)
         topSlider.setRange(min, max, boundedValue)
     }
@@ -111,10 +115,26 @@ class DefaultFilterToolOptionsView(toolSpecificOptionsLayout: ViewGroup) : Filte
         val visibility = if (visible) View.VISIBLE else View.GONE
         areaModeToggleGroup.visibility = visibility
         areaModeBottomSpacer.visibility = visibility
+        updateAutoHintVisibility()
     }
 
-    override fun setAreaMode(areaMode: Boolean) {
-        areaModeToggleGroup.check(if (areaMode) areaButton.id else wholeImageButton.id)
+    override fun setRegion(region: FilterRegion) {
+        val button = when (region) {
+            FilterRegion.TOTAL -> wholeImageButton
+            FilterRegion.AREA -> areaButton
+            FilterRegion.AUTO -> autoButton
+        }
+        areaModeToggleGroup.check(button.id)
+        updateAutoHintVisibility()
+    }
+
+    override fun setAutoHint(@StringRes hint: Int) {
+        autoHint.setText(hint)
+    }
+
+    private fun updateAutoHintVisibility() {
+        val showHint = areaModeToggleGroup.visibility == View.VISIBLE && autoButton.isChecked
+        autoHint.visibility = if (showHint) View.VISIBLE else View.GONE
     }
 
     override fun setSplashColors(colors: List<Int>, activeIndex: Int) {
@@ -150,8 +170,6 @@ class DefaultFilterToolOptionsView(toolSpecificOptionsLayout: ViewGroup) : Filte
     override fun setSplashColorListener(listener: FilterToolOptionsView.SplashColorListener) {
         splashColorListener = listener
     }
-
-    private fun isTwoDirectionRange(): Boolean = minValue < 0 && maxValue > 0
 
     private fun contrastingFrameColor(color: Int): Int {
         val brightness = Color.red(color) * 0.299f + Color.green(color) * 0.587f + Color.blue(color) * 0.114f

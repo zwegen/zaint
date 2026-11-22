@@ -174,6 +174,7 @@ class ReplaceTool(
             return true
         }
         synchronized(previewLock) {
+            sizePreviewCenter = null
             maskPath.moveTo(coordinate.x, coordinate.y)
             strokeStarts += PointF(coordinate.x, coordinate.y)
             maskPoints += PointF(coordinate.x, coordinate.y)
@@ -241,6 +242,7 @@ class ReplaceTool(
         // Pinching sends MOVE_CANCELED to the active tool. Once the target is painted, that
         // gesture must only move or zoom the canvas; it must not discard the pending target.
         if (synchronized(previewLock) {
+                sizePreviewCenter = null
                 if (stateChange == Tool.StateChange.MOVE_CANCELED && phase == Phase.SOURCE) {
                     sourcePreviewCenter = null
                     true

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="filter_mode_auto">✦ Otomatik</string>
+    <string name="filter_auto_objects_empty">Nesneler: fotoğraftaki bir nesneye dokunun</string>
+    <string name="filter_auto_background_empty">Arka plan: hariç tutulacak nesneye dokunun</string>
+    <string name="filter_auto_objects">Filtre nesnelerde · Arka plan için Otomatik’e dokunun</string>
+    <string name="filter_auto_background">Filtre arka planda · Nesneler için Otomatik’e dokunun</string>
+    <string name="filter_auto_busy">Nesne seçiliyor…</string>
+    <string name="filter_auto_failed">Nesne seçilemedi. Tekrar dokunun.</string>
+</resources>

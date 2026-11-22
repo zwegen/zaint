@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="selection_tool_shape_motif">Выбрать объект</string>
+    <string name="selection_motif_hint">Коснитесь объектов. Для выбора фона ещё раз нажмите кнопку выбора объекта. Подтвердите, чтобы скопировать выделение на новый слой.</string>
+    <string name="selection_motif_objects">Объекты · Нажмите ещё раз для выбора фона</string>
+    <string name="selection_motif_background">Фон · Нажмите ещё раз для выбора объектов</string>
+    <string name="selection_motif_busy">Выделение объекта…</string>
+    <string name="selection_motif_failed">Объект не выбран. Коснитесь его ещё раз.</string>
+    <string name="selection_motif_cancel">Снять выделение объектов</string>
+    <string name="selection_cutout_done">Объект выделен · Оригинал скрыт</string>
+</resources>

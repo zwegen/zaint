@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="selection_tool_shape_motif">Motiv auswählen</string>
+    <string name="selection_motif_hint">Objekte antippen. Für den Hintergrund erneut auf die Motivtaste tippen. Das Häkchen kopiert die Auswahl auf eine neue Ebene.</string>
+    <string name="selection_motif_objects">Objekte · Erneut tippen für Hintergrund</string>
+    <string name="selection_motif_background">Hintergrund · Erneut tippen für Objekte</string>
+    <string name="selection_motif_busy">Objekt wird ausgewählt…</string>
+    <string name="selection_motif_failed">Objekt nicht ausgewählt. Erneut antippen.</string>
+    <string name="selection_motif_cancel">Motivauswahl verwerfen</string>
+    <string name="selection_cutout_done">Freigestellt · Original ausgeblendet</string>
+</resources>

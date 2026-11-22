@@ -105,6 +105,7 @@
     <string name="bottom_navigation_current">Attuale</string>
     <string name="bottom_navigation_color">Colore</string>
     <string name="bottom_navigation_layers">Livelli</string>
+    <string name="photo_resized_notice">Foto ridotta a %1$d × %2$d px</string>
     <string name="dialog_scale_title">Immagine troppo grande per essere caricata</string>
     <string name="dialog_scale_message">L\'immagine è troppo grande Per essere caricata. Scegli OK per ridimensionare automaticamente l\'immagine.</string>
     <string name="button_pixel">Pixel</string>
@@ -191,7 +192,8 @@
     <string name="help_content_border">Aggiunge un bordo colorato all’esterno dell’immagine oppure ritaglia il bordo verso l’interno.</string>
     <string name="help_content_place">Sposta, ridimensiona o ruota il livello attivo, quindi tocca il segno di spunta per posizionarlo.</string>
     <string name="help_content_rotate">Ruota o capovolgi l’immagine.</string>
-    <string name="help_content_selection">Seleziona un’area del livello attivo, poi copiala, tagliala o incollala.</string>
+    <string name="help_content_selection">Seleziona una parte del livello attivo con un rettangolo, un cerchio o un contorno a mano libera. Puoi copiare, tagliare o eliminare la zona selezionata. In modalità oggetto (stella), l’IA riconosce il soggetto che tocchi.</string>
+    <string name="help_filter_auto_hint">Applica il filtro a tutta l’immagine oppure limita l’effetto a una zona spostando e ridimensionando il riquadro. Con Auto, l’IA riconosce l’oggetto che tocchi. Tocca di nuovo Auto per selezionare lo sfondo invece dell’oggetto.</string>
     <string name="layer_toggle_visibility">Cambia visibilità del livello</string>
     <string name="layer_adjust_opacity">Regola opacità del livello</string>
     <string name="place_empty_layer">Il livello attivo non ha contenuto visibile da posizionare.</string>
@@ -272,7 +274,7 @@
     <string name="help_content_filter_splash">Mantiene il colore scelto e trasforma tutti gli altri in scala di grigi. Scegli il colore toccando l’immagine o dal menu dei colori e regola la tolleranza con il cursore.</string>
     <string name="menu_info">Informazioni</string>
     <string name="info_title_zaint">Informazioni su Zaint</string>
-    <string name="info_content_zaint">Zaint è un’app Android per disegnare e modificare immagini. Puoi trasformare le foto in modo creativo, creare le tue immagini e lavorare con livelli, testo e tanti strumenti. L’app rimane semplice e intuitiva da usare.</string>
+    <string name="info_content_zaint">Con Zaint puoi disegnare su Android e modificare le foto con testo, filtri e livelli.\n\nMagicTouch (un modello di IA open source) ti aiuta a selezionare i soggetti. Funziona interamente offline sul tuo dispositivo. Per saperne di più su Zaint e MagicTouch, consulta le <annotation link="licenses">licenze</annotation>.</string>
     <string name="info_version_format">Versione %1$s</string>
     <string name="dialog_save_jpg_quality_percentage">%1$d%%</string>
     <string name="brush_control_size">Dimensione</string>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="filter_mode_auto">✦ Авто</string>
+    <string name="filter_auto_objects_empty">Объекты: коснитесь объекта на фото</string>
+    <string name="filter_auto_background_empty">Фон: коснитесь объекта, чтобы исключить его</string>
+    <string name="filter_auto_objects">Фильтр на объектах · Нажмите «Авто» для фона</string>
+    <string name="filter_auto_background">Фильтр на фоне · Нажмите «Авто» для объектов</string>
+    <string name="filter_auto_busy">Выбор объекта…</string>
+    <string name="filter_auto_failed">Не удалось выбрать объект. Коснитесь его ещё раз.</string>
+</resources>

@@ -910,7 +910,7 @@ open class ZaintEditorPresenter(
             ZaintDocumentStorage.compressFormat = Bitmap.CompressFormat.PNG
             return
         }
-        if (result.toBeScaled) {
+        if (result.toBeScaled && !result.wasPhotoResized) {
             navigator.showScaleImageRequestDialog(uri, requestCode)
             return
         }
@@ -969,15 +969,25 @@ open class ZaintEditorPresenter(
                         ZaintEditorActivity.TAG,
                         "importPngToFloatingBox: Current tool is no ImportTool as required"
                     )
+                    return
                 }
             LOAD_IMAGE_FILL ->
                 if (toolController.toolType === ZaintToolKind.FILL && result.bitmap != null) {
                     toolController.setBitmapFromSource(result.bitmap)
                 } else {
                     Log.e(ZaintEditorActivity.TAG, "fillImage: Current tool is no FillTool as required")
+                    return
                 }
             else -> throw IllegalArgumentException()
         }
+        showPhotoResizeNotice(result)
+    }
+
+    fun showPhotoResizeNotice(result: BitmapReturnValue) {
+        if (!result.wasPhotoResized) return
+        val bitmap = result.bitmap ?: return
+        val message = context.resources.getString(R.string.photo_resized_notice, bitmap.width, bitmap.height)
+        Toast.makeText(context.applicationContext, message, Toast.LENGTH_SHORT).show()
     }
 
     override fun onLoadImagePreExecute(@LoadImageRequestCode requestCode: Int) = Unit

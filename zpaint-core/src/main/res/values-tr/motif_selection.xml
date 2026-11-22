@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="selection_tool_shape_motif">Nesne seç</string>
+    <string name="selection_motif_hint">Nesnelere dokunun. Arka planı seçmek için nesne düğmesine tekrar dokunun. Seçimi yeni bir katmana kopyalamak için onaylayın.</string>
+    <string name="selection_motif_objects">Nesneler · Arka plan için tekrar dokunun</string>
+    <string name="selection_motif_background">Arka plan · Nesneler için tekrar dokunun</string>
+    <string name="selection_motif_busy">Nesne seçiliyor…</string>
+    <string name="selection_motif_failed">Nesne seçilmedi. Tekrar dokunun.</string>
+    <string name="selection_motif_cancel">Nesne seçimini temizle</string>
+    <string name="selection_cutout_done">Seçim ayrıldı · Orijinal gizlendi</string>
+</resources>

@@ -45,11 +45,26 @@
             android:layout_toEndOf="@+id/zpaint_filter_value_input_layout"
             android:orientation="vertical">
 
-            <SeekBar
-                android:id="@+id/zpaint_filter_seek_bar"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="30dip" />
+                android:layout_height="wrap_content">
+
+                <View
+                    android:id="@+id/zpaint_filter_neutral_tick"
+                    android:layout_width="1dp"
+                    android:layout_height="16dp"
+                    android:layout_gravity="center"
+                    android:background="#CCCCCC"
+                    android:importantForAccessibility="no"
+                    android:translationY="4dp"
+                    android:visibility="gone" />
+
+                <SeekBar
+                    android:id="@+id/zpaint_filter_seek_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="30dip" />
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/zpaint_filter_title"
@@ -60,17 +75,6 @@
                 android:translationY="-8dp"
                 android:textColor="@color/zpaint_save_cancel_button"
                 android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/zpaint_filter_zero_marker"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/zpaint_zero_marker"
-                android:textColor="?attr/colorAccent"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
         </LinearLayout>
     </RelativeLayout>
 
@@ -139,6 +143,22 @@
                 android:layout_weight="1" />
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/zpaint_filter_auto_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="4dp"
+            android:accessibilityLiveRegion="polite"
+            android:background="#CC000000"
+            android:gravity="center"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
+            android:text="@string/filter_auto_objects_empty"
+            android:textColor="@android:color/white"
+            android:textSize="12sp"
+            android:visibility="gone" />
+
         <com.google.android.material.button.MaterialButtonToggleGroup
             android:id="@+id/zpaint_filter_area_mode_toggle_group"
             android:layout_width="match_parent"
@@ -147,37 +167,59 @@
             app:selectionRequired="true"
             app:singleSelection="true">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/zpaint_filter_mode_whole_image"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:backgroundTint="@color/transform_scope_background_color"
-            android:text="@string/pixel_tool_dialog_mode_whole_image"
-            android:textAllCaps="false"
-            android:textColor="@color/transform_scope_text_color"
-            android:textSize="12sp"
-            app:strokeColor="@color/transform_scope_stroke_color"
-            app:strokeWidth="1dp" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/zpaint_filter_mode_auto"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:backgroundTint="@color/transform_scope_background_color"
+                android:text="@string/filter_mode_auto"
+                android:textAllCaps="false"
+                android:textColor="@color/transform_scope_text_color"
+                android:textSize="12sp"
+                app:strokeColor="@color/transform_scope_stroke_color"
+                app:strokeWidth="1dp" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/zpaint_filter_mode_area"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:backgroundTint="@color/transform_scope_background_color"
-            android:text="@string/pixel_tool_dialog_mode_area"
-            android:textAllCaps="false"
-            android:textColor="@color/transform_scope_text_color"
-            android:textSize="12sp"
-            app:strokeColor="@color/transform_scope_stroke_color"
-            app:strokeWidth="1dp" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/zpaint_filter_mode_area"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:backgroundTint="@color/transform_scope_background_color"
+                android:text="@string/pixel_tool_dialog_mode_area"
+                android:textAllCaps="false"
+                android:textColor="@color/transform_scope_text_color"
+                android:textSize="12sp"
+                app:strokeColor="@color/transform_scope_stroke_color"
+                app:strokeWidth="1dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/zpaint_filter_mode_whole_image"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:backgroundTint="@color/transform_scope_background_color"
+                android:text="@string/pixel_tool_dialog_mode_whole_image"
+                android:textAllCaps="false"
+                android:textColor="@color/transform_scope_text_color"
+                android:textSize="12sp"
+                app:strokeColor="@color/transform_scope_stroke_color"
+                app:strokeWidth="1dp" />
         </com.google.android.material.button.MaterialButtonToggleGroup>
 
         <Space

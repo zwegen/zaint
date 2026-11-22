@@ -32,10 +32,6 @@ android {
         }
         signedRelease {
         }
-        debug {
-            // Required by the debug manifest's MultiDexApplication.
-            multiDexEnabled true
-        }
     }
 
     lintOptions {
@@ -58,6 +54,7 @@ android {
 }
 
 dependencies {
+    implementation 'de.zwegen.local:litert-source:1@aar'
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'com.google.android.material:material:1.12.0'
     implementation project(':colorpicker')
@@ -73,8 +70,6 @@ dependencies {
     implementation 'com.caverock:androidsvg-aar:1.4'
     implementation 'org.boofcv:boofcv-ip:1.2.2'
     implementation 'org.boofcv:boofcv-feature:1.2.2'
-
-    debugImplementation 'androidx.multidex:multidex:2.0.1'
 
     implementation 'androidx.test.espresso:espresso-idling-resource:3.5.1'
 }

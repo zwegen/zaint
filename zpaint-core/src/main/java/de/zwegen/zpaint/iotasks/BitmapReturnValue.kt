@@ -16,7 +16,8 @@ data class BitmapReturnValue(
     @JvmField
     var toBeScaled: Boolean,
     @JvmField
-    var colorHistory: ColorHistory?
+    var colorHistory: ColorHistory?,
+    var wasPhotoResized: Boolean = false
 ) {
     constructor(bitmapList: List<ZaintLayerContracts.ZaintLayer>?, bitmap: Bitmap?, toBeScaled: Boolean) : this(
         null,

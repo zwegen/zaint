@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="selection_tool_shape_motif">Seleccionar sujeto</string>
+    <string name="selection_motif_hint">Toca los objetos. Para elegir el fondo, vuelve a tocar el botón de sujeto. Confirma para copiar la selección en una capa nueva.</string>
+    <string name="selection_motif_objects">Objetos · Toca de nuevo para elegir el fondo</string>
+    <string name="selection_motif_background">Fondo · Toca de nuevo para elegir los objetos</string>
+    <string name="selection_motif_busy">Seleccionando objeto…</string>
+    <string name="selection_motif_failed">No se ha seleccionado el objeto. Tócalo de nuevo.</string>
+    <string name="selection_motif_cancel">Borrar selección de objetos</string>
+    <string name="selection_cutout_done">Recorte creado · Original oculto</string>
+</resources>

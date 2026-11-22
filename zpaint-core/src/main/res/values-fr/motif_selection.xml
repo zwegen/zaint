@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="selection_tool_shape_motif">Sélectionner le sujet</string>
+    <string name="selection_motif_hint">Touchez les objets. Pour choisir le fond, touchez à nouveau le bouton de sélection du sujet. Validez pour copier la sélection sur un nouveau calque.</string>
+    <string name="selection_motif_objects">Objets · Touchez à nouveau pour choisir le fond</string>
+    <string name="selection_motif_background">Fond · Touchez à nouveau pour choisir les objets</string>
+    <string name="selection_motif_busy">Sélection en cours…</string>
+    <string name="selection_motif_failed">Objet non sélectionné. Touchez-le à nouveau.</string>
+    <string name="selection_motif_cancel">Effacer la sélection</string>
+    <string name="selection_cutout_done">Détourage effectué · Original masqué</string>
+</resources>

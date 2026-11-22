@@ -104,6 +104,7 @@
     <string name="bottom_navigation_current">şimdiki</string>
     <string name="bottom_navigation_color">Renk</string>
     <string name="bottom_navigation_layers">Katmanlar</string>
+    <string name="photo_resized_notice">Fotoğraf %1$d × %2$d piksele küçültüldü</string>
     <string name="dialog_scale_title">Resim yüklenemeyecek kadar büyük</string>
     <string name="dialog_scale_message">Resim yüklenemeyecek kadar büyük. Görüntüyü otomatik olarak küçültmek için Tamam\'a tıklayın.</string>
     <string name="button_pixel">Piksel</string>
@@ -190,7 +191,8 @@
     <string name="help_content_border">Resmin dışına renkli bir kenarlık ekler veya kenarı içe doğru kırpar.</string>
     <string name="help_content_place">Etkin katmanı taşıyın, ölçekleyin veya döndürün; ardından yerleştirmek için onay işaretine dokunun.</string>
     <string name="help_content_rotate">Görüntüyü döndürün veya çevirin.</string>
-    <string name="help_content_selection">Etkin katmanda bir alan seçin; ardından kopyalayın, kesin veya yapıştırın.</string>
+    <string name="help_content_selection">Etkin katmanda bir alanı dikdörtgenle, daireyle veya serbest elle çizerek seç. Seçtiğin alanı kopyalayabilir, kesebilir veya silebilirsin. Nesne modunda (yıldız) yapay zekâ dokunduğun nesneyi tanır.</string>
+    <string name="help_filter_auto_hint">Filtreyi tüm görüntüye uygula veya çerçeveyi taşıyıp boyutunu değiştirerek etkisini bir alanla sınırla. Otomatik modda yapay zekâ dokunduğun nesneyi tanır. Nesne yerine arka planı seçmek için Otomatik düğmesine tekrar dokun.</string>
     <string name="layer_toggle_visibility">Katman görünürlüğünü değiştir</string>
     <string name="layer_adjust_opacity">Katman opaklığını ayarla</string>
     <string name="place_empty_layer">Etkin katmanda yerleştirilecek görünür içerik yok.</string>
@@ -271,7 +273,7 @@
     <string name="help_content_filter_splash">Seçili rengi korur ve diğer tüm renkleri gri tonlamaya dönüştürür. Rengi görüntüye dokunarak veya renk menüsünden seçin ve kaydırıcıyla toleransı ayarlayın.</string>
     <string name="menu_info">Bilgi</string>
     <string name="info_title_zaint">Zaint hakkında</string>
-    <string name="info_content_zaint">Zaint, görüntü çizmek ve düzenlemek için bir Android uygulamasıdır. Fotoğrafları yaratıcı biçimde dönüştürebilir, kendi görüntülerinizi oluşturabilir ve katmanlar, metin ve çeşitli araçlarla çalışabilirsiniz. Uygulama basit ve kullanımı kolay kalır.</string>
+    <string name="info_content_zaint">Zaint ile Android cihazında çizim yapabilir, fotoğrafları metin, filtre ve katmanlarla düzenleyebilirsin.\n\nMagicTouch (açık kaynaklı bir yapay zekâ modeli) nesneleri seçmene yardımcı olur. Tamamen çevrimdışı olarak cihazında çalışır. Zaint ve MagicTouch hakkında daha fazla bilgi için <annotation link="licenses">Lisanslar</annotation> bölümüne bak.</string>
     <string name="info_version_format">Sürüm %1$s</string>
     <string name="dialog_save_jpg_quality_percentage">%1$d%%</string>
     <string name="brush_control_size">Boyut</string>

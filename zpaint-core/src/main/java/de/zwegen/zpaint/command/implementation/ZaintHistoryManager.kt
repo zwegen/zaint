@@ -77,12 +77,20 @@ class ZaintHistoryManager(
     }
 
     override fun addCommand(command: Command?) {
+        if (command is SelectionLayerCommand) {
+            run(command)
+            if (!command.applied) {
+                command.freeResources()
+                notifyListeners()
+                return
+            }
+        }
         clearRedoHistory()
         if (command != null && !undoDisabledForMemory) {
             undoHistory.addFirst(command)
             historyId(command)
         }
-        run(command)
+        if (command !is SelectionLayerCommand) run(command)
         compactUndoHistoryIfNeeded()
         notifyListeners()
     }
@@ -110,15 +118,18 @@ class ZaintHistoryManager(
         discardLeadingColorChanges(undoHistory)
         val command = undoHistory.pollFirst() ?: return
         redoHistory.addFirst(command)
-        rebuildImage()
+        undoEdit(command)
         notifyListeners()
     }
 
     override fun redo() {
         discardLeadingColorChanges(redoHistory)
-        val command = redoHistory.pollFirst() ?: return
-        undoHistory.addFirst(command)
+        val command = redoHistory.peekFirst() ?: return
         run(command)
+        if (command !is SelectionLayerCommand || command.applied) {
+            redoHistory.removeFirst()
+            undoHistory.addFirst(command)
+        }
         notifyListeners()
     }
 
@@ -151,7 +162,7 @@ class ZaintHistoryManager(
         val command = undoHistory.pollFirst()
         if (command != null) {
             redoHistory.addFirst(command)
-            rebuildImage()
+            undoEdit(command)
         }
         restoreColorChanges(colors)
         notifyListeners()
@@ -162,7 +173,7 @@ class ZaintHistoryManager(
         val replaced = undoHistory.pollFirst()
         if (replaced != null) {
             redoHistory.addFirst(replaced)
-            rebuildImage()
+            undoEdit(replaced)
         }
         clearRedoHistory()
         undoHistory.addFirst(command)
@@ -178,7 +189,7 @@ class ZaintHistoryManager(
         val removed = if (colors.isNotEmpty()) colors.removeFirst() else undoHistory.pollFirst()
         if (removed != null) {
             redoHistory.addFirst(removed)
-            rebuildImage()
+            undoEdit(removed)
         }
         restoreColorChanges(colors)
         notifyListeners()
@@ -214,6 +225,10 @@ class ZaintHistoryManager(
         canvas.setBitmap(layerModel.currentLayer?.bitmap)
         command.run(canvas, layerModel)
         canvas.setBitmap(null)
+    }
+
+    private fun undoEdit(command: Command) {
+        if (command is SelectionLayerCommand) command.undo(layerModel) else rebuildImage()
     }
 
     private fun rebuildImage() {

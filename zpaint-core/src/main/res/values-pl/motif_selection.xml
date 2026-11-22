@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="selection_tool_shape_motif">Wybierz obiekt</string>
+    <string name="selection_motif_hint">Dotknij obiektów. Aby wybrać tło, dotknij ponownie przycisku wyboru obiektu. Zatwierdź, aby skopiować zaznaczenie na nową warstwę.</string>
+    <string name="selection_motif_objects">Obiekty · Dotknij ponownie, aby wybrać tło</string>
+    <string name="selection_motif_background">Tło · Dotknij ponownie, aby wybrać obiekty</string>
+    <string name="selection_motif_busy">Zaznaczanie obiektu…</string>
+    <string name="selection_motif_failed">Nie zaznaczono obiektu. Dotknij go ponownie.</string>
+    <string name="selection_motif_cancel">Wyczyść zaznaczenie</string>
+    <string name="selection_cutout_done">Wyodrębniono · Oryginał ukryty</string>
+</resources>

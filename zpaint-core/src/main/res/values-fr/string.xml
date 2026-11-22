@@ -105,6 +105,7 @@
     <string name="bottom_navigation_current">Actuel</string>
     <string name="bottom_navigation_color">Couleur</string>
     <string name="bottom_navigation_layers">Couches</string>
+    <string name="photo_resized_notice">Photo réduite à %1$d × %2$d px</string>
     <string name="dialog_scale_title">L\'image est trop grande pour être chargée</string>
     <string name="dialog_scale_message">L\'image est trop grande pour être chargée. Tape sur OK pour réduire l\'image automatiquement.</string>
     <string name="button_pixel">Pixel</string>
@@ -191,7 +192,8 @@
     <string name="help_content_border">Ajoute une bordure colorée autour de l’image ou recadre le bord vers l’intérieur.</string>
     <string name="help_content_place">Déplace, redimensionne ou pivote le calque actif, puis appuie sur la coche pour le placer.</string>
     <string name="help_content_rotate">Faites pivoter ou retournez l’image.</string>
-    <string name="help_content_selection">Sélectionne une zone du calque actif, puis copie-la, coupe-la ou colle-la.</string>
+    <string name="help_content_selection">Sélectionne une partie du calque actif avec un rectangle, un cercle ou un tracé à main levée. Tu peux copier, couper ou effacer cette zone. En mode objet (étoile), l’IA reconnaît le sujet que tu touches.</string>
+    <string name="help_filter_auto_hint">Applique le filtre à toute l’image ou limite son effet à une zone en déplaçant et en redimensionnant le cadre. Avec Auto, l’IA reconnaît l’objet que tu touches. Touche à nouveau Auto pour sélectionner l’arrière-plan à la place de l’objet.</string>
     <string name="layer_toggle_visibility">Changer la visibilité du calque</string>
     <string name="layer_adjust_opacity">Régler l’opacité du calque</string>
     <string name="place_empty_layer">Le calque actif ne contient aucun élément visible à placer.</string>
@@ -272,7 +274,7 @@
     <string name="help_content_filter_splash">Conserve la couleur choisie et transforme toutes les autres en niveaux de gris. Choisissez la couleur en touchant l’image ou dans le menu des couleurs, puis réglez la tolérance avec le curseur.</string>
     <string name="menu_info">Informations</string>
     <string name="info_title_zaint">À propos de Zaint</string>
-    <string name="info_content_zaint">Zaint est une application Android pour dessiner et modifier des images. Vous pouvez transformer vos photos de façon créative, créer vos propres images et travailler avec des calques, du texte et de nombreux outils. L’application reste simple et facile à utiliser.</string>
+    <string name="info_content_zaint">Avec Zaint, tu peux dessiner sur Android et retoucher tes photos avec du texte, des filtres et des calques.\n\nMagicTouch (une IA open source) t’aide à sélectionner un sujet. Il fonctionne entièrement hors ligne sur ton appareil. Pour en savoir plus sur Zaint et MagicTouch, consulte les <annotation link="licenses">licences</annotation>.</string>
     <string name="info_version_format">Version %1$s</string>
     <string name="dialog_save_jpg_quality_percentage">%1$d%%</string>
     <string name="brush_control_size">Taille</string>

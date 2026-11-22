@@ -14,6 +14,8 @@ import de.zwegen.zpaint.tools.ToolReference
 import de.zwegen.zpaint.tools.ZaintToolKind
 import de.zwegen.zpaint.tools.Workspace
 import de.zwegen.zpaint.tools.implementation.ZaintClipboardTool
+import de.zwegen.zpaint.tools.implementation.FilterTool
+import de.zwegen.zpaint.tools.implementation.ZaintSelectionTool
 import de.zwegen.zpaint.tools.implementation.IconTool
 import de.zwegen.zpaint.tools.implementation.ZaintImportTool
 import de.zwegen.zpaint.tools.implementation.ZaintFillTool
@@ -37,6 +39,7 @@ class ZaintToolCoordinator(
     private val paint: ToolPaint,
     private val androidContext: ContextCallback
 ) : ZaintToolControl {
+    private var suspendedForPipette: Tool? = null
     private lateinit var colorListener: OnColorPickedListener
 
     override val isDefaultTool: Boolean
@@ -74,7 +77,9 @@ class ZaintToolCoordinator(
             androidContext,
             colorListener
         ) as ZaintPipetteTool
+        suspendedForPipette = previousTool
         pipette.pickColorForActiveTool { color ->
+            suspendedForPipette = null
             previousTool.changePaintColor(color)
             activeTool.tool = previousTool
             if (previousTool.toolType.hasOptions()) options.show() else options.hide()
@@ -88,8 +93,18 @@ class ZaintToolCoordinator(
         if (toolType != ZaintToolKind.FILL) {
             (currentTool as? ZaintFillTool)?.resetInternalState(Tool.StateChange.RESET_INTERNAL_STATE)
         }
+        discardTransientSelection()
         val replacement = buildTool(toolType)
         replaceActiveTool(replacement)
+    }
+
+    /** Invalidate pending mask work before a replacement can start using the layer. */
+    fun discardTransientSelection() {
+        when (val tool = suspendedForPipette ?: currentTool) {
+            is FilterTool -> tool.finishPendingFilterOnNavigation()
+            is ZaintSelectionTool -> tool.resetInternalState(Tool.StateChange.ALL)
+        }
+        suspendedForPipette = null
     }
 
     private fun buildTool(toolType: ZaintToolKind): Tool {
@@ -209,6 +224,7 @@ class ZaintToolCoordinator(
         } else {
             val state = Bundle()
             previous.onSaveInstanceState(state)
+            discardTransientSelection()
             activeTool.tool = buildTool(previous.toolType)
             activeTool.tool?.onRestoreInstanceState(state)
         }

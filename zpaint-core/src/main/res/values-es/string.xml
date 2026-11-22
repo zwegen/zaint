@@ -105,6 +105,7 @@
     <string name="bottom_navigation_current">Actual</string>
     <string name="bottom_navigation_color">Color</string>
     <string name="bottom_navigation_layers">Capas</string>
+    <string name="photo_resized_notice">Foto reducida a %1$d × %2$d px</string>
     <string name="dialog_scale_title">La imagen es demasiado grande para cargar</string>
     <string name="dialog_scale_message">La imagen es demasiado grande para cargarla. Haga clic en Aceptar para reducir la escala de la imagen automáticamente.</string>
     <string name="button_pixel">Pixel</string>
@@ -191,7 +192,8 @@
     <string name="help_content_border">Añade un borde de color fuera de la imagen o recorta el borde hacia dentro.</string>
     <string name="help_content_place">Mueve, escala o gira la capa activa y toca la marca de verificación para colocarla.</string>
     <string name="help_content_rotate">Gira o voltea la imagen.</string>
-    <string name="help_content_selection">Selecciona un área de la capa activa y luego cópiala, córtala o pégala.</string>
+    <string name="help_content_selection">Selecciona parte de la capa activa con un rectángulo, un círculo o un contorno a mano alzada. Puedes copiar, cortar o borrar esa zona. En el modo de objetos (estrella), la IA reconoce el motivo que tocas.</string>
+    <string name="help_filter_auto_hint">Elige «Imagen completa» para aplicar el filtro en toda la imagen. En «Área» puedes mover el marco o cambiar su tamaño. Con «Auto», la IA reconoce el objeto que tocas. Vuelve a tocar «Auto» para seleccionar el fondo en lugar del objeto.</string>
     <string name="layer_toggle_visibility">Cambiar visibilidad de la capa</string>
     <string name="layer_adjust_opacity">Ajustar opacidad de la capa</string>
     <string name="place_empty_layer">La capa activa no tiene contenido visible para colocar.</string>
@@ -272,7 +274,7 @@
     <string name="help_content_filter_splash">Conserva el color seleccionado y convierte todos los demás en escala de grises. Elige el color tocando la imagen o desde el menú de colores y ajusta la tolerancia con el control deslizante.</string>
     <string name="menu_info">Información</string>
     <string name="info_title_zaint">Acerca de Zaint</string>
-    <string name="info_content_zaint">Zaint es una aplicación Android para dibujar y editar imágenes. Puedes transformar fotos de forma creativa, crear tus propias imágenes y trabajar con capas, texto y una gran variedad de herramientas. La aplicación sigue siendo sencilla y fácil de usar.</string>
+    <string name="info_content_zaint">Con Zaint puedes dibujar en Android y editar fotos con texto, filtros y capas.\n\nLa IA MagicTouch (de código abierto) te ayuda a seleccionar el sujeto. Funciona en tu dispositivo sin conexión a internet. Para saber más sobre Zaint y MagicTouch, consulta las <annotation link="licenses">licencias</annotation>.</string>
     <string name="info_version_format">Versión %1$s</string>
     <string name="dialog_save_jpg_quality_percentage">%1$d%%</string>
     <string name="brush_control_size">Tamaño</string>

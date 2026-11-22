@@ -105,6 +105,7 @@
     <string name="bottom_navigation_current">Atual</string>
     <string name="bottom_navigation_color">Cor</string>
     <string name="bottom_navigation_layers">Camadas</string>
+    <string name="photo_resized_notice">Foto reduzida para %1$d × %2$d px</string>
     <string name="dialog_scale_title">A imagem é demasiado grande para ser carregada</string>
     <string name="dialog_scale_message">A imagem é demasiado grande para ser carregada. Clique em OK para diminuir automaticamente o tamanho.</string>
     <string name="button_pixel">Pixel</string>
@@ -191,7 +192,8 @@
     <string name="help_content_border">Adiciona uma margem colorida fora da imagem ou recorta a margem para dentro.</string>
     <string name="help_content_place">Move, dimensiona ou roda a camada ativa e toca na marca de verificação para a posicionar.</string>
     <string name="help_content_rotate">Rode ou espelhe a imagem.</string>
-    <string name="help_content_selection">Seleciona uma área na camada ativa e depois copia, corta ou cola-a.</string>
+    <string name="help_content_selection">Seleciona uma parte da camada ativa com um retângulo, um círculo ou um contorno à mão livre. Podes copiar, cortar ou apagar essa zona. No modo de objetos (estrela), a IA reconhece o motivo em que tocas.</string>
+    <string name="help_filter_auto_hint">Aplica o filtro a toda a imagem ou limita o efeito a uma área movendo a moldura e ajustando o seu tamanho. Com Auto, a IA reconhece o objeto em que tocas. Toca novamente em Auto para selecionar o fundo em vez do objeto.</string>
     <string name="layer_toggle_visibility">Alterar visibilidade da camada</string>
     <string name="layer_adjust_opacity">Ajustar opacidade da camada</string>
     <string name="place_empty_layer">A camada ativa não tem conteúdo visível para posicionar.</string>
@@ -272,7 +274,7 @@
     <string name="help_content_filter_splash">Mantém a cor escolhida e converte todas as outras em tons de cinzento. Escolha a cor tocando na imagem ou no menu de cores e ajuste a tolerância com o controlo deslizante.</string>
     <string name="menu_info">Informações</string>
     <string name="info_title_zaint">Sobre o Zaint</string>
-    <string name="info_content_zaint">O Zaint é uma aplicação Android para desenhar e editar imagens. Pode transformar fotografias de forma criativa, criar as suas próprias imagens e trabalhar com camadas, texto e uma variedade de ferramentas. A aplicação mantém-se simples e fácil de usar.</string>
+    <string name="info_content_zaint">Com o Zaint, podes desenhar no Android e editar fotografias com texto, filtros e camadas.\n\nO MagicTouch (um modelo de IA de código aberto) ajuda a selecionar o motivo. Funciona inteiramente no teu dispositivo, sem ligação à Internet. Para saberes mais sobre o Zaint e o MagicTouch, consulta as <annotation link="licenses">licenças</annotation>.</string>
     <string name="info_version_format">Versão %1$s</string>
     <string name="dialog_save_jpg_quality_percentage">%1$d%%</string>
     <string name="brush_control_size">Tamanho</string>

@@ -1,0 +1,14 @@
+MagicTouch – Modell für interaktive Bildsegmentierung
+===================================================
+Datei: magic_touch.tflite (unverändertes Original)
+Variante: float32, Version 1; Größe: 6.227.884 Byte
+SHA-256: e24338a717c1b7ad8d159666677ef400babb7f33b8ad60c4d96db4ecf694cd25
+Quelle: https://storage.googleapis.com/mediapipe-models/interactive_segmenter/magic_touch/float32/1/magic_touch.tflite
+
+Die Google-Modellkarte vom 13. März 2023 nennt Valentin Bazarevsky und Ben
+Hahn (Google) als Autoren und ausdrücklich die Apache License, Version 2.0.
+Diese Angabe betrifft das Modell selbst, nicht nur den MediaPipe-Quellcode.
+Modellkarte: https://storage.googleapis.com/mediapipe-assets/Model%20Card%20MagicTouch.pdf
+
+Der Lizenztext zum Modell liegt unter MagicTouch-Apache-2.0.txt bei.
+Die Android-Laufzeit wird für die Testvariante separat aus Quellcode gebaut.

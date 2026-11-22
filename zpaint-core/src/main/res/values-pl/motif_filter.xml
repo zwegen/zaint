@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="filter_mode_auto">✦ Auto</string>
+    <string name="filter_auto_objects_empty">Obiekty: dotknij obiektu na zdjęciu</string>
+    <string name="filter_auto_background_empty">Tło: dotknij obiektu, aby go wykluczyć</string>
+    <string name="filter_auto_objects">Filtr na obiektach · Dotknij Auto, aby wybrać tło</string>
+    <string name="filter_auto_background">Filtr na tle · Dotknij Auto, aby wybrać obiekty</string>
+    <string name="filter_auto_busy">Wybieranie obiektu…</string>
+    <string name="filter_auto_failed">Nie wybrano obiektu. Dotknij go ponownie.</string>
+</resources>

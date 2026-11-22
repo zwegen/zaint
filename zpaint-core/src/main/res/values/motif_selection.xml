@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="selection_tool_shape_motif">Select subject</string>
+    <string name="selection_motif_hint">Tap objects to select them. Tap the subject button again for background. Confirm to copy the selection to a new layer.</string>
+    <string name="selection_motif_objects">Objects · Tap again for background</string>
+    <string name="selection_motif_background">Background · Tap again for objects</string>
+    <string name="selection_motif_busy">Selecting object…</string>
+    <string name="selection_motif_failed">Object not selected. Tap it again.</string>
+    <string name="selection_motif_cancel">Clear motif selection</string>
+    <string name="selection_cutout_done">Cut out · Original hidden</string>
+</resources>

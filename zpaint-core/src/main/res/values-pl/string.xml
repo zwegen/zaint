@@ -88,7 +88,8 @@
     <string name="help_content_speech_bubble">Wybierz kształt dymka i ustaw szerokość obrysu. Możesz go przesuwać, obracać i zmieniać jego rozmiar. Przeciągnij mały punkt, aby ustawić końcówkę. Zatwierdź, aby wstawić dymek do obrazu.</string>
     <string name="help_content_shadow">Utwórz cień z aktywnej warstwy.</string>
     <string name="help_content_clipboard">Przesuń prostokąt i zmień jego rozmiar, aby objąć wybrany obszar. Dotknij Kopiuj lub Wytnij, aby go pobrać. Przesuń go, a następnie dotknij Wklej, aby wstawić zawartość.</string>
-    <string name="help_content_selection">Zaznacz obszar na aktywnej warstwie, a następnie skopiuj, wytnij lub wklej go.</string>
+    <string name="help_content_selection">Zaznacz część aktywnej warstwy prostokątem, kołem lub odręcznym obrysem. Możesz ją skopiować, wyciąć lub usunąć. W trybie obiektów (gwiazdka) sztuczna inteligencja rozpoznaje dotknięty obiekt.</string>
+    <string name="help_filter_auto_hint">Zastosuj filtr do całego obrazu albo ogranicz efekt do wybranego obszaru, przesuwając ramkę i zmieniając jej rozmiar. W trybie Auto sztuczna inteligencja rozpoznaje dotknięty obiekt. Dotknij ponownie opcji Auto, aby wybrać tło zamiast obiektu.</string>
     <string name="help_content_import_png">Zaimportuj obraz z galerii do schowka.</string>
     <string name="help_content_line">Narysuj linię prostą.</string>
     <string name="help_content_text">Wpisz tekst i wybierz czcionkę, rozmiar, kolor oraz wyrównanie. Przyciski poniżej ustawiają obrys, cień i kolor tła. Tekst możesz przesuwać, obracać, powiększać i pomniejszać. Pojedynczy wiersz możesz też wygiąć. Zatwierdź, aby wstawić tekst do obrazu.</string>
@@ -136,7 +137,7 @@
     <string name="option_english_info">Włączone: angielski. Wyłączone: język systemu.</string>
     <string name="menu_info">Informacje</string>
     <string name="info_title_zaint">O aplikacji Zaint</string>
-    <string name="info_content_zaint">Zaint to aplikacja na Androida do rysowania i edycji obrazów. Możesz twórczo przekształcać zdjęcia, tworzyć własne obrazy i korzystać z warstw, tekstu oraz różnych narzędzi. Aplikacja pozostaje prosta i łatwa w obsłudze.</string>
+    <string name="info_content_zaint">W Zaint możesz rysować na Androidzie i edytować zdjęcia za pomocą tekstu, filtrów i warstw.\n\nMagicTouch (model AI o otwartym kodzie źródłowym) pomaga zaznaczać obiekty. Działa na Twoim urządzeniu bez połączenia z internetem. Więcej o Zaint i MagicTouch znajdziesz w sekcji <annotation link="licenses">Licencje</annotation>.</string>
     <string name="info_version_format">Wersja %1$s</string>
     <string name="share_image_via_text">Wyślij obraz przez</string>
     <string name="saved_to">Obraz zapisano w\n</string>
@@ -282,6 +283,7 @@
     <string name="bottom_navigation_color">Kolor</string>
     <string name="bottom_navigation_filters">Filtry</string>
     <string name="bottom_navigation_layers">Warstwy</string>
+    <string name="photo_resized_notice">Zmniejszono zdjęcie do %1$d × %2$d px</string>
     <string name="dialog_scale_title">Obraz jest zbyt duży, aby go wczytać</string>
     <string name="dialog_scale_message">Obraz jest zbyt duży, aby go wczytać. Dotknij OK, aby automatycznie go pomniejszyć.</string>
     <string name="dialog_save_jpg_quality_percentage">%1$d%%</string>

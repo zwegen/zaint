@@ -6,6 +6,7 @@ import android.content.ContentResolver
 import android.content.ContentUris
 import android.content.ContentValues
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat
 import android.graphics.BitmapFactory
@@ -52,8 +53,10 @@ import java.io.OutputStream
 import java.util.Locale
 import java.util.UUID
 import kotlin.math.min
+import kotlin.math.roundToInt
 import kotlin.math.sqrt
 
+private const val MAX_PHOTO_EDGE = 3000
 private const val CONSTANT_POINT9 = .9f
 private const val CONSTANT_5000 = 5000L
 private const val CONSTANT_4 = 4L
@@ -369,12 +372,12 @@ object ZaintDocumentStorage {
 
     @JvmStatic
     fun getOrientedBitmap(bitmap: Bitmap?, angle: Float): Bitmap? {
-        bitmap ?: return null
+        if (bitmap == null || angle == 0f) return bitmap
         val matrix = Matrix()
         matrix.postRotate(angle)
         val rotatedBitmap =
             Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
-        bitmap.recycle()
+        if (rotatedBitmap !== bitmap) bitmap.recycle()
         return rotatedBitmap
     }
 
@@ -534,39 +537,61 @@ object ZaintDocumentStorage {
     private fun checkFileExistsInDownloadsFolder(filename: String, resolver: ContentResolver): Boolean =
         getUriForFilenameInDownloadsFolder(filename, resolver) != null
 
-    private fun calculateSampleSize(width: Int, height: Int, maxWidth: Int, maxHeight: Int): Int {
-        var w = width
-        var h = height
-        var sampleSize = 1
-        while (w > maxWidth || h > maxHeight) {
-            w /= 2
-            h /= 2
-            sampleSize *= 2
-        }
-        return sampleSize
+    private fun readPhotoSize(resolver: ContentResolver, uri: Uri): BitmapSize {
+        val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
+        decodeBitmapFromUri(resolver, uri, bounds)
+        if (bounds.outWidth <= 0 || bounds.outHeight <= 0) throw IOException("Can't load bitmap from uri")
+        return BitmapSize(bounds.outWidth, bounds.outHeight)
     }
 
-    private fun sampleSizeForImport(resolver: ContentResolver, bitmapUri: Uri): Int {
-        val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
-        decodeBitmapFromUri(resolver, bitmapUri, bounds)
-        if (bounds.outWidth <= 0 || bounds.outHeight <= 0) {
-            throw IOException("Can't load bitmap from uri")
+    private fun BitmapSize.fitLongEdge(edge: Int): BitmapSize {
+        val longEdge = maxOf(width, height)
+        if (longEdge <= edge) return this
+        val scale = edge.toDouble() / longEdge
+        return BitmapSize(
+            (width * scale).roundToInt().coerceAtLeast(1),
+            (height * scale).roundToInt().coerceAtLeast(1)
+        )
+    }
+
+    private fun decodePhoto(
+        resolver: ContentResolver,
+        uri: Uri,
+        source: BitmapSize,
+        target: BitmapSize
+    ): Bitmap? {
+        // Decode near the requested resolution, never above the intermediate pixel budget.
+        var sample = Integer.highestOneBit(maxOf(source.width, source.height) / maxOf(target.width, target.height))
+        fun sampledLength(length: Int) = (length.toLong() + sample - 1) / sample
+        while (sampledLength(source.width) * sampledLength(source.height) > MAX_IMPORTED_IMAGE_PIXELS) {
+            sample *= 2
         }
-        var sampleSize = 1
-        while (bounds.outWidth.toLong() / sampleSize * (bounds.outHeight.toLong() / sampleSize) > MAX_IMPORTED_IMAGE_PIXELS) {
-            sampleSize *= 2
+        val options = BitmapFactory.Options().apply {
+            inMutable = true
+            inSampleSize = sample
+            if (target != source) {
+                // Scale inside the decoder so even a 4000×3000 source returns only the working bitmap.
+                inDensity = sampledLength(maxOf(source.width, source.height)).toInt()
+                inTargetDensity = maxOf(target.width, target.height)
+            }
         }
-        return sampleSize
+        val bitmap = resolver.openInputStream(uri)?.use { BitmapFactory.decodeStream(it, null, options) }
+            ?: throw IOException("Can't decode bitmap from uri")
+        // The density ratio was a decoding aid, not physical display density.
+        if (options.inDensity != 0) bitmap.density = Resources.getSystem().displayMetrics.densityDpi
+        val sized = if (bitmap.width == target.width && bitmap.height == target.height) {
+            bitmap
+        } else {
+            Bitmap.createScaledBitmap(bitmap, target.width, target.height, true).also { bitmap.recycle() }
+        }
+        return enableAlpha(getOrientedBitmap(sized, getBitmapOrientationFromInputStream(resolver, uri)))
     }
 
     @Throws(IOException::class)
     @JvmStatic
     fun getBitmapFromUri(resolver: ContentResolver, bitmapUri: Uri): Bitmap? {
-        val options = BitmapFactory.Options().apply {
-            inMutable = true
-            inSampleSize = sampleSizeForImport(resolver, bitmapUri)
-        }
-        return enableAlpha(decodeBitmapFromUri(resolver, bitmapUri, options))
+        val source = readPhotoSize(resolver, bitmapUri)
+        return decodePhoto(resolver, bitmapUri, source, source.fitLongEdge(MAX_PHOTO_EDGE))
     }
 
     @Throws(IOException::class)
@@ -576,29 +601,17 @@ object ZaintDocumentStorage {
         context: Context?,
         visibleDrawingSurfaceSize: BitmapSize
     ): BitmapReturnValue {
-        if (context == null) {
-            return getBitmapReturnValueFromUri(resolver, bitmapUri, null)
-        }
-        val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
-        decodeBitmapFromUri(resolver, bitmapUri, bounds)
-        if (bounds.outWidth <= 0 || bounds.outHeight <= 0) {
-            throw IOException("Can't load bitmap from uri")
-        }
-        val targetSize = DisplayBitmapScaler.calculateTargetSizeForVisibleDrawingSurface(
-            bounds.outWidth,
-            bounds.outHeight,
-            visibleDrawingSurfaceSize.width,
-            visibleDrawingSurfaceSize.height
+        if (context == null) return getBitmapReturnValueFromUri(resolver, bitmapUri, null)
+        val source = readPhotoSize(resolver, bitmapUri)
+        if (source.exceedsPhotoLimit) return loadScaledPhoto(resolver, bitmapUri, context, source)
+        val preview = DisplayBitmapScaler.calculateTargetSizeForVisibleDrawingSurface(
+            source.width, source.height, visibleDrawingSurfaceSize.width, visibleDrawingSurfaceSize.height
         )
         val options = BitmapFactory.Options().apply {
             inMutable = true
-            inSampleSize = maxOf(
-                DisplayBitmapScaler.calculateInSampleSize(bounds.outWidth, bounds.outHeight, targetSize),
-                sampleSizeForImport(resolver, bitmapUri)
-            )
+            inSampleSize = DisplayBitmapScaler.calculateInSampleSize(source.width, source.height, preview)
         }
-        val bitmap = enableAlpha(decodeBitmapFromUri(resolver, bitmapUri, options))
-        return BitmapReturnValue(null, bitmap, false)
+        return BitmapReturnValue(null, enableAlpha(decodeBitmapFromUri(resolver, bitmapUri, options)), false)
     }
 
     fun scaleBitmapToSize(bitmap: Bitmap?, visibleDrawingSurfaceSize: BitmapSize?): Bitmap? {
@@ -619,62 +632,21 @@ object ZaintDocumentStorage {
         }
     }
 
-    private fun getMemoryInfo(context: Context?): ActivityManager.MemoryInfo {
+    private fun availablePhotoBytes(context: Context?): Long {
         val memoryInfo = ActivityManager.MemoryInfo()
         val activityManager =
             context?.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager?
         activityManager?.getMemoryInfo(memoryInfo)
-        return memoryInfo
-    }
 
-    @Throws(IOException::class)
-    private fun hasEnoughMemory(
-        resolver: ContentResolver,
-        bitmapUri: Uri,
-        context: Context?
-    ): Boolean {
-        var scaling = false
-        val memoryInfo = getMemoryInfo(context)
-        val options = BitmapFactory.Options()
-        options.inJustDecodeBounds = true
-        decodeBitmapFromUri(resolver, bitmapUri, options)
-        if (options.outHeight < 0 || options.outWidth < 0) {
-            throw IOException("Can't load bitmap from uri")
-        }
-        val availableMemory = min(
+        return min(
             ((memoryInfo.availMem - memoryInfo.threshold) * CONSTANT_POINT9).toLong(),
             CONSTANT_5000 * CONSTANT_5000 * CONSTANT_4
         )
-        val requiredMemory = options.outWidth.toLong() * options.outHeight.toLong() * CONSTANT_4
-        if (requiredMemory > availableMemory) {
-            scaling = true
-        }
-        return scaling
     }
 
-    @Throws(IOException::class)
-    private fun getScaleFactor(resolver: ContentResolver, bitmapUri: Uri, context: Context?): Int {
-        getMemoryInfo(context)
-        val options = BitmapFactory.Options()
-        decodeBitmapFromUri(resolver, bitmapUri, options)
-        if (options.outHeight <= 0 || options.outWidth <= 0) {
-            throw IOException("Can't load bitmap from uri")
-        }
-        val info = Runtime.getRuntime()
-        val availableMemory =
-            (info.maxMemory() - info.totalMemory() + info.freeMemory()) * CONSTANT_POINT9
-        val heightToWidthFactor = options.outWidth / options.outHeight * 1f
-        val availablePixels =
-            availableMemory / MAX_LAYERS.toFloat() * CONSTANT_POINT9 / CONSTANT_4 // 4 byte per pixel, 10% safety buffer on memory
-        val availableHeight = sqrt(availablePixels / heightToWidthFactor)
-        val availableWidth = availablePixels / availableHeight
-        return calculateSampleSize(
-            options.outWidth,
-            options.outHeight,
-            availableWidth.toInt(),
-            availableHeight.toInt()
-        )
-    }
+    private val BitmapSize.exceedsPhotoLimit get() = maxOf(width, height) > MAX_PHOTO_EDGE
+
+    private val BitmapSize.requiredBytes get() = width.toLong() * height * CONSTANT_4
 
     @Throws(IOException::class)
     fun getBitmapReturnValueFromUri(
@@ -682,18 +654,12 @@ object ZaintDocumentStorage {
         bitmapUri: Uri,
         context: Context?
     ): BitmapReturnValue {
-        val options = BitmapFactory.Options().apply {
-            inMutable = true
-            inJustDecodeBounds = false
-            inSampleSize = sampleSizeForImport(resolver, bitmapUri)
+        val source = readPhotoSize(resolver, bitmapUri)
+        if (source.exceedsPhotoLimit) return loadScaledPhoto(resolver, bitmapUri, context, source)
+        if (source.requiredBytes > availablePhotoBytes(context)) {
+            return BitmapReturnValue(null, null, true)
         }
-        val scaling = hasEnoughMemory(resolver, bitmapUri, context) || options.inSampleSize > 1
-        val bitmap = enableAlpha(decodeBitmapFromUri(resolver, bitmapUri, options))
-        return BitmapReturnValue(
-            null,
-            bitmap,
-            scaling
-        )
+        return BitmapReturnValue(null, decodePhoto(resolver, bitmapUri, source, source), false)
     }
 
     @Throws(IOException::class)
@@ -701,22 +667,27 @@ object ZaintDocumentStorage {
         resolver: ContentResolver,
         bitmapUri: Uri,
         context: Context?
-    ): BitmapReturnValue {
-        val options = BitmapFactory.Options().apply {
-            inMutable = true
-            inJustDecodeBounds = false
-            inSampleSize = maxOf(
-                getScaleFactor(resolver, bitmapUri, context),
-                sampleSizeForImport(resolver, bitmapUri)
-            )
-        }
+    ): BitmapReturnValue = loadScaledPhoto(resolver, bitmapUri, context, readPhotoSize(resolver, bitmapUri))
 
-        val bitmap = enableAlpha(decodeBitmapFromUri(resolver, bitmapUri, options))
-        return BitmapReturnValue(
-            null,
-            bitmap,
-            false
-        )
+    private fun loadScaledPhoto(
+        resolver: ContentResolver,
+        bitmapUri: Uri,
+        context: Context?,
+        source: BitmapSize
+    ): BitmapReturnValue {
+        var target = source.fitLongEdge(MAX_PHOTO_EDGE)
+        val available = availablePhotoBytes(context)
+        if (target.requiredBytes > available) {
+            val runtime = Runtime.getRuntime()
+            val heapBudget = (runtime.maxMemory() - runtime.totalMemory() + runtime.freeMemory()) *
+                CONSTANT_POINT9 * CONSTANT_POINT9 / MAX_LAYERS
+            val budget = if (available > 0) minOf(heapBudget.toLong(), available) else heapBudget.toLong()
+            val scale = sqrt(budget.toDouble() / target.requiredBytes)
+            target = target.fitLongEdge((maxOf(target.width, target.height) * scale).toInt().coerceAtLeast(1))
+        }
+        return BitmapReturnValue(null, decodePhoto(resolver, bitmapUri, source, target), false).apply {
+            wasPhotoResized = source.exceedsPhotoLimit
+        }
     }
 
     fun getBitmapFromFile(bitmapFile: File?): Bitmap? {

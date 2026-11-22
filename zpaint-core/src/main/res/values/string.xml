@@ -94,7 +94,8 @@
     <string name="help_content_speech_bubble">Choose the speech bubble shape and set the outline width. You can move, rotate and resize it. Drag the small point to position the tail. The checkmark inserts the speech bubble into the image.</string>
     <string name="help_content_shadow">Create a shadow from the active layer.</string>
     <string name="help_content_clipboard">Move and resize the rectangle to cover the area you want to stamp. Tap on copy or cut to select the area. Move it, then tap on paste to stamp.</string>
-    <string name="help_content_selection">Select an area on the active layer, then copy, cut or paste it.</string>
+    <string name="help_content_selection">Select part of the active layer with a rectangle, a circle or a freehand outline. You can copy, cut or delete it. In object mode (star), the AI recognises the subject you tap.</string>
+    <string name="help_filter_auto_hint">Choose Whole image to apply the filter everywhere. In Area mode, move or resize the frame. With Auto, the AI recognises the object you tap. Tap Auto again to select the background instead of the object.</string>
     <string name="help_content_import_png">Import an image from the gallery to the clipboard.</string>
     <string name="help_content_line">Draw a straight line.</string>
     <string name="help_content_text">Enter text and choose the font, size, colour and alignment. The buttons below set the outline, shadow and background colour. You can move, rotate, enlarge or reduce the text. A single line can also be curved. The checkmark inserts the text into the image.</string>
@@ -142,7 +143,7 @@
     <string name="option_english_info">On: English. Off: System language.</string>
     <string name="menu_info">Info</string>
     <string name="info_title_zaint">About Zaint</string>
-    <string name="info_content_zaint">Zaint is an Android app for drawing and editing images. You can creatively transform photos, create your own images, and work with layers, text, and a variety of tools. The app remains simple and straightforward to use.</string>
+    <string name="info_content_zaint">With Zaint, you can draw on Android and edit photos with text, filters and layers.\n\nMagicTouch (open-source AI) helps you select subjects. It works entirely offline on your device. To learn more about Zaint and MagicTouch, see <annotation link="licenses">Licenses</annotation>.</string>
     <string name="info_version_format">Version %1$s</string>
     <string name="info_github" translatable="false">GitHub</string>
     <string name="share_image_via_text">Send image via</string>
@@ -325,6 +326,7 @@
 
 
 
+    <string name="photo_resized_notice">Photo resized to %1$d × %2$d px</string>
     <string name="dialog_scale_title">Image is too big to load</string>
     <string name="dialog_scale_message">The image is too big to load. Tap OK to scale down the image automatically.</string>
 

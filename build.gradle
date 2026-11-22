@@ -26,8 +26,8 @@ ext {
 
     androidSupportLibraryVersion = '28.0.0'
 
-    androidVersionCode = 1271
-    androidVersionName = '1.271'
+    androidVersionCode = 1278
+    androidVersionName = '1.278'
 }
 
 if(project.hasProperty("snapshot")) {
@@ -36,6 +36,10 @@ if(project.hasProperty("snapshot")) {
 
 allprojects {
     repositories {
+        exclusiveContent {
+            forRepository { flatDir { dirs rootProject.file('app/libs') } }
+            filter { includeModule 'de.zwegen.local', 'litert-source' }
+        }
         mavenLocal()
         google()
         mavenCentral()

@@ -32,6 +32,7 @@ class ZaintTopNumberSlider(
     private val onValueChanged: (value: Int, source: Source) -> Unit,
     private val onStartTracking: () -> Unit = {},
     private val onStopTracking: (value: Int) -> Unit = {},
+    private val showZeroOverlay: Boolean = true,
     private val normalize: (value: Int) -> Int = { it },
     private val parse: (String) -> Int? = String::toIntOrNull
 ) {
@@ -101,7 +102,7 @@ class ZaintTopNumberSlider(
             input.setPadding(defaultPaddingLeft, defaultPaddingTop, defaultPaddingRight, defaultPaddingBottom)
         }
         seekBar.max = maximum - minimum
-        updateZeroMarkerVisibility(minimum < 0 && maximum > 0)
+        updateZeroMarkerVisibility(showZeroOverlay && minimum < 0 && maximum > 0)
         setValue(value)
     }
 

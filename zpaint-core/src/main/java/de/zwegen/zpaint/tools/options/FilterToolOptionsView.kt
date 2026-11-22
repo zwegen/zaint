@@ -3,6 +3,10 @@
  */
 package de.zwegen.zpaint.tools.options
 
+import androidx.annotation.StringRes
+
+enum class FilterRegion { TOTAL, AREA, AUTO }
+
 interface FilterToolOptionsView {
     fun setCallback(callback: Callback)
 
@@ -12,7 +16,9 @@ interface FilterToolOptionsView {
 
     fun setAreaModeVisible(visible: Boolean)
 
-    fun setAreaMode(areaMode: Boolean)
+    fun setRegion(region: FilterRegion)
+
+    fun setAutoHint(@StringRes hint: Int)
 
     /** Shows the Splash colour slots and marks the slot currently used for colour picking. */
     fun setSplashColors(colors: List<Int>, activeIndex: Int)
@@ -26,7 +32,7 @@ interface FilterToolOptionsView {
 
         fun onStopTracking(value: Int)
 
-        fun setAreaMode(areaMode: Boolean)
+        fun setRegion(region: FilterRegion)
     }
 
     interface SplashColorListener {

@@ -105,6 +105,7 @@
     <string name="bottom_navigation_current">Текущий</string>
     <string name="bottom_navigation_color">Цвет</string>
     <string name="bottom_navigation_layers">Слои</string>
+    <string name="photo_resized_notice">Фото уменьшено до %1$d × %2$d пикс.</string>
     <string name="dialog_scale_title">Размер изображения слишком велик для загрузки</string>
     <string name="dialog_scale_message">Размер изображения слишком велик для загрузки. Нажмите ОК для автоматического изменения масштабирования.</string>
     <string name="button_pixel">Пиксели</string>
@@ -191,7 +192,8 @@
     <string name="help_content_border">Добавляет цветную рамку вокруг изображения или обрезает край внутрь.</string>
     <string name="help_content_place">Переместите, измените размер или поверните активный слой, затем нажмите галочку, чтобы разместить его.</string>
     <string name="help_content_rotate">Поверните или отразите изображение.</string>
-    <string name="help_content_selection">Выберите область на активном слое, затем скопируйте, вырежьте или вставьте её.</string>
+    <string name="help_content_selection">Выделите часть активного слоя прямоугольником, кругом или произвольным контуром. Выделенную область можно скопировать, вырезать или удалить. В режиме выбора объектов (звезда) ИИ распознаёт объект, которого вы касаетесь.</string>
+    <string name="help_filter_auto_hint">Примените фильтр ко всему изображению или ограничьте его действие областью: переместите рамку и подберите её размер. В режиме «Авто» ИИ распознаёт объект, которого вы касаетесь. Нажмите «Авто» ещё раз, чтобы выбрать фон вместо объекта.</string>
     <string name="layer_toggle_visibility">Изменить видимость слоя</string>
     <string name="layer_adjust_opacity">Настроить непрозрачность слоя</string>
     <string name="place_empty_layer">На активном слое нет видимого содержимого для размещения.</string>
@@ -272,7 +274,7 @@
     <string name="help_content_filter_splash">Сохраняет выбранный цвет и преобразует все остальные в оттенки серого. Выберите цвет касанием изображения или в меню цветов и настройте допуск ползунком.</string>
     <string name="menu_info">Информация</string>
     <string name="info_title_zaint">О Zaint</string>
-    <string name="info_content_zaint">Zaint — приложение Android для рисования и редактирования изображений. Вы можете творчески преобразовывать фотографии, создавать собственные изображения и работать со слоями, текстом и множеством инструментов. Приложение остаётся простым и удобным в использовании.</string>
+    <string name="info_content_zaint">В Zaint можно рисовать на Android и редактировать фотографии с помощью текста, фильтров и слоёв.\n\nМодель ИИ MagicTouch (с открытым исходным кодом) помогает выделять объекты. Она работает прямо на устройстве без подключения к интернету. Подробнее о Zaint и MagicTouch см. в разделе «<annotation link="licenses">Лицензии</annotation>».</string>
     <string name="info_version_format">Версия %1$s</string>
     <string name="dialog_save_jpg_quality_percentage">%1$d%%</string>
     <string name="brush_control_size">Размер</string>

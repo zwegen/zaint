@@ -84,7 +84,8 @@
     <string name="help_content_align">Ziehe eine Linie an einer waagerechten oder senkrechten Kante und bestätige oben mit dem Haken, um das Bild auszurichten.</string>
     <string name="help_content_speech_bubble">Hier wählst du die Form der Textblase und stellst die Randstärke ein. Du kannst sie verschieben, drehen und in der Größe ändern. Ziehe den kleinen Punkt, um den Zipfel auszurichten. Mit dem Haken wird die Textblase ins Bild eingefügt.</string>
     <string name="help_content_clipboard">Markiere mit dem Rechteck einen Bereich. Mit Kopieren oder Ausschneiden übernimmst du ihn in die Zwischenablage und fügst ihn anschließend ein.</string>
-    <string name="help_content_selection">Wähle einen Bereich der aktiven Ebene als Rechteck, Kreis oder frei. Danach kannst du ihn kopieren, ausschneiden oder löschen.</string>
+    <string name="help_content_selection">Markiere auf der aktiven Ebene einen Bereich als Rechteck, als Kreis oder freihändig. Du kannst ihn kopieren, ausschneiden oder löschen. Im Objektmodus (Stern) erkennt die KI das Motiv, das du antippst.</string>
+    <string name="help_filter_auto_hint">Wähle „Ganzes Bild“, um den Filter überall anzuwenden. Unter „Bereich“ kannst du den Rahmen verschieben und seine Größe ändern. Mit „Auto“ erkennt die KI das Objekt, das du antippst. Tippe erneut auf „Auto“, um statt des Objekts den Hintergrund auszuwählen.</string>
     <string name="help_content_import_png">Wähle ein Bild aus der Galerie. Danach kannst du es verschieben, drehen und in der Größe ändern. Mit dem Haken wird es ins Bild eingefügt.</string>
     <string name="help_content_line">Zeichne eine gerade Linie.</string>
     <string name="help_content_text">Hier gibst du Text ein und wählst Schriftart, Größe, Farbe und Ausrichtung. Die Buttons darunter stellen Rand, Schatten und Hintergrundfarbe ein. Der Text lässt sich verschieben, drehen, vergrößern oder verkleinern. Eine einzelne Zeile lässt sich auch krümmen. Mit dem Haken wird der Text ins Bild eingefügt.</string>
@@ -255,6 +256,7 @@
     <string name="bottom_navigation_color">Farbe</string>
     <string name="bottom_navigation_filters">Filter</string>
     <string name="bottom_navigation_layers">Layer</string>
+    <string name="photo_resized_notice">Foto auf %1$d × %2$d px verkleinert</string>
     <string name="dialog_scale_title">Bild ist zu groß zum laden</string>
     <string name="dialog_scale_message">Das Bild ist zu groß zum Laden. Klicke auf OK, um das Bild automatisch zu verkleinern.</string>
     <string name="dialog_save_image_title" translatable="false">@string/menu_save_image</string>
@@ -296,6 +298,6 @@
     <string name="fill_tool_transform_mode">Füllbild transformieren</string>
     <string name="menu_info">Info</string>
     <string name="info_title_zaint">Über Zaint</string>
-    <string name="info_content_zaint">Zaint ist eine Android-App zum Zeichnen und Bearbeiten von Bildern. Du kannst Fotos kreativ verändern, eigene Bilder erstellen und mit Ebenen, Text und vielen Werkzeugen arbeiten. Die App bleibt dabei einfach und übersichtlich.</string>
+    <string name="info_content_zaint">Mit Zaint kannst du auf Android zeichnen und Fotos mit Text, Filtern und Ebenen bearbeiten.\n\nBei der Auswahl hilft dir die KI MagicTouch (Open-Source). Sie arbeitet komplett offline auf deinem Gerät. Mehr zu Zaint und MagicTouch findest du unter <annotation link="licenses">Lizenzen</annotation>.</string>
     <string name="info_version_format">Version %1$s</string>
 </resources>

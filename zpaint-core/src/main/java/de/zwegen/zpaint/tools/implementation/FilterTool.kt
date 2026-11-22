@@ -6,20 +6,26 @@ package de.zwegen.zpaint.tools.implementation
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.ColorMatrixColorFilter
 import android.graphics.Paint
 import android.graphics.PointF
+import android.graphics.Rect
 import android.graphics.RectF
+import android.view.ViewConfiguration
 import androidx.test.espresso.idling.CountingIdlingResource
 import de.zwegen.zpaint.colorpicker.OnColorPickedListener
 import de.zwegen.zpaint.R
 import de.zwegen.zpaint.command.ZaintCommandTimeline
+import de.zwegen.zpaint.command.implementation.MotifFilterCommand
 import de.zwegen.zpaint.command.implementation.ZaintCommandBatch
 import de.zwegen.zpaint.contract.ZaintLayerContracts
+import de.zwegen.zpaint.motif.MotifSelection
 import de.zwegen.zpaint.tools.ContextCallback
 import de.zwegen.zpaint.tools.Tool
 import de.zwegen.zpaint.tools.ToolPaint
 import de.zwegen.zpaint.tools.ZaintToolKind
 import de.zwegen.zpaint.tools.Workspace
+import de.zwegen.zpaint.tools.options.FilterRegion
 import de.zwegen.zpaint.tools.options.FilterToolOptionsView
 import de.zwegen.zpaint.tools.options.ZaintToolOptionsController
 import kotlinx.coroutines.CoroutineScope
@@ -68,7 +74,14 @@ class FilterTool(
     private val splashAreas = mutableListOf<FilterArea>()
     private var activeSplashColorIndex = 0
     private var splashTapCoordinate: PointF? = null
-    private var areaMode = lastAreaMode
+    private var region = if (supportsAreaMode()) lastRegion else FilterRegion.TOTAL
+    private var background = false
+    private var autoTap: PointF? = null
+    private val tapSlop by lazy { ViewConfiguration.get(contextCallback.context).scaledTouchSlop }
+    private var motif: MotifSelection? = null
+    private var motifRevision = 0L
+    private var expectedLayerBitmap: Bitmap? = null
+    private var expectedGeneration = 0
     private var center = PointF(0f, 0f)
     private var areaWidth = DEFAULT_AREA_SIZE
     private var areaHeight = DEFAULT_AREA_SIZE
@@ -82,6 +95,9 @@ class FilterTool(
     private val boxResizeDelta = FloatingBoxResizeDelta()
     private val boxResizeApplication = FloatingBoxResizeApplication()
     private val boxRotation = FloatingBoxRotation()
+    private val maskBounds = Rect()
+    private val objectMaskPaint = neutralMaskPaint(inverse = false)
+    private val backgroundMaskPaint = neutralMaskPaint(inverse = true)
     private val areaPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = Color.WHITE
         style = Paint.Style.STROKE
@@ -114,6 +130,15 @@ class FilterTool(
     }
 
     override fun draw(canvas: Canvas) {
+        // At neutral strength there is no filtered image to indicate the target. Draw the
+        // mask on the surface only; keep the layer and the inference source untouched.
+        if (region == FilterRegion.AUTO && isNoEffect(pendingValue)) {
+            val mask = motif?.mask ?: return
+            if (!isCurrentPreviewSource()) return
+            maskBounds.set(0, 0, mask.width, mask.height)
+            canvas.drawBitmap(mask, null, maskBounds, if (background) backgroundMaskPaint else objectMaskPaint)
+            return
+        }
         if (!usesAreaMode()) {
             return
         }
@@ -143,6 +168,10 @@ class FilterTool(
 
     override fun handleDown(coordinate: PointF?): Boolean {
         coordinate ?: return false
+        if (region == FilterRegion.AUTO) {
+            autoTap = PointF(coordinate.x, coordinate.y)
+            return true
+        }
         if (filterType == FilterType.SPLASH) {
             splashTapCoordinate = PointF(coordinate.x, coordinate.y)
             if (!usesAreaMode()) return true
@@ -164,6 +193,10 @@ class FilterTool(
 
     override fun handleMove(coordinate: PointF?, shouldAnimate: Boolean): Boolean {
         coordinate ?: return false
+        if (region == FilterRegion.AUTO) {
+            if (!isAutoTap(coordinate)) autoTap = null
+            return true
+        }
         if (filterType == FilterType.SPLASH && splashTapCoordinate != null) {
             val tap = splashTapCoordinate ?: coordinate
             if (hypot(coordinate.x - tap.x, coordinate.y - tap.y) <= SPLASH_TAP_SLOP) {
@@ -193,7 +226,33 @@ class FilterTool(
         return true
     }
 
+    fun cancelMotifTap(): Boolean {
+        autoTap = null
+        return region == FilterRegion.AUTO
+    }
+
+    private fun isAutoTap(point: PointF): Boolean {
+        val down = autoTap ?: return false
+        return hypot(point.x - down.x, point.y - down.y) * workspace.scale <= tapSlop
+    }
+
     override fun handleUp(coordinate: PointF?): Boolean {
+        if (region == FilterRegion.AUTO) {
+            val tap = coordinate != null && isAutoTap(coordinate)
+            autoTap = null
+            if (tap && coordinate != null && workspace.contains(coordinate) && !commandManager.isBusy) {
+                startPreview()
+                val source = previewOriginalBitmap ?: return false
+                if (coordinate.x >= 0f && coordinate.x < source.width &&
+                    coordinate.y >= 0f && coordinate.y < source.height) {
+                    if (motif != null && motifRevision != commandManager.revision) clearMotif()
+                    motifRevision = commandManager.revision
+                    val selection = motif ?: MotifSelection(contextCallback.context, ::motifChanged).also { motif = it }
+                    selection.tap(source, coordinate.x.toInt(), coordinate.y.toInt())
+                }
+            }
+            return true
+        }
         if (filterType == FilterType.SPLASH) {
             splashTapCoordinate?.let { selectSplashColor(it) }
             splashTapCoordinate = null
@@ -351,7 +410,10 @@ class FilterTool(
         }
         if (filterType != FilterType.INVERT) {
             filterToolOptionsView.setAreaModeVisible(supportsAreaMode())
-            if (supportsAreaMode()) filterToolOptionsView.setAreaMode(areaMode)
+            if (supportsAreaMode()) {
+                filterToolOptionsView.setRegion(region)
+                publishAutoHint()
+            }
             toolOptionsViewController.showCheckmark()
         }
         filterToolOptionsView.setCallback(object : FilterToolOptionsView.Callback {
@@ -377,8 +439,18 @@ class FilterTool(
                 updatePreview(value)
             }
 
-            override fun setAreaMode(areaMode: Boolean) {
-                this@FilterTool.areaMode = areaMode
+            override fun setRegion(region: FilterRegion) {
+                if (!supportsAreaMode()) return
+                lastRegion = region
+                val previous = this@FilterTool.region
+                this@FilterTool.region = region
+                if (region == FilterRegion.AUTO) {
+                    background = previous == FilterRegion.AUTO && !background
+                } else if (previous == FilterRegion.AUTO) {
+                    clearMotif()
+                }
+                filterToolOptionsView.setRegion(region)
+                publishAutoHint()
                 saveAreaState()
                 startPreview()
                 updatePreview(pendingValue)
@@ -387,13 +459,56 @@ class FilterTool(
         })
     }
 
+    private fun clearMotif() {
+        autoTap = null
+        val old = motif
+        motif = null
+        old?.clear()
+        publishAutoHint()
+    }
+
+    private fun publishAutoHint() {
+        if (region != FilterRegion.AUTO) return
+        filterToolOptionsView?.setAutoHint(when {
+            motif?.busy == true -> R.string.filter_auto_busy
+            motif?.failed == true -> R.string.filter_auto_failed
+            motif?.mask == null && background -> R.string.filter_auto_background_empty
+            motif?.mask == null -> R.string.filter_auto_objects_empty
+            background -> R.string.filter_auto_background
+            else -> R.string.filter_auto_objects
+        })
+    }
+
+    private fun motifChanged() {
+        if (motif == null || region != FilterRegion.AUTO) return
+        if (!isCurrentPreviewSource()) {
+            releasePreview()
+            return
+        }
+        publishAutoHint()
+        updatePreview(pendingValue)
+    }
+
+    private fun isCurrentPreviewSource(): Boolean {
+        val layer = previewLayer ?: return false
+        if (motif != null && (commandManager.isBusy || commandManager.revision != motifRevision)) return false
+        return workspace.layerModel.currentLayer === layer && ownsLayerBitmap(layer)
+    }
+
+    private fun ownsLayerBitmap(layer: ZaintLayerContracts.ZaintLayer): Boolean =
+        layer.bitmap === expectedLayerBitmap && !layer.bitmap.isRecycled &&
+            layer.bitmap.generationId == expectedGeneration
+
     private fun startPreview() {
         if (previewOriginalBitmap != null) {
-            return
+            if (isCurrentPreviewSource()) return
+            releasePreview()
         }
         val layer = workspace.layerModel.currentLayer ?: return
         previewLayer = layer
         previewOriginalBitmap = synchronized(workspace.layerModel) {
+            expectedLayerBitmap = layer.bitmap
+            expectedGeneration = layer.bitmap.generationId
             layer.bitmap.copy(Bitmap.Config.ARGB_8888, true)
         }
     }
@@ -401,10 +516,21 @@ class FilterTool(
     private fun updatePreview(value: Int) {
         val originalBitmap = previewOriginalBitmap ?: return
         val layer = previewLayer ?: return
+        val mask = motif?.mask
+        val auto = region == FilterRegion.AUTO
+        if (auto && (mask == null || isNoEffect(value))) {
+            cancelPendingPreview()
+            if (previewBitmap != null && ownsLayerBitmap(layer)) {
+                restoreOriginalBitmap(layer, originalBitmap)
+            }
+            workspace.invalidate()
+            return
+        }
         val generation = ++previewGeneration
         val previewSplashColors = splashColors.toIntArray()
         val previewSplashTolerances = splashTolerances.toIntArray()
         val useAreaMode = usesAreaMode()
+        val inverse = background
         val previewSplashAreas: List<FilterArea>
         val previewArea: FilterArea
         if (useAreaMode) {
@@ -423,6 +549,9 @@ class FilterTool(
                 try {
                     result = if (isNoEffect(value)) {
                         originalBitmap.copy(Bitmap.Config.ARGB_8888, true)
+                    } else if (auto && mask != null) {
+                        FilterProcessor.applyMotif(originalBitmap, filterType, value, previewSplashColors,
+                            previewSplashTolerances, mask, inverse)
                     } else if (filterType == FilterType.SPLASH && useAreaMode) {
                         FilterProcessor.applySplashAreasPreview(
                             originalBitmap,
@@ -445,7 +574,7 @@ class FilterTool(
                     withContext(Dispatchers.Main) {
                         val previewStillCurrent = generation == previewGeneration &&
                             previewOriginalBitmap != null &&
-                            previewLayer === layer
+                            previewLayer === layer && isCurrentPreviewSource()
                         if (previewStillCurrent) {
                             replacePreviewBitmap(layer, result ?: return@withContext)
                             result = null
@@ -460,6 +589,21 @@ class FilterTool(
     }
 
     fun commitPendingFilter(): Boolean {
+        if (region == FilterRegion.AUTO) {
+            if (!isCurrentPreviewSource()) {
+                releasePreview()
+                return false
+            }
+            val selection = motif ?: return false
+            val mask = selection.mask ?: return false
+            if (selection.busy || !hasPendingEffect()) return false
+            val command = MotifFilterCommand(filterType, pendingValue, splashColors.toIntArray(),
+                splashTolerances.toIntArray(), mask, background)
+            releasePreview()
+            commandManager.addCommand(command)
+            workspace.invalidate()
+            return true
+        }
         cancelPendingPreview()
         val value = pendingValue
         if (!hasPendingEffect()) {
@@ -471,6 +615,7 @@ class FilterTool(
         if (originalBitmap != null && layer != null) {
             restoreOriginalBitmap(layer, originalBitmap)
         }
+        expectedLayerBitmap = null
         if (filterType == FilterType.CONTOURS && originalBitmap != null) {
             val contours = FilterProcessor.apply(originalBitmap, filterType, value)
             recycleAfterPreviewWork(originalBitmap)
@@ -492,8 +637,8 @@ class FilterTool(
             workspace.invalidate()
             return true
         }
+        recycleAfterPreviewWork(originalBitmap)
         if (filterType == FilterType.SPLASH) {
-            recycleAfterPreviewWork(originalBitmap)
             previewOriginalBitmap = null
             previewLayer = null
             if (usesAreaMode()) {
@@ -514,7 +659,6 @@ class FilterTool(
             workspace.invalidate()
             return true
         }
-        recycleAfterPreviewWork(originalBitmap)
         previewOriginalBitmap = null
         previewLayer = null
         return if (usesAreaMode()) {
@@ -533,17 +677,24 @@ class FilterTool(
     }
 
     private fun restorePreview() {
+        releasePreview()
+        pendingValue = DEFAULT_VALUE
+        workspace.invalidate()
+    }
+
+    private fun releasePreview() {
         cancelPendingPreview()
+        clearMotif()
         val originalBitmap = previewOriginalBitmap
         val layer = previewLayer
-        if (originalBitmap != null && layer != null) {
+        if (originalBitmap != null && layer != null && previewBitmap != null && ownsLayerBitmap(layer)) {
             restoreOriginalBitmap(layer, originalBitmap)
         }
         recycleAfterPreviewWork(originalBitmap)
+        previewBitmap = null
         previewOriginalBitmap = null
         previewLayer = null
-        pendingValue = DEFAULT_VALUE
-        workspace.invalidate()
+        expectedLayerBitmap = null
     }
 
     private fun applyFinalFilter(value: Int) {
@@ -566,6 +717,8 @@ class FilterTool(
             val previousPreview = previewBitmap
             layer.bitmap = bitmap
             previewBitmap = bitmap
+            expectedLayerBitmap = bitmap
+            expectedGeneration = bitmap.generationId
             recycleBitmap(previousPreview)
         }
     }
@@ -575,6 +728,8 @@ class FilterTool(
         synchronized(workspace.layerModel) {
             val previousPreview = previewBitmap
             layer.bitmap = restoredBitmap
+            expectedLayerBitmap = restoredBitmap
+            expectedGeneration = restoredBitmap.generationId
             previewBitmap = null
             recycleBitmap(previousPreview)
         }
@@ -592,9 +747,9 @@ class FilterTool(
         if (bitmap != null && !bitmap.isRecycled) bitmap.recycle()
     }
 
-    private fun supportsAreaMode(): Boolean = filterType != FilterType.INVERT && filterType != FilterType.CONTOURS
+    internal fun supportsAreaMode(): Boolean = filterType != FilterType.INVERT && filterType != FilterType.CONTOURS
 
-    private fun usesAreaMode(): Boolean = supportsAreaMode() && areaMode
+    private fun usesAreaMode(): Boolean = supportsAreaMode() && region == FilterRegion.AREA
 
     private fun hasPendingEffect(): Boolean = filterType == FilterType.SPLASH || !isNoEffect(pendingValue)
 
@@ -819,7 +974,6 @@ class FilterTool(
         if (filterType == FilterType.SPLASH && activeSplashColorIndex in splashAreas.indices) {
             splashAreas[activeSplashColorIndex] = currentArea()
         }
-        lastAreaMode = areaMode
         lastAreaCenterX = center.x
         lastAreaCenterY = center.y
         lastAreaWidth = areaWidth
@@ -833,6 +987,10 @@ class FilterTool(
             discardPreviewForNewImage()
             clearSavedAreaState()
             restoreArea()
+        } else if (stateChange == Tool.StateChange.MOVE_CANCELED) {
+            autoTap = null
+        } else if (region == FilterRegion.AUTO) {
+            releasePreview()
         }
     }
 
@@ -846,12 +1004,13 @@ class FilterTool(
      */
     private fun discardPreviewForNewImage() {
         cancelPendingPreview()
-        val originalBitmap = previewOriginalBitmap
+        clearMotif()
+        expectedLayerBitmap = null
+        recycleAfterPreviewWork(previewOriginalBitmap)
         val pendingPreview = previewBitmap
         previewOriginalBitmap = null
         previewBitmap = null
         previewLayer = null
-        recycleAfterPreviewWork(originalBitmap)
         recycleAfterPreviewWork(pendingPreview)
     }
 
@@ -860,6 +1019,18 @@ class FilterTool(
     }
 
     companion object {
+        // Tint the target blue. In background mode the target is the complement of mask alpha.
+        private fun neutralMaskPaint(inverse: Boolean) = Paint().apply {
+            val overlayAlpha = 112f
+            val alphaScale = overlayAlpha / 255f
+            colorFilter = ColorMatrixColorFilter(floatArrayOf(
+                0f, 0f, 0f, 0f, 45f,
+                0f, 0f, 0f, 0f, 180f,
+                0f, 0f, 0f, 0f, 255f,
+                0f, 0f, 0f, if (inverse) -alphaScale else alphaScale, if (inverse) overlayAlpha else 0f
+            ))
+        }
+
         private const val SIGNED_MIN = -100
         private const val SIGNED_MAX = 100
         private const val BLUR_MIN = 0
@@ -890,7 +1061,7 @@ class FilterTool(
         private const val ROUNDNESS_GRIP_HIT_MULTIPLIER = 1.5f
         private const val ROUNDNESS_DRAG_DISTANCE = 180f
         private const val MIN_SCALE_FOR_DRAWING = 0.1f
-        private var lastAreaMode = false
+        private var lastRegion = FilterRegion.AUTO
         private var lastAreaCenterX: Float? = null
         private var lastAreaCenterY: Float? = null
         private var lastAreaWidth = DEFAULT_AREA_SIZE
@@ -899,7 +1070,6 @@ class FilterTool(
         private var lastAreaRotation = 0f
 
         private fun clearSavedAreaState() {
-            lastAreaMode = false
             lastAreaCenterX = null
             lastAreaCenterY = null
             lastAreaWidth = DEFAULT_AREA_SIZE

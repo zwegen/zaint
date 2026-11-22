@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="filter_mode_auto">✦ Auto</string>
+    <string name="filter_auto_objects_empty">Objects: tap an object in the photo</string>
+    <string name="filter_auto_background_empty">Background: tap an object to exclude</string>
+    <string name="filter_auto_objects">Filtering objects · Tap Auto for background</string>
+    <string name="filter_auto_background">Filtering background · Tap Auto for objects</string>
+    <string name="filter_auto_busy">Selecting object…</string>
+    <string name="filter_auto_failed">Object not selected. Tap it again.</string>
+</resources>

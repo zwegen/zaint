@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="selection_tool_shape_motif">Seleziona soggetto</string>
+    <string name="selection_motif_hint">Tocca gli oggetti. Per selezionare lo sfondo, tocca di nuovo il pulsante del soggetto. Conferma per copiare la selezione su un nuovo livello.</string>
+    <string name="selection_motif_objects">Oggetti · Tocca di nuovo per lo sfondo</string>
+    <string name="selection_motif_background">Sfondo · Tocca di nuovo per gli oggetti</string>
+    <string name="selection_motif_busy">Selezione in corso…</string>
+    <string name="selection_motif_failed">Oggetto non selezionato. Toccalo di nuovo.</string>
+    <string name="selection_motif_cancel">Cancella la selezione</string>
+    <string name="selection_cutout_done">Scontorno completato · Originale nascosto</string>
+</resources>

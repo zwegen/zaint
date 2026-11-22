@@ -104,6 +104,7 @@
     <string name="bottom_navigation_current">Τρέχον</string>
     <string name="bottom_navigation_color">Χρώμα</string>
     <string name="bottom_navigation_layers">Επίπεδα</string>
+    <string name="photo_resized_notice">Η φωτογραφία σμικρύνθηκε σε %1$d × %2$d px</string>
     <string name="dialog_scale_title">Η εικόνα είναι πολύ μεγάλη για φόρτωση</string>
     <string name="dialog_scale_message">Η εικόνα είναι πολύ μεγάλη για φόρτωση. Πάτησε OK για να μειωθεί αυτόματα το μέγεθός της.</string>
     <string name="button_pixel">Πιξελοποίηση</string>
@@ -190,7 +191,8 @@
     <string name="help_content_border">Προσθέτει χρωματιστό περίγραμμα έξω από την εικόνα ή περικόπτει το άκρο προς τα μέσα.</string>
     <string name="help_content_place">Μετακινήστε, αλλάξτε μέγεθος ή περιστρέψτε το ενεργό επίπεδο και πατήστε το σημάδι επιλογής για τοποθέτηση.</string>
     <string name="help_content_rotate">Περιστρέψτε ή αναστρέψτε την εικόνα.</string>
-    <string name="help_content_selection">Επιλέξτε μια περιοχή στο ενεργό επίπεδο και έπειτα αντιγράψτε, αποκόψτε ή επικολλήστε την.</string>
+    <string name="help_content_selection">Στο ενεργό επίπεδο, επίλεξε μια περιοχή με ορθογώνιο, κύκλο ή ελεύθερο περίγραμμα. Μπορείς να την αντιγράψεις, να την αποκόψεις ή να τη διαγράψεις. Στη λειτουργία αντικειμένων (αστέρι), η τεχνητή νοημοσύνη αναγνωρίζει το θέμα που αγγίζεις.</string>
+    <string name="help_filter_auto_hint">Επίλεξε «Ολόκληρη εικόνα» για να εφαρμόσεις το φίλτρο παντού. Στη λειτουργία «Περιοχή» μπορείς να μετακινήσεις το πλαίσιο ή να αλλάξεις το μέγεθός του. Στη λειτουργία «Αυτόματο», η τεχνητή νοημοσύνη αναγνωρίζει το αντικείμενο που αγγίζεις. Άγγιξε ξανά το «Αυτόματο» για να επιλέξεις το φόντο αντί για το αντικείμενο.</string>
     <string name="layer_toggle_visibility">Αλλαγή ορατότητας επιπέδου</string>
     <string name="layer_adjust_opacity">Ρύθμιση αδιαφάνειας επιπέδου</string>
     <string name="place_empty_layer">Το ενεργό επίπεδο δεν έχει ορατό περιεχόμενο για τοποθέτηση.</string>
@@ -271,7 +273,7 @@
     <string name="help_content_filter_splash">Διατηρεί το επιλεγμένο χρώμα και μετατρέπει όλα τα άλλα σε κλίμακα του γκρι. Επιλέξτε το χρώμα πατώντας στην εικόνα ή από το μενού χρωμάτων και ρυθμίστε την ανοχή με το ρυθμιστικό.</string>
     <string name="menu_info">Πληροφορίες</string>
     <string name="info_title_zaint">Σχετικά με το Zaint</string>
-    <string name="info_content_zaint">Το Zaint είναι μια εφαρμογή Android για σχεδίαση και επεξεργασία εικόνων. Μπορείτε να μεταμορφώνετε δημιουργικά φωτογραφίες, να δημιουργείτε δικές σας εικόνες και να εργάζεστε με επίπεδα, κείμενο και διάφορα εργαλεία. Η εφαρμογή παραμένει απλή και εύχρηστη.</string>
+    <string name="info_content_zaint">Με το Zaint μπορείς να σχεδιάζεις στο Android και να επεξεργάζεσαι φωτογραφίες με κείμενο, φίλτρα και επίπεδα.\n\nΤο MagicTouch (τεχνητή νοημοσύνη ανοιχτού κώδικα) σε βοηθά στην επιλογή. Λειτουργεί εξ ολοκλήρου στη συσκευή σου, χωρίς σύνδεση στο διαδίκτυο. Για περισσότερα σχετικά με το Zaint και το MagicTouch, δες τις <annotation link="licenses">Άδειες χρήσης</annotation>.</string>
     <string name="info_version_format">Έκδοση %1$s</string>
     <string name="dialog_save_jpg_quality_percentage">%1$d%%</string>
     <string name="brush_control_size">Μέγεθος</string>

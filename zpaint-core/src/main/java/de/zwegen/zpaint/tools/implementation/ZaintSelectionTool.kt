@@ -3,24 +3,36 @@ package de.zwegen.zpaint.tools.implementation
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Matrix
 import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.Point
 import android.graphics.PointF
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.graphics.RectF
+import android.view.ViewConfiguration
 import androidx.test.espresso.idling.CountingIdlingResource
 import de.zwegen.zpaint.R
 import de.zwegen.zpaint.command.ZaintCommandTimeline
+import de.zwegen.zpaint.command.implementation.FloatingSelectionLayerCommand
+import de.zwegen.zpaint.command.implementation.MotifSelectionLayerCommand
+import de.zwegen.zpaint.command.implementation.PathSelectionLayerCommand
+import de.zwegen.zpaint.command.implementation.SelectionLayerCommand
 import de.zwegen.zpaint.command.implementation.ZaintSelectionClear
 import de.zwegen.zpaint.command.implementation.ZaintSelectionShape
 import de.zwegen.zpaint.command.serialization.ZaintStrokePath
+import de.zwegen.zpaint.motif.MotifSelection
+import de.zwegen.zpaint.motif.MotifSelectionTarget
 import de.zwegen.zpaint.tools.ContextCallback
+import de.zwegen.zpaint.tools.Tool.StateChange
 import de.zwegen.zpaint.tools.ToolPaint
 import de.zwegen.zpaint.tools.ZaintToolKind
 import de.zwegen.zpaint.tools.Workspace
 import de.zwegen.zpaint.tools.options.SelectionShape
 import de.zwegen.zpaint.tools.options.SelectionToolOptionsView
 import de.zwegen.zpaint.tools.options.ZaintToolOptionsController
+import java.lang.ref.WeakReference
 import kotlin.math.abs
 import kotlin.math.ceil
 import kotlin.math.cos
@@ -28,9 +40,9 @@ import kotlin.math.floor
 import kotlin.math.max
 import kotlin.math.sin
 
-/** Zaint's selection interaction, including rectangle, circle and free-path selections. */
+/** Zaint's selection interaction, including geometric, free-path and motif selections. */
 class ZaintSelectionTool(
-    options: SelectionToolOptionsView,
+    private val options: SelectionToolOptionsView,
     contextCallback: ContextCallback,
     toolOptions: ZaintToolOptionsController,
     toolPaint: ToolPaint,
@@ -48,7 +60,21 @@ class ZaintSelectionTool(
     commandManager,
     drawTime
 ) {
-    private var mode = SelectionShape.RECTANGLE
+    private val motif by lazy { MotifSelection(contextCallback.context, ::motifChanged) }
+    private var target = MotifSelectionTarget.OBJECTS
+    private var confirmWhenReady = false
+    private var motifDown: PointF? = null
+    private val tapSlop by lazy { ViewConfiguration.get(contextCallback.context).scaledTouchSlop }
+    private var motifSource: Bitmap? = null
+    private var sourceGeneration = 0
+    private var sourceRevision = 0L
+    private val motifPreviewPaint = Paint().apply {
+        colorFilter = PorterDuffColorFilter(Color.rgb(45, 180, 255), PorterDuff.Mode.SRC_IN)
+        alpha = 112
+    }
+    private var clipboardSource: WeakReference<Bitmap>? = null
+    private var clipboardShape: SelectionShape? = null
+    private var mode = SelectionShape.MOTIF
     private val freePath = ZaintStrokePath()
     private val freeBounds = RectF()
     private var freeStart: PointF? = null
@@ -68,13 +94,54 @@ class ZaintSelectionTool(
     }
 
     init {
+        options.setMotifTarget(target)
+        toolOptionsViewController.hideLayerPlus()
         options.setShapeChangedListener(::selectShape)
     }
 
     override val toolType: ZaintToolKind
         get() = ZaintToolKind.SELECTION
 
+    override fun onClickOnButton() {
+        if (commandManager.isBusy) return
+        if (mode == SelectionShape.MOTIF) {
+            applyMotif()
+            return
+        }
+        val source = workspace.layerModel.currentLayer?.bitmap ?: return
+        val floating = drawingBitmap
+        val command = if (readyForPaste && floating != null && clipboardShape == mode) {
+            if (clipboardSource?.get() !== source) return
+            FloatingSelectionLayerCommand(
+                commandFactory.createClipboardCommand(floating, toolPosition, boxWidth, boxHeight, boxRotation)
+            )
+        } else {
+            val path = selectionPath() ?: return
+            PathSelectionLayerCommand(path)
+        }
+        submitCutout(command, source)
+    }
+
+    private fun selectionPath(): Path? {
+        if (usesFreePath()) return if (hasFreePath() && !tracingFreePath) Path(freePath) else null
+        if (boxWidth <= 0f || boxHeight <= 0f) return null
+        val bounds = RectF(-boxWidth / 2, -boxHeight / 2, boxWidth / 2, boxHeight / 2)
+        return Path().apply {
+            if (mode == SelectionShape.CIRCLE) addOval(bounds, Path.Direction.CW)
+            else addRect(bounds, Path.Direction.CW)
+            transform(Matrix().apply { setRotate(boxRotation) })
+            offset(toolPosition.x, toolPosition.y)
+        }
+    }
+
+    private fun submitCutout(command: SelectionLayerCommand, source: Bitmap) {
+        command.expectedSource = source
+        command.onFirstApplied = options::showCutoutConfirmation
+        commandManager.addCommand(command)
+    }
+
     override fun onClickOnNewLayerButton() {
+        if (mode == SelectionShape.MOTIF) return
         if (!readyForPaste || drawingBitmap == null) {
             contextCallback.showNotification(R.string.clipboard_tool_copy_hint)
         } else if (boxIntersectsWorkspace()) {
@@ -85,6 +152,10 @@ class ZaintSelectionTool(
 
     override fun handleDown(coordinate: PointF?): Boolean {
         resetCenterGuides()
+        if (mode == SelectionShape.MOTIF) {
+            motifDown = coordinate?.let { PointF(it.x, it.y) }
+            return coordinate != null
+        }
         if (!usesFreePath() || readyForPaste) {
             val handled = super.handleDown(coordinate)
             lockedSnapAngle = null
@@ -105,6 +176,10 @@ class ZaintSelectionTool(
     }
 
     override fun handleMove(coordinate: PointF?, shouldAnimate: Boolean): Boolean {
+        if (mode == SelectionShape.MOTIF) {
+            if (!withinTapSlop(coordinate)) motifDown = null
+            return true
+        }
         if (!usesFreePath() || readyForPaste || !tracingFreePath) {
             val handled = super.handleMove(coordinate, shouldAnimate)
             if (handled && readyForPaste && isMovingFloatingBox()) {
@@ -120,6 +195,12 @@ class ZaintSelectionTool(
     }
 
     override fun handleUp(coordinate: PointF?): Boolean {
+        if (mode == SelectionShape.MOTIF) {
+            val tapped = withinTapSlop(coordinate)
+            motifDown = null
+            if (tapped && coordinate != null && workspace.contains(coordinate)) tapMotif(coordinate)
+            return true
+        }
         resetCenterGuides()
         if (!usesFreePath() || readyForPaste || !tracingFreePath) {
             lockedSnapAngle = null
@@ -135,6 +216,17 @@ class ZaintSelectionTool(
     }
 
     override fun draw(canvas: Canvas) {
+        if (mode == SelectionShape.MOTIF) {
+            val source = motifSource ?: return
+            val mask = motif.mask
+            if (mask != null && sourceIsCurrent()) {
+                // Isolate masking from the artwork underneath, then tint just the cutout.
+                val layer = canvas.saveLayer(0f, 0f, source.width.toFloat(), source.height.toFloat(), motifPreviewPaint)
+                target.drawCutout(canvas, source, mask)
+                canvas.restoreToCount(layer)
+            }
+            return
+        }
         if (!usesFreePath() || readyForPaste) {
             super.draw(canvas)
             return
@@ -191,16 +283,25 @@ class ZaintSelectionTool(
     }
 
     override fun copyBoxContent() {
+        if (mode == SelectionShape.MOTIF) return
         if (!usesFreePath()) {
             super.copyBoxContent()
+            rememberClipboardSource()
         } else if (hasFreePath()) {
             copyFreePath()
+            rememberClipboardSource()
         } else {
             showFreePathHint()
         }
     }
 
+    private fun rememberClipboardSource() {
+        clipboardSource = WeakReference(workspace.layerModel.currentLayer?.bitmap)
+        clipboardShape = mode
+    }
+
     override fun cutBoxContent() {
+        if (mode == SelectionShape.MOTIF) return
         if (!usesFreePath()) {
             super.cutBoxContent()
         } else if (hasFreePath()) {
@@ -212,6 +313,10 @@ class ZaintSelectionTool(
     }
 
     override fun deleteSelectionContent() {
+        if (mode == SelectionShape.MOTIF) {
+            clearMotif()
+            return
+        }
         if (!usesFreePath()) {
             super.deleteSelectionContent()
         } else if (hasFreePath()) {
@@ -222,16 +327,120 @@ class ZaintSelectionTool(
     }
 
     private fun selectShape(shape: SelectionShape) {
+        if (mode == SelectionShape.MOTIF) {
+            if (shape == mode) {
+                confirmWhenReady = false
+                target = if (target == MotifSelectionTarget.OBJECTS) {
+                    MotifSelectionTarget.BACKGROUND
+                } else {
+                    MotifSelectionTarget.OBJECTS
+                }
+                options.setMotifTarget(target)
+                contextCallback.showNotification(target.label)
+                workspace.invalidate()
+                return
+            }
+            clearMotif()
+            toolOptionsViewController.showLayerPlus()
+        }
         mode = shape
         floatingBoxShape = when (shape) {
             SelectionShape.RECTANGLE -> FloatingBoxShape.RECTANGLE
             SelectionShape.CIRCLE -> FloatingBoxShape.OVAL
+            SelectionShape.MOTIF -> {
+                target = MotifSelectionTarget.OBJECTS
+                options.setMotifTarget(target)
+                toolOptionsViewController.hideLayerPlus()
+                clearFreePath()
+                drawingBitmap = null
+                contextCallback.showNotification(R.string.selection_motif_hint)
+                FloatingBoxShape.RECTANGLE
+            }
             SelectionShape.FREE -> {
                 clearFreePath()
                 FloatingBoxShape.RECTANGLE
             }
         }
         workspace.invalidate()
+    }
+
+    fun cancelMotifTap(): Boolean {
+        if (mode != SelectionShape.MOTIF) return false
+        motifDown = null
+        return true
+    }
+
+    private fun withinTapSlop(point: PointF?): Boolean {
+        val start = motifDown ?: return false
+        point ?: return false
+        return PointF.length(point.x - start.x, point.y - start.y) * workspace.scale <= tapSlop
+    }
+
+    private fun tapMotif(point: PointF) {
+        if (!sourceIsCurrent()) clearMotif()
+        if (commandManager.isBusy || confirmWhenReady) return
+        val source = workspace.layerModel.currentLayer?.bitmap ?: return
+        motifSource = source
+        sourceGeneration = source.generationId
+        sourceRevision = commandManager.revision
+        motif.tap(source, point.x.toInt(), point.y.toInt())
+    }
+
+    private fun sourceIsCurrent(): Boolean {
+        val source = motifSource ?: return false
+        return !commandManager.isBusy && commandManager.revision == sourceRevision &&
+            source === workspace.layerModel.currentLayer?.bitmap &&
+            !source.isRecycled && source.generationId == sourceGeneration
+    }
+
+    private fun motifChanged() {
+        if (motifSource != null && !sourceIsCurrent()) {
+            clearMotif()
+            return
+        }
+        if (motif.failed) {
+            confirmWhenReady = false
+            contextCallback.showNotification(R.string.selection_motif_failed)
+        } else if (confirmWhenReady && !motif.busy) {
+            confirmWhenReady = false
+            applyMotif()
+        }
+        workspace.invalidate()
+    }
+
+    private fun applyMotif() {
+        if (!sourceIsCurrent()) {
+            clearMotif()
+            contextCallback.showNotification(R.string.selection_motif_hint)
+            return
+        }
+        val mask = motif.mask
+        when {
+            motif.busy -> {
+                confirmWhenReady = true
+                contextCallback.showNotification(R.string.selection_motif_busy)
+            }
+            mask == null -> contextCallback.showNotification(R.string.selection_motif_hint)
+            else -> {
+                val command = MotifSelectionLayerCommand(mask, target = target)
+                val source = motifSource ?: return
+                clearMotif()
+                submitCutout(command, source)
+            }
+        }
+    }
+
+    private fun clearMotif() {
+        motifDown = null
+        confirmWhenReady = false
+        if (motifSource == null) return
+        motifSource = null
+        motif.clear()
+    }
+
+    override fun resetInternalState(stateChange: StateChange) {
+        if (stateChange == StateChange.MOVE_CANCELED) motifDown = null else clearMotif()
+        super.resetInternalState(stateChange)
     }
 
     private fun copyFreePath() {

@@ -102,6 +102,70 @@ object FilterProcessor {
         }
     }
 
+    /** Full-resolution rendering used for both the automatic selection preview and its command. */
+    fun applyMotif(
+        source: Bitmap,
+        type: FilterType,
+        value: Int,
+        colors: IntArray,
+        tolerances: IntArray,
+        mask: Bitmap,
+        background: Boolean
+    ): Bitmap {
+        val width = source.width
+        require(mask.width == width && mask.height == source.height) { "Motif mask must match the layer" }
+        val filtered = if (type == FilterType.SPLASH) {
+            applySplash(source, colors, tolerances)
+        } else {
+            apply(source, type, value)
+        }
+        val output = if (filtered.isMutable) filtered else {
+            try {
+                filtered.copy(Bitmap.Config.ARGB_8888, true)
+            } finally {
+                filtered.recycle()
+            }
+        }
+        try {
+            output.setHasAlpha(true)
+            val originals = IntArray(width)
+            val effects = IntArray(width)
+            val coverage = IntArray(width)
+            for (y in 0 until source.height) {
+                source.getPixels(originals, 0, width, 0, y, width, 1)
+                output.getPixels(effects, 0, width, 0, y, width, 1)
+                mask.getPixels(coverage, 0, width, 0, y, width, 1)
+                for (x in originals.indices) {
+                    val alpha = Color.alpha(coverage[x])
+                    val weight = if (background) 255 - alpha else alpha
+                    effects[x] = blendCoverage(originals[x], effects[x], weight)
+                }
+                output.setPixels(effects, 0, width, 0, y, width, 1)
+            }
+            return output
+        } catch (error: Throwable) {
+            output.recycle()
+            throw error
+        }
+    }
+
+    // Interpolate premultiplied RGBA so a filter that erases pixels does not darken soft edges.
+    private fun blendCoverage(original: Int, effect: Int, weight: Int): Int {
+        if (weight == 0 || original == effect) return original
+        if (weight == 255) return effect
+        val originalWeight = (255 - weight) * Color.alpha(original)
+        val effectWeight = weight * Color.alpha(effect)
+        val total = originalWeight + effectWeight
+        if (total == 0) return Color.TRANSPARENT
+        fun channel(a: Int, b: Int) = (a * originalWeight + b * effectWeight + total / 2) / total
+        return Color.argb(
+            (total + 127) / 255,
+            channel(Color.red(original), Color.red(effect)),
+            channel(Color.green(original), Color.green(effect)),
+            channel(Color.blue(original), Color.blue(effect))
+        )
+    }
+
     fun applyPreview(source: Bitmap, filterType: FilterType, value: Int): Bitmap {
         val previewSource = createPreviewSource(source)
         return try {

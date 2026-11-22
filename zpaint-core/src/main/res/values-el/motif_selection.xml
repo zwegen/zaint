@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="selection_tool_shape_motif">Επιλογή αντικειμένου</string>
+    <string name="selection_motif_hint">Πατήστε τα αντικείμενα. Για το φόντο, πατήστε ξανά το κουμπί αντικειμένου. Επιβεβαιώστε για αντιγραφή σε νέο επίπεδο.</string>
+    <string name="selection_motif_objects">Αντικείμενα · Πατήστε ξανά για φόντο</string>
+    <string name="selection_motif_background">Φόντο · Πατήστε ξανά για αντικείμενα</string>
+    <string name="selection_motif_busy">Επιλογή αντικειμένου…</string>
+    <string name="selection_motif_failed">Το αντικείμενο δεν επιλέχθηκε. Πατήστε το ξανά.</string>
+    <string name="selection_motif_cancel">Εκκαθάριση επιλογής</string>
+    <string name="selection_cutout_done">Απομονώθηκε · Το πρωτότυπο αποκρύφτηκε</string>
+</resources>
